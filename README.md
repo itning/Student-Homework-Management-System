@@ -10,6 +10,7 @@
 	
 	1.JQuery
 	2.Bootstrap
+	3.Bootstrap-fileinput
 后端：
 	
 	1.SpringMVC
