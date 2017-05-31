@@ -26,6 +26,9 @@
         .form-control {
             margin-bottom: 20px;
         }
+        .col-md-6{
+            margin-top: 1em;
+        }
     </style>
 </head>
 <body class="background">
@@ -48,8 +51,10 @@
                     <input type="checkbox" name="rememberMe"> 记住我
                 </label>
             </div>
-            <a href="${basePath }qqLogin" >QQ登录</a>
-            <button class="btn btn-lg btn-primary btn-block" type="button" id="submit_id">登录</button>
+            <div class="row">
+                <div class="col-md-6"><button class="btn btn-lg btn-primary btn-block" type="button" id="submit_id">登录</button></div>
+                <div class="col-md-6"><button onclick="window.open('${basePath }qqLogin','_self');" type="button" class="btn btn-lg btn-primary btn-block">使用QQ账户登录</button></div>
+            </div>
         </form>
         <p style="height: 8px"></p>
     </div> <!-- /container -->
