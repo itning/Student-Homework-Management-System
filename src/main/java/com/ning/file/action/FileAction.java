@@ -52,7 +52,7 @@ public class FileAction {
         List<History> userHistoryList = fileService.getUpListByUID(user.getUid());//用户上传历史实体
         for (History history : userHistoryList) {
             OrderInfo orderInfo = fileService.getOrderInfoEntityByOID(history.getHoid());
-            if(orderInfo!=null){
+            if (orderInfo != null) {
                 history.setOsubject(orderInfo.getOsubject());
                 history.setOname(orderInfo.getOname());
                 history.setFilepath(history.getFilepath().substring(history.getFilepath().lastIndexOf(".") + 1));//设置文件扩展名
@@ -71,7 +71,7 @@ public class FileAction {
     //更改密码方法
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public String changePassword(Model model, String password, String firstlogin, HttpSession session) throws Exception {
-        if(password==null||password.equals("")){
+        if (password == null || password.equals("")) {
             throw new LoginException("修改密码失败：参数为空");
         }
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -83,7 +83,7 @@ public class FileAction {
             }
             return "jsp/cpasswd.jsp";
         }
-        String uid=user.getUid();
+        String uid = user.getUid();
         Map<String, String> map = new HashMap<String, String>();
         map.put("uid", uid);
         map.put("password", password);
@@ -118,7 +118,7 @@ public class FileAction {
     @RequestMapping("getOnameBysubject")
     public @ResponseBody
     List<OrderInfo> getOnameBysubject(String subject) throws Exception {
-        if(subject==null||subject.equals("")){
+        if (subject == null || subject.equals("")) {
             throw new FileException("获取失败：参数错误");
         }
         return fileService.getOnameBysubject(subject);
@@ -127,7 +127,7 @@ public class FileAction {
     //文件上传方法
     @RequestMapping("fileup")
     public String upfileByID(MultipartFile[] file, HttpServletRequest request) throws Exception {
-        if(file==null){
+        if (file == null) {
             throw new FileException("上传失败：未获取到上传内容！");
         }
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -145,9 +145,9 @@ public class FileAction {
                 history.setFilesize((double) file1.getSize());
                 history.setType(file1.getContentType());
                 history.setUptime(new Date());
-                Map<String,Object> map=new HashMap<String, Object>();
-                map.put("hoid",user.getUserselect_oid());
-                map.put("huid",user.getUid());
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("hoid", user.getUserselect_oid());
+                map.put("huid", user.getUid());
                 if ((fileService.findHuidExists(map)) != null) {
                     this.delEntityByHID(fileService.findHuidExists(map).getHid(), request);
                 }
@@ -174,11 +174,10 @@ public class FileAction {
     @RequestMapping("delEntityByHID")
     public @ResponseBody
     Boolean delEntityByHID(String delHid, HttpServletRequest request) throws Exception {
-        if(delHid==null||delHid.equals("")){
+        if (delHid == null || delHid.equals("")) {
             throw new FileException("删除失败：参数为空");
         }
         Boolean istrueuser = false;
-        Boolean deleted = false;
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         List<History> historyList = fileService.getUpListByUID(user.getUid());
         for (History history : historyList) {
@@ -189,30 +188,25 @@ public class FileAction {
         if (istrueuser) {
             History history = fileService.getEntityByHID(delHid);
             File file = new File(PropertiesUtil.getUpLoadFilePath() + history.getFilepath());
-            if (file.exists()) {
-                deleted = file.delete();
-            } else {
-                return false;
+            fileService.delEntityByHID(delHid);
+            if (!history.getFiledeleted() && file.exists()) {//文件未被删除且存在
+                return file.delete();
             }
-            if (deleted) {
-                fileService.delEntityByHID(delHid);
-                return true;
-            }
-            return false;
+            return true;
         }
         return false;
     }
 
     @RequestMapping("downFile")
     public void downLoadFile(String hid, HttpServletResponse response) throws Exception {
-        if(hid==null||hid.equals("")){
+        if (hid == null || hid.equals("")) {
             throw new FileException("下载失败：参数为空！");
         }
         History history = fileService.getEntityByHID(hid);
         String filename = PropertiesUtil.getUpLoadFilePath() + history.getFilepath();
         response.setContentType(history.getType());
         response.setHeader("Content-Disposition", "attachment;filename=" + new String(history.getFilepath().getBytes(), "ISO-8859-1"));
-        response.setHeader("Content-Length", history.getFilesize()+"");
+        response.setHeader("Content-Length", history.getFilesize() + "");
         OutputStream toClient = null;
         InputStream fis = null;
         toClient = new BufferedOutputStream(response.getOutputStream());

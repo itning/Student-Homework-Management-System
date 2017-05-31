@@ -1,6 +1,8 @@
 package com.ning.login.action;
 
 import com.ning.exception.login.LoginException;
+import com.ning.login.entity.User;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -17,6 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 public class Login {
     @RequestMapping("login")
     public String Userlogin(Model model, HttpServletRequest request) throws LoginException {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        if(user!=null){
+            return "redirect:index.jsp";
+        }
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
         if (exceptionClassName != null) {
             if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
