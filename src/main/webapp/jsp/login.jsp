@@ -92,30 +92,33 @@
         $("#inputID").blur(function () {
             var inputID = $(this).val();
             idlength = inputID.length;
-            if (!isNaN(inputID)) {
-                if (idlength !== 12) {
-                    $("#errorinfo_id").text("学号长度为12位数字，请输入正确的学号！");
+            if(idlength!==0){
+                if (!isNaN(inputID)) {
+                    if (idlength !== 12) {
+                        $("#errorinfo_id").text("学号长度为12位数字，请输入正确的学号！");
+                        $("#Id_div").addClass("has-error has-feedback");
+                    }
+                    else {
+                        $("#errorinfo_id").text("");
+                        $("#Id_div").removeClass("has-error has-feedback");
+                    }
+                } else {
+                    $("#errorinfo_id").text("请输入正确的学号！");
                     $("#Id_div").addClass("has-error has-feedback");
                 }
-                else {
-                    $("#errorinfo_id").text("");
-                    $("#Id_div").removeClass("has-error has-feedback");
-                }
-            } else {
-                $("#errorinfo_id").text("请输入正确的学号！");
-                $("#Id_div").addClass("has-error has-feedback");
             }
-
         });
         $("#inputPassword").blur(function () {
             var inputPassword = $(this).val();
             passwdlength = inputPassword.length;
-            if (passwdlength === 0 || passwdlength < 8) {
-                $("#errorinfo_id").text("密码不能为空/密码长度至少8位");
-                $("#Password_div").addClass("has-error has-feedback");
-            } else {
-                $("#errorinfo_id").text("");
-                $("#Password_div").removeClass("has-error has-feedback");
+            if(passwdlength!==0){
+                if (passwdlength === 0 || passwdlength < 8) {
+                    $("#errorinfo_id").text("密码不能为空/密码长度至少8位");
+                    $("#Password_div").addClass("has-error has-feedback");
+                } else {
+                    $("#errorinfo_id").text("");
+                    $("#Password_div").removeClass("has-error has-feedback");
+                }
             }
         });
         $("#submit_id").click(function () {
