@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ning.file.dao.HistoryDao">
+    <resultMap id="HistoryResult" type="History">
+        <id property="hid" column="hid"/>
+        <result property="huid" column="huid"/>
+        <result column="hoid" property="hoid"/>
+        <result column="type" property="type"/>
+        <result column="filepath" property="filepath"/>
+        <result column="uptime" property="uptime"/>
+        <result column="filesize" property="filesize"/>
+        <result column="filedeleted" property="filedeleted"/>
+    </resultMap>
+    <insert id="insertDataByEntity" parameterType="com.ning.file.entity.History">
+        INSERT INTO history(hid,huid,hoid,type,filepath,uptime,filesize,filedeleted) VALUES (#{hid},#{huid},#{hoid},#{type},#{filepath},#{uptime},#{filesize},#{filedeleted})
+    </insert>
+
+    <select id="getUpListByUID" parameterType="String" resultType="History">
+        SELECT * FROM history WHERE huid = #{huid}
+    </select>
+
+    <delete id="delEntityByHID" parameterType="String">
+        DELETE FROM history WHERE hid= #{delHid}
+    </delete>
+    <delete id="delEntityByHOID" parameterType="int">
+        DELETE FROM history WHERE hoid = #{hoid}
+</delete>
+    <select id="getEntityByHID" parameterType="String" resultType="History">
+        SELECT * FROM history WHERE hid = #{hid}
+    </select>
+
+    <select id="findHuidExists" parameterType="map" resultType="History">
+        SELECT * FROM history WHERE huid = #{huid} and hoid = #{hoid}
+    </select>
+
+    <update id="upHistoryData" parameterType="History">
+        UPDATE history SET type = #{type},filepath = #{filepath},uptime = #{uptime},filesize = #{filesize},filedeleted = #{filedeleted} WHERE hid = #{hid}
+    </update>
+
+    <select id="findFileListByHoid" parameterType="int" resultType="History">
+        SELECT * FROM history WHERE hoid = #{hoid}
+    </select>
+</mapper>

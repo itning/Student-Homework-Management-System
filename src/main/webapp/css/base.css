@@ -1,0 +1,15 @@
+body{
+    font-family: "Microsoft YaHei UI", serif;
+    margin: 0;
+    padding: 0;
+}
+@media (max-width: 992px){
+    .background {
+        background: url("../img/backgroundimg.jpeg") fixed center;
+        background-size: cover;
+    }
+}
+.blur {
+    background: rgba(233, 233, 233, .6);
+    border-radius: 10px;
+}

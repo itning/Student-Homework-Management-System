@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ning.login.dao.UserDao">
+    <resultMap id="UserResult" type="User">
+        <id column="uid" property="uid" javaType="string" jdbcType="VARCHAR"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="firstlogin" column="firstlogin"/>
+        <result property="headimg" column="headimg"/>
+        <result property="percode" column="percode"/>
+    </resultMap>
+
+    <select id="getPasswd" parameterType="String" resultType="String">
+        SELECT password FROM user WHERE username = #{username}
+    </select>
+
+    <select id="getUserEntity" parameterType="String" resultType="User">
+        SELECT * FROM user WHERE username = #{username}
+    </select>
+
+    <update id="setUserPasswd" parameterType="map">
+        UPDATE user set password = #{password} WHERE uid = #{uid}
+    </update>
+
+    <update id="setFirstLogin" parameterType="map">
+        UPDATE user SET firstlogin = #{isfirst} WHERE uid = #{uid}
+    </update>
+
+    <select id="isFirstLogin" parameterType="String" resultType="Boolean">
+        SELECT firstlogin FROM user WHERE uid = #{uid}
+    </select>
+
+    <select id="getPasswdById" parameterType="String" resultType="String">
+        SELECT password FROM user WHERE uid = #{uid}
+    </select>
+
+    <select id="getUserEntityByID" resultType="User" parameterType="String">
+        SELECT * FROM user WHERE uid = #{uid}
+    </select>
+    
+    <select id="getUserList" resultType="User">
+        SELECT * FROM user WHERE percode = 'user'
+    </select>
+</mapper>

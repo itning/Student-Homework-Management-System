@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ning.file.dao.OrderoInfoDao">
+    <resultMap id="OrderInfoResult" type="OrderInfo">
+        <id property="oid" column="oid"/>
+        <result property="oname" column="oname"/>
+        <result property="osubject" column="osubject"/>
+    </resultMap>
+
+    <select id="getOnameBysubject" parameterType="String" resultType="OrderInfo">
+      SELECT * FROM orderinfo WHERE osubject = #{osubject} AND ostate = true
+    </select>
+
+    <select id="getOrderInfoEntity" resultType="OrderInfo">
+      SELECT * FROM orderinfo
+    </select>
+    
+    <select id="getOrderInfoEntityByOID" resultType="OrderInfo" parameterType="int">
+        SELECT * FROM orderinfo WHERE oid = #{oid}
+    </select>
+
+    <insert id="addOrderInfo" parameterType="OrderInfo">
+        INSERT INTO orderinfo(oid,oname,osubject,ostate,otime) VALUES (#{oid},#{oname},#{osubject},#{ostate},#{otime})
+    </insert>
+    <update id="changeKeyByOID" parameterType="map">
+        UPDATE orderinfo
+        <set>
+            <if test="oname!=null">oname = #{oname},</if>
+            <if test="osubject!=null">osubject = #{osubject},</if>
+            <if test="ostate!=null">ostate = #{ostate}</if>
+        </set>
+        WHERE oid = #{oid}
+    </update>
+    <delete id="delOrderinfoByOID" parameterType="int">
+        DELETE FROM orderinfo WHERE oid = #{oid}
+    </delete>
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+    <context:property-placeholder location="classpath:context.properties"/>
+
+    <!-- 数据源配置-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${driverClass}"/>
+        <property name="jdbcUrl" value="${jdbcUrl}"/>
+        <property name="user" value="${user}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+    <!-- SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:*Mapper.xml"/>
+    </bean>
+
+    <!--事务管理器 -->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置事务通知 -->
+    <tx:advice id="advice" transaction-manager="dataSourceTransactionManager">
+        <tx:attributes>
+            <tx:method name="*" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:advisor advice-ref="advice" pointcut="execution(* com.ning.*.service.*.*(..))"/>
+    </aop:config>
+
+    <!-- 扫描器(不包含控制层)-->
+    <context:component-scan base-package="com">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 配置 转换器，对于在basePackage设置的包（包括子包）下的接口类，如果在Mapper.xml文件中定义过，
+	将被转换成spring的BEAN，在调用 的地方通过@Autowired方式将可以注入接口实例-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.ning.login.dao;com.ning.file.dao"/>
+    </bean>
+
+
+    <!-- Shiro 的Web过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 如果没有认证将要跳转的登陆地址，http可访问的url，如果不在表单认证过虑器FormAuthenticationFilter中指定此地址就为身份认证地址 -->
+        <property name="loginUrl" value="/login"/>
+        <!-- 没有权限跳转的地址 -->
+        <property name="unauthorizedUrl" value="/jsp/error.jsp"/>
+        <!-- shiro拦截器配置 -->
+        <!--<property name="filters">
+            <map>
+                <entry key="authc" value-ref="formAuthenticationFilter"/>
+            </map>
+        </property>-->
+        <property name="filterChainDefinitions">
+            <value>
+                /logout = logout
+                /css/** = anon
+                /img/** = anon
+                /js/** = anon
+                /weblib/** = anon
+                /** = user
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"/>
+        <property name="sessionManager" ref="sessionManager"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
+    </bean>
+
+    <!-- 自定义 realm -->
+    <bean id="userRealm" class="com.ning.login.service.CustomRealm">
+    </bean>
+
+    <!--session管理器 单位毫秒-->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="${globalSessionTimeout}"/>
+        <property name="deleteInvalidSessions" value="true"/>
+    </bean>
+
+    <!--rememberMe管理器-->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="maxAge" value="${maxAge}"/>
+    </bean>
+    <!-- 基于Form表单的身份验证过滤器，不配置将也会注册此过虑器，表单中的用户账号、密码及loginurl将采用默认值，建议配置 -->
+    <!-- <bean id="formAuthenticationFilter"
+           class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+         &lt;!&ndash; 表单中账号的input名称 &ndash;&gt;
+         <property name="usernameParam" value="username"/>
+         &lt;!&ndash; 表单中密码的input名称 &ndash;&gt;
+         <property name="passwordParam" value="password"/>
+         &lt;!&ndash; <property name="rememberMeParam" value="rememberMe"/> &ndash;&gt;
+         &lt;!&ndash; loginurl：用户登陆地址，此地址是可以http访问的url地址 &ndash;&gt;
+         <property name="loginUrl" value="/loginsubmit"/>
+     </bean>-->
+</beans>
