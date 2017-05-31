@@ -26,7 +26,8 @@
         .form-control {
             margin-bottom: 20px;
         }
-        .col-md-6{
+
+        .col-md-6 {
             margin-top: 1em;
         }
     </style>
@@ -37,7 +38,7 @@
         <form class="form-signin" method="post" action="${basePath }login">
             <h2 class="form-signin-heading">请登录：<p style="color: red" id="errorinfo_id">${returninfo }</p></h2>
             <div class="form-group" id="Id_div">
-                <input type="number" name="username" class="form-control" id="inputID" placeholder="学号" required
+                <input type="text" name="username" class="form-control" id="inputID" placeholder="学号" required
                        autofocus>
                 <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             </div>
@@ -52,8 +53,14 @@
                 </label>
             </div>
             <div class="row">
-                <div class="col-md-6"><button class="btn btn-lg btn-primary btn-block" type="button" id="submit_id">登录</button></div>
-                <div class="col-md-6"><button onclick="window.open('${basePath }qqLogin','_self');" type="button" class="btn btn-lg btn-primary btn-block">使用QQ账户登录</button></div>
+                <div class="col-md-6">
+                    <button class="btn btn-lg btn-primary btn-block" type="button" id="submit_id">登录</button>
+                </div>
+                <div class="col-md-6">
+                    <button onclick="window.open('${basePath }qqLogin','_self');" type="button"
+                            class="btn btn-lg btn-primary btn-block">使用QQ账户登录
+                    </button>
+                </div>
             </div>
         </form>
         <p style="height: 8px"></p>
@@ -72,27 +79,33 @@
 <script src="${basePath }js/base.js"></script>
 <script>
     $(function () {
-        var height=$(window).height(); //浏览器当前窗口可视区域高度
-        var section_height=$("section").outerHeight(true);
-        $("section").css("margin-top",(height/2)-(section_height/2));
-        $(window).resize(function(){
-            var height=$(window).height(); //浏览器当前窗口可视区域高度
-            var section_height=$("section").outerHeight(true);
-            $("section").css("margin-top",(height/2)-(section_height/2));
+        var height = $(window).height(); //浏览器当前窗口可视区域高度
+        var section_height = $("section").outerHeight(true);
+        $("section").css("margin-top", (height / 2) - (section_height / 2));
+        $(window).resize(function () {
+            var height = $(window).height(); //浏览器当前窗口可视区域高度
+            var section_height = $("section").outerHeight(true);
+            $("section").css("margin-top", (height / 2) - (section_height / 2));
         });
         var idlength = 0;
         var passwdlength = 0;
         $("#inputID").blur(function () {
             var inputID = $(this).val();
             idlength = inputID.length;
-            if (idlength !== 12) {
-                $("#errorinfo_id").text("学号长度为12位数字，请输入正确的学号！");
+            if (!isNaN(inputID)) {
+                if (idlength !== 12) {
+                    $("#errorinfo_id").text("学号长度为12位数字，请输入正确的学号！");
+                    $("#Id_div").addClass("has-error has-feedback");
+                }
+                else {
+                    $("#errorinfo_id").text("");
+                    $("#Id_div").removeClass("has-error has-feedback");
+                }
+            } else {
+                $("#errorinfo_id").text("请输入正确的学号！");
                 $("#Id_div").addClass("has-error has-feedback");
             }
-            else {
-                $("#errorinfo_id").text("");
-                $("#Id_div").removeClass("has-error has-feedback");
-            }
+
         });
         $("#inputPassword").blur(function () {
             var inputPassword = $(this).val();
