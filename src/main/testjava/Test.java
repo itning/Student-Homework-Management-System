@@ -77,8 +77,8 @@ public class Test {
     @org.junit.Test
     public void test4() throws Exception {
         List<String> filesname=new ArrayList<String>();
-        filesname.add("201601010317王宁C++第二次作业.png");
-        filesname.add("201601010317王宁C++第一次试验作业.docx");
+        filesname.add("201601010317C++第二次作业.png");
+        filesname.add("201601010317C++第一次试验作业.docx");
         //ZipFile("d:/hello.txt", "d:/hello.zip");
         File zipFile = new File("C:/Users/wangn/Desktop/test.zip");
         ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
