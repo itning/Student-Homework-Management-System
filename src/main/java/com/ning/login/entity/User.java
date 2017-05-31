@@ -14,6 +14,15 @@ public class User implements Serializable {
     private String name;
     private Integer userselect_oid;
     private String percode;
+    private String userOpenID;
+
+    public String getUserOpenID() {
+        return userOpenID;
+    }
+
+    public void setUserOpenID(String userOpenID) {
+        this.userOpenID = userOpenID;
+    }
 
     public String getPercode() {
         return percode;

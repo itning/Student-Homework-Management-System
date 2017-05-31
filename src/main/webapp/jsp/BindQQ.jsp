@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>学生作业管理系统-登录</title>
+    <title>学生作业管理系统-绑定QQ</title>
     <link rel="shortcut icon" href="${basePath }img/favicon.ico"/>
     <link rel="bookmark" href="${basePath }img/favicon.ico"/>
     <link href="${basePath }weblib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,8 +31,8 @@
 <body class="background">
 <section>
     <div class="container blur">
-        <form class="form-signin" method="post" action="${basePath }login">
-            <h2 class="form-signin-heading">请登录：<p style="color: red" id="errorinfo_id">${returninfo }</p></h2>
+        <form class="form-signin" method="post" action="${basePath }bindQQ">
+            <h2 class="form-signin-heading">请绑定您的账号：<p style="color: red" id="errorinfo_id">${returninfo }</p></h2>
             <div class="form-group" id="Id_div">
                 <input type="number" name="username" class="form-control" id="inputID" placeholder="学号" required
                        autofocus>
@@ -43,13 +43,7 @@
                        placeholder="密码 (首次登陆，密码与学号相同)" required>
                 <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="rememberMe"> 记住我
-                </label>
-            </div>
-            <a href="${basePath }qqLogin" >QQ登录</a>
-            <button class="btn btn-lg btn-primary btn-block" type="button" id="submit_id">登录</button>
+            <button class="btn btn-lg btn-primary btn-block" type="button" id="submit_id">绑定并登陆</button>
         </form>
         <p style="height: 8px"></p>
     </div> <!-- /container -->

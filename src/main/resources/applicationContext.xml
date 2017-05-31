@@ -74,6 +74,9 @@
         <property name="filterChainDefinitions">
             <value>
                 /logout = logout
+                /qqLogin = anon
+                /qqLoginAfter = anon
+                /bindQQ = anon
                 /css/** = anon
                 /img/** = anon
                 /js/** = anon

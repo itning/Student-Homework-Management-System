@@ -30,4 +30,8 @@ public interface UserDao {
     public User getUserEntityByID(String uid);
 
     public List<User> getUserList();
+
+    public User getUserEntityByOpenID(String userOpenID);
+
+    public void insertQQIDByUID(User user);
 }

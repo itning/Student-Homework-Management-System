@@ -19,11 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     public String getPasswd(String username) throws LoginException {
-        String password = userDao.getPasswd(username);
-        if (password == null && password.equals("")) {
-            throw new LoginException("UserServiceImpl：getPasswd：密码不存在");
-        }
-        return password;
+        return userDao.getPasswd(username);
     }
 
     public String getPasswdById(String uid) throws LoginException {
@@ -52,6 +48,14 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getUserList() {
         return userDao.getUserList();
+    }
+
+    public User getUserEntityByOpenID(String userOpenID) {
+        return userDao.getUserEntityByOpenID(userOpenID);
+    }
+
+    public void insertQQIDByUID(User user) {
+        userDao.insertQQIDByUID(user);
     }
 
 }

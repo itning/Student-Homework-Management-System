@@ -44,4 +44,12 @@
     <select id="getUserList" resultType="User">
         SELECT * FROM user WHERE percode = 'user'
     </select>
+
+    <select id="getUserEntityByOpenID" parameterType="String" resultType="User">
+        SELECT * FROM user WHERE userOpenID = #{userOpenID}
+    </select>
+    
+    <insert id="insertQQIDByUID" parameterType="User">
+        UPDATE user SET userOpenID = #{userOpenID} WHERE uid = #{uid}
+    </insert>
 </mapper>
