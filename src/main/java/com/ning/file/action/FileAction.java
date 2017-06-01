@@ -47,8 +47,11 @@ public class FileAction {
 
     //文件上传主页入口方法
     @RequestMapping("fileupload")
-    public String index(Model model, HttpSession session) throws Exception {
+    public String index(Model model) throws Exception {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
+        if(user.getPercode().equals("admin")){
+            return "admin";
+        }
         List<History> userHistoryList = fileService.getUpListByUID(user.getUid());//用户上传历史实体
         for (History history : userHistoryList) {
             OrderInfo orderInfo = fileService.getOrderInfoEntityByOID(history.getHoid());

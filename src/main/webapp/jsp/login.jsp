@@ -69,7 +69,10 @@
 <footer>
     <div class="container">
         <hr>
-        <p> 黑ICP备17003448号 | Copyright © 2017 <a href="http://itning.top">itning.top</a>. All rights reserved. </p>
+        <p> 黑ICP备17003448号 | Copyright © 2017 <a href="http://itning.top">itning.top</a>. All rights reserved.
+            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+            document.write(unescape("%3Cspan id='cnzz_stat_icon_1262008292'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1262008292%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+        </p>
     </div>
 </footer>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -92,7 +95,7 @@
         $("#inputID").blur(function () {
             var inputID = $(this).val();
             idlength = inputID.length;
-            if(idlength!==0){
+            if (idlength !== 0) {
                 if (!isNaN(inputID)) {
                     if (idlength !== 12) {
                         $("#errorinfo_id").text("学号长度为12位数字，请输入正确的学号！");
@@ -111,7 +114,7 @@
         $("#inputPassword").blur(function () {
             var inputPassword = $(this).val();
             passwdlength = inputPassword.length;
-            if(passwdlength!==0){
+            if (passwdlength !== 0) {
                 if (passwdlength === 0 || passwdlength < 8) {
                     $("#errorinfo_id").text("密码不能为空/密码长度至少8位");
                     $("#Password_div").addClass("has-error has-feedback");

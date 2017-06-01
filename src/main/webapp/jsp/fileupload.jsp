@@ -65,8 +65,6 @@
                 <div class="collapse navbar-collapse navbar-right" id="bs-collapse">
                     <span><a href="${basePath }logout" class="btn btn-danger">退出登录</a></span>
                     <span><a href="${basePath }cpasswd" class="btn btn-primary">修改密码</a></span>
-                    <shiro:hasPermission name="admin"> <span><a href="${basePath }admin"
-                                                        class="btn btn-success">进入后台</a></span></shiro:hasPermission>
                 </div>
             </div>
         </div>
