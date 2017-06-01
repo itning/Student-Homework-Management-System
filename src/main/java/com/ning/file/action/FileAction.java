@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -129,7 +128,7 @@ public class FileAction {
 
     //文件上传方法
     @RequestMapping("fileup")
-    public String upfileByID(MultipartFile[] file, HttpServletRequest request) throws Exception {
+    public String upfileByID(MultipartFile[] file) throws Exception {
         if (file == null) {
             throw new FileException("上传失败：未获取到上传内容！");
         }
@@ -152,7 +151,7 @@ public class FileAction {
                 map.put("hoid", user.getUserselect_oid());
                 map.put("huid", user.getUid());
                 if ((fileService.findHuidExists(map)) != null) {
-                    this.delEntityByHID(fileService.findHuidExists(map).getHid(), request);
+                    this.delEntityByHID(fileService.findHuidExists(map).getHid());
                 }
                 fileService.insertDataByEntity(history);
                 File newfile = new File(PropertiesUtil.getUpLoadFilePath() + newfilename);
@@ -176,7 +175,7 @@ public class FileAction {
     //删除文件方法
     @RequestMapping("delEntityByHID")
     public @ResponseBody
-    Boolean delEntityByHID(String delHid, HttpServletRequest request) throws Exception {
+    Boolean delEntityByHID(String delHid) throws Exception {
         if (delHid == null || delHid.equals("")) {
             throw new FileException("删除失败：参数为空");
         }
