@@ -14,8 +14,6 @@ public class History implements Serializable {
     private String filepath;
     private Date uptime;
     private Double filesize;
-    private Boolean filedeleted;
-
     private String osubject;
     private String oname;
 
@@ -89,14 +87,6 @@ public class History implements Serializable {
 
     public void setFilesize(Double filesize) {
         this.filesize = filesize;
-    }
-
-    public Boolean getFiledeleted() {
-        return filedeleted;
-    }
-
-    public void setFiledeleted(Boolean filedeleted) {
-        this.filedeleted = filedeleted;
     }
 }
 

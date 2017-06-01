@@ -200,7 +200,7 @@
     function del(oid) {
         $.get("${basePath }delOrderinfoByOID?oid="+oid,function (data) {
             if(data){
-                $("#loadsubject").load("${basePath}subjectui");
+                window.location.reload();
             }
         });
     }

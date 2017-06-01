@@ -11,10 +11,9 @@
         <result column="filepath" property="filepath"/>
         <result column="uptime" property="uptime"/>
         <result column="filesize" property="filesize"/>
-        <result column="filedeleted" property="filedeleted"/>
     </resultMap>
     <insert id="insertDataByEntity" parameterType="com.ning.file.entity.History">
-        INSERT INTO history(hid,huid,hoid,type,filepath,uptime,filesize,filedeleted) VALUES (#{hid},#{huid},#{hoid},#{type},#{filepath},#{uptime},#{filesize},#{filedeleted})
+        INSERT INTO history(hid,huid,hoid,type,filepath,uptime,filesize) VALUES (#{hid},#{huid},#{hoid},#{type},#{filepath},#{uptime},#{filesize})
     </insert>
 
     <select id="getUpListByUID" parameterType="String" resultType="History">
@@ -36,7 +35,7 @@
     </select>
 
     <update id="upHistoryData" parameterType="History">
-        UPDATE history SET type = #{type},filepath = #{filepath},uptime = #{uptime},filesize = #{filesize},filedeleted = #{filedeleted} WHERE hid = #{hid}
+        UPDATE history SET type = #{type},filepath = #{filepath},uptime = #{uptime},filesize = #{filesize} WHERE hid = #{hid}
     </update>
 
     <select id="findFileListByHoid" parameterType="int" resultType="History">

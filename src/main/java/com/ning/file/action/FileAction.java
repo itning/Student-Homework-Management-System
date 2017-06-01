@@ -138,7 +138,6 @@ public class FileAction {
                 OrderInfo orderInfo = fileService.getOrderInfoEntityByOID(user.getUserselect_oid());
                 History history = new History();
                 history.setHid(UUID.randomUUID().toString().replace("-", ""));
-                history.setFiledeleted(false);
                 history.setHuid(user.getUid());
                 history.setHoid(orderInfo.getOid());
                 String extensionName = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
@@ -191,10 +190,8 @@ public class FileAction {
             History history = fileService.getEntityByHID(delHid);
             File file = new File(PropertiesUtil.getUpLoadFilePath() + history.getFilepath());
             fileService.delEntityByHID(delHid);
-            if (!history.getFiledeleted() && file.exists()) {//文件未被删除且存在
-                return file.delete();
-            }
-            return true;
+            //文件未被删除且存在
+            return !file.exists() || file.delete();
         }
         return false;
     }

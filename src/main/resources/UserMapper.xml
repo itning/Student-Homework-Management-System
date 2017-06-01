@@ -11,6 +11,7 @@
         <result property="firstlogin" column="firstlogin"/>
         <result property="headimg" column="headimg"/>
         <result property="percode" column="percode"/>
+        <result property="userOpenID" column="userOpenID"/>
     </resultMap>
 
     <select id="getPasswd" parameterType="String" resultType="String">

@@ -137,12 +137,12 @@ public class AdminAction {
         List<History> historyList = adminService.findFileListByHoid(oid);
         for (History history : historyList) {
             File file = new File(PropertiesUtil.getUpLoadFilePath() + history.getFilepath());
-            if (file.delete()) {
-                history.setFiledeleted(true);
-                fileService.upHistoryData(history);
+            if(file.exists()){
+                file.delete();
             }
         }
-        adminService.delOrderinfoByOID(oid);
+        fileService.delEntityByHOID(oid);//删除历史记录
+        adminService.delOrderinfoByOID(oid);//删除科目
         return true;
     }
 

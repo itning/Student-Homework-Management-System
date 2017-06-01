@@ -7,6 +7,8 @@
         <id property="oid" column="oid"/>
         <result property="oname" column="oname"/>
         <result property="osubject" column="osubject"/>
+        <result property="ostate" column="ostate"/>
+        <result property="otime" column="otime"/>
     </resultMap>
 
     <select id="getOnameBysubject" parameterType="String" resultType="OrderInfo">

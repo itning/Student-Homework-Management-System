@@ -142,7 +142,6 @@
                         <td>次序</td>
                         <td>文件类型</td>
                         <td>上传时间</td>
-                        <td>文件状态</td>
                         <td>文件大小</td>
                         <td>操作</td>
                     </tr>
@@ -153,14 +152,13 @@
                             <td><p>${userHistory.filepath}</p></td>
                             <td><p><fmt:formatDate value="${userHistory.uptime }" pattern="yyyy年MM月dd日 HH:mm:ss"/></p>
                             </td>
-                            <td><p>${userHistory.filedeleted?"已被管理删除":"已上传" }</p></td>
                             <td><p><fmt:formatNumber value="${(userHistory.filesize)/1024 }"
                                                      maxFractionDigits="2"/>Kb</p></td>
                             <td>
                                 <button type="button" class="btn btn-danger"
                                         onclick="del_button('${userHistory.hid }')">删除
                                 </button>
-                                <button type="button" class="btn btn-primary" <c:if test="${userHistory.filedeleted}">disabled="disabled"</c:if>
+                                <button type="button" class="btn btn-primary"
                                         onclick="down_button('${userHistory.hid }')">下载
                                 </button>
                             </td>
