@@ -134,7 +134,6 @@ public class AdminAction {
         if (oid == null) {
             throw new FileException("删除失败：参数不正确");
         }
-        Boolean del = true;
         List<History> historyList = adminService.findFileListByHoid(oid);
         for (History history : historyList) {
             File file = new File(PropertiesUtil.getUpLoadFilePath() + history.getFilepath());
