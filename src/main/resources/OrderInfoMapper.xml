@@ -16,7 +16,7 @@
     <select id="getOrderInfoEntity" resultType="OrderInfo">
       SELECT * FROM orderinfo
     </select>
-    
+
     <select id="getOrderInfoEntityByOID" resultType="OrderInfo" parameterType="int">
         SELECT * FROM orderinfo WHERE oid = #{oid}
     </select>
