@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -87,7 +85,7 @@ public class AdminAction {
 
     @RequestMapping("downAllFile")//下载所有已上传的文件
     @RequiresPermissions("admin")//该方法需要管理员权限
-    public void downAllFile(HttpServletResponse response, HttpServletRequest request, HttpSession session) throws Exception {
+    public void downAllFile(HttpServletResponse response, HttpSession session) throws Exception {
         List<History> fileListByHoid = adminService.findFileListByHoid((Integer) session.getAttribute("hoid"));//所有的已上传文件实体集合
         if (fileListByHoid == null) {
             throw new FileException("下载失败：未找到数据！");
@@ -100,7 +98,7 @@ public class AdminAction {
         }
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment;filename=" + new String((zipfilename + ".zip").getBytes(), "ISO-8859-1"));
-        ZipOutputStream zipOut = new ZipOutputStream(new BufferedOutputStream(response.getOutputStream()));
+        ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream());
         for (String filename : filesname) {
             File file = new File(PropertiesUtil.getUpLoadFilePath() + filename);
             InputStream input = new FileInputStream(file);
