@@ -18,7 +18,7 @@
 (function (window) {
     'use strict';
     var CanvasPrototype = window.HTMLCanvasElement &&
-            window.HTMLCanvasElement.prototype,
+        window.HTMLCanvasElement.prototype,
         hasBlobConstructor = window.Blob && (function () {
             try {
                 return Boolean(new Blob());

@@ -22,7 +22,7 @@ public class CustomRealm extends AuthorizingRealm {
 
     /*授权*/
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        User user= (User) principals.getPrimaryPrincipal();
+        User user = (User) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.addStringPermission(user.getPercode());
         return simpleAuthorizationInfo;

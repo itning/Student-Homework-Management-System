@@ -22,10 +22,10 @@ public interface UserDao {
     public User getUserEntity(String username);
 
     /*修改密码*/
-    public void setUserPasswd(Map<String,String> map);
+    public void setUserPasswd(Map<String, String> map);
 
     /*设置登陆标记*/
-    public void setFirstLogin(Map<String,Object> isfirstlogin);
+    public void setFirstLogin(Map<String, Object> isfirstlogin);
 
     public User getUserEntityByID(String uid);
 

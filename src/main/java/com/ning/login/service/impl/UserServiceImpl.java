@@ -34,11 +34,11 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserEntity(username);
     }
 
-    public void setUserPasswd(Map<String,String> map) throws LoginException {
+    public void setUserPasswd(Map<String, String> map) throws LoginException {
         userDao.setUserPasswd(map);
     }
 
-    public void setFirstLogin(Map<String,Object> isfirstlogin) throws LoginException {
+    public void setFirstLogin(Map<String, Object> isfirstlogin) throws LoginException {
         userDao.setFirstLogin(isfirstlogin);
     }
 

@@ -48,7 +48,7 @@ public class FileAction {
     @RequestMapping("fileupload")
     public String index(Model model) throws Exception {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        if(user.getPercode().equals("admin")){
+        if (user.getPercode().equals("admin")) {
             return "admin";
         }
         List<History> userHistoryList = fileService.getUpListByUID(user.getUid());//用户上传历史实体
@@ -206,10 +206,8 @@ public class FileAction {
         response.setContentType(history.getType());
         response.setHeader("Content-Disposition", "attachment;filename=" + new String(history.getFilepath().getBytes(), "ISO-8859-1"));
         response.setHeader("Content-Length", history.getFilesize() + "");
-        OutputStream toClient = null;
-        InputStream fis = null;
-        toClient = new BufferedOutputStream(response.getOutputStream());
-        fis = new BufferedInputStream(new FileInputStream(filename));
+        OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+        InputStream fis = new BufferedInputStream(new FileInputStream(filename));
         IOUtils.copy(fis, toClient);
         toClient.flush();
         IOUtils.closeQuietly(fis);

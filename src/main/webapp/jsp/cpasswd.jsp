@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <% String path = request.getContextPath();
-String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-application.setAttribute("basePath", basePath);
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    application.setAttribute("basePath", basePath);
 %>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -23,7 +23,7 @@ application.setAttribute("basePath", basePath);
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        .form-control{
+        .form-control {
             margin-bottom: 20px;
         }
     </style>
@@ -62,13 +62,13 @@ application.setAttribute("basePath", basePath);
 <script src="${basePath }js/base.js"></script>
 <script>
     $(function () {
-        var height=$(window).height(); //浏览器当前窗口可视区域高度
-        var section_height=$("section").outerHeight(true);
-        $("section").css("margin-top",(height/2)-(section_height/2));
-        $(window).resize(function(){
-            var height=$(window).height(); //浏览器当前窗口可视区域高度
-            var section_height=$("section").outerHeight(true);
-            $("section").css("margin-top",(height/2)-(section_height/2));
+        var height = $(window).height(); //浏览器当前窗口可视区域高度
+        var section_height = $("section").outerHeight(true);
+        $("section").css("margin-top", (height / 2) - (section_height / 2));
+        $(window).resize(function () {
+            var height = $(window).height(); //浏览器当前窗口可视区域高度
+            var section_height = $("section").outerHeight(true);
+            $("section").css("margin-top", (height / 2) - (section_height / 2));
         });
         var inputpasswd = "";
         var passwdlength = 0;
@@ -98,13 +98,12 @@ application.setAttribute("basePath", basePath);
             }
         });
         $("#submit_id").click(function () {
-            if (passwdlength !== 0 &&passwdAgainlength!==0) {
+            if (passwdlength !== 0 && passwdAgainlength !== 0) {
                 document.forms[0].submit();
-            } else if(passwdAgainlength==0) {
+            } else if (passwdAgainlength == 0) {
                 $("#errorinfo_id").text("请再次输入密码！");
                 $("#Password_div").addClass("has-error has-feedback");
-            }else
-            {
+            } else {
                 $("#errorinfo_id").text("请填写新密码！");
                 $("#Password_div").addClass("has-error has-feedback");
             }

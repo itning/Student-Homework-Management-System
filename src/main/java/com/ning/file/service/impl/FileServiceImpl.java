@@ -33,7 +33,7 @@ public class FileServiceImpl implements FileService {
         List<OrderInfo> orderInfoList = orderoInfoDao.getOrderInfoEntity();
         Set<String> set = new HashSet<String>();//集合用于存储并清楚重复下拉框数据
         for (OrderInfo orderInfo : orderInfoList) {
-            if(orderInfo.getOstate()){
+            if (orderInfo.getOstate()) {
                 set.add(orderInfo.getOsubject());
             }
         }
@@ -60,7 +60,7 @@ public class FileServiceImpl implements FileService {
         return historyDao.getEntityByHID(hid);
     }
 
-    public History findHuidExists(Map<String,Object> hoidhuid) {
+    public History findHuidExists(Map<String, Object> hoidhuid) {
         return historyDao.findHuidExists(hoidhuid);
     }
 

@@ -26,7 +26,8 @@
 </head>
 <body>
 <div class="alert alert-warning alert-dismissible fade in" role="alert" id="alert_id">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
     <strong>注意：</strong> 拖入或选择文件后可能暂时无响应，请稍等！
 </div>
 <input type="file" class="file" id="file_ID" name="file" multiple>
@@ -46,7 +47,7 @@
         uploadUrl: "fileup", //上传后台操作的方法
         uploadAsync: false, //设置上传同步异步 当前异步
         maxFileSize: 204800,
-        allowedFileExtensions: ['docx', 'doc', 'zip', 'rar', '7z','xls','xlsx','txt'], //限制上传文件后缀
+        allowedFileExtensions: ['docx', 'doc', 'zip', 'rar', '7z', 'xls', 'xlsx', 'txt'], //限制上传文件后缀
         uploadExtraData: {"file_subject": "file_subjectfile_subjectfile_subject"}
     });
 </script>

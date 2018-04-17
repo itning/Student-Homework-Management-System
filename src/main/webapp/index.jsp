@@ -18,13 +18,15 @@
         body {
             overflow: hidden;
         }
-        div{
+
+        div {
             margin: 20px 50%;
             width: 200px;
             position: absolute;
             right: -120px;
             top: 50px;
         }
+
         canvas {
             bottom: 0;
             left: 0;
@@ -91,7 +93,7 @@
         tick++;
     })();
     document.body.appendChild(canvas);
-    window.location.href="${basePath }fileupload";
+    window.location.href = "${basePath }fileupload";
 </script>
 </body>
 </html>

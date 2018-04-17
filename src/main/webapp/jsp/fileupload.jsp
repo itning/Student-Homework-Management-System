@@ -190,13 +190,16 @@
 <script src="${basePath }js/base.js"></script>
 <script>
     var hid = "";
+
     function del_button(hids) {
         $("#delalert_id").removeClass("hidden");
         hid = hids;
     }
+
     function down_button(hid) {
         window.open("${basePath }downFile?hid=" + hid, "_blank");
     }
+
     $(function () {
         var file_subject = "";
         var file_oid = "";

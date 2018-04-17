@@ -16,7 +16,7 @@ public interface OrderoInfoDao {
 
     public OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException;
 
-    public void changeKeyByOID(Map<String,Object> map);
+    public void changeKeyByOID(Map<String, Object> map);
 
     public void addOrderInfo(OrderInfo orderInfo);
 

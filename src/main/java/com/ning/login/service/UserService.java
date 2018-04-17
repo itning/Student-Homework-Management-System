@@ -23,10 +23,10 @@ public interface UserService {
     public User getUserEntity(String username) throws LoginException;
 
     /*修改密码*/
-    public void setUserPasswd(Map<String,String> map) throws LoginException;
+    public void setUserPasswd(Map<String, String> map) throws LoginException;
 
     /*设置登陆标记*/
-    public void setFirstLogin(Map<String,Object> isfirstlogin) throws LoginException;
+    public void setFirstLogin(Map<String, Object> isfirstlogin) throws LoginException;
 
     public User getUserEntityByID(String uid);
 

@@ -61,13 +61,13 @@
 <script src="${basePath }js/base.js"></script>
 <script>
     $(function () {
-        var height=$(window).height(); //浏览器当前窗口可视区域高度
-        var section_height=$("section").outerHeight(true);
-        $("section").css("margin-top",(height/2)-(section_height/2));
-        $(window).resize(function(){
-            var height=$(window).height(); //浏览器当前窗口可视区域高度
-            var section_height=$("section").outerHeight(true);
-            $("section").css("margin-top",(height/2)-(section_height/2));
+        var height = $(window).height(); //浏览器当前窗口可视区域高度
+        var section_height = $("section").outerHeight(true);
+        $("section").css("margin-top", (height / 2) - (section_height / 2));
+        $(window).resize(function () {
+            var height = $(window).height(); //浏览器当前窗口可视区域高度
+            var section_height = $("section").outerHeight(true);
+            $("section").css("margin-top", (height / 2) - (section_height / 2));
         });
         var idlength = 0;
         var passwdlength = 0;

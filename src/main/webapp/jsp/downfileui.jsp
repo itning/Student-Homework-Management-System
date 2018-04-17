@@ -43,9 +43,11 @@
     function down(hid) {
         window.open("${basePath }downFile?hid=" + hid, "_blank");
     }
+
     function downall() {
         window.open("${basePath }downAllFile", "_blank");
     }
+
     $(function () {
 
     });

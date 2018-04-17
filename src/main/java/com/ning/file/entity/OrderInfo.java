@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by wangn on 2017/5/20.
  */
-public class OrderInfo implements Serializable{
+public class OrderInfo implements Serializable {
     private int oid;
     private String oname;
     private String osubject;

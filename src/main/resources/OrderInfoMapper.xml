@@ -12,11 +12,11 @@
     </resultMap>
 
     <select id="getOnameBysubject" parameterType="String" resultType="OrderInfo">
-      SELECT * FROM orderinfo WHERE osubject = #{osubject} AND ostate = true
+        SELECT * FROM orderinfo WHERE osubject = #{osubject} AND ostate = true
     </select>
 
     <select id="getOrderInfoEntity" resultType="OrderInfo">
-      SELECT * FROM orderinfo
+        SELECT * FROM orderinfo
     </select>
 
     <select id="getOrderInfoEntityByOID" resultType="OrderInfo" parameterType="int">

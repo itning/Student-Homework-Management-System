@@ -188,6 +188,7 @@
             }
         });
     }
+
     function changeState(oid, ostate) {
         var value = true;
         if (ostate) {
@@ -197,13 +198,15 @@
             $("#loadsubject").load("${basePath}subjectui");
         });
     }
+
     function del(oid) {
-        $.get("${basePath }delOrderinfoByOID?oid="+oid,function (data) {
-            if(data){
+        $.get("${basePath }delOrderinfoByOID?oid=" + oid, function (data) {
+            if (data) {
                 window.location.reload();
             }
         });
     }
+
     $(function () {
         $("#loadsubject").load("${basePath}subjectui");
         var file_subject = "";
@@ -227,6 +230,7 @@
             console.log("file_oid" + file_oid);
             flushFileList();
         });
+
         function flushFileList() {
             $("#fileList").load("${basePath }getFileList?hoid=" + file_oid);
         }

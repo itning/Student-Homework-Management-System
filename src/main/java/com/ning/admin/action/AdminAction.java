@@ -137,7 +137,7 @@ public class AdminAction {
         List<History> historyList = adminService.findFileListByHoid(oid);
         for (History history : historyList) {
             File file = new File(PropertiesUtil.getUpLoadFilePath() + history.getFilepath());
-            if(file.exists()){
+            if (file.exists()) {
                 file.delete();
             }
         }

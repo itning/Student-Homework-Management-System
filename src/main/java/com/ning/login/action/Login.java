@@ -30,16 +30,16 @@ public class Login {
     @RequestMapping("login")
     public String Userlogin(Model model, HttpServletRequest request) throws LoginException {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        if(user!=null&&user.getUid()!=null){
+        if (user != null && user.getUid() != null) {
             return "redirect:index.jsp";
         }
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
         if (exceptionClassName != null) {
             if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
-                model.addAttribute("returninfo","账号不存在");
+                model.addAttribute("returninfo", "账号不存在");
             } else if (IncorrectCredentialsException.class.getName().equals(
-                    exceptionClassName)||AuthenticationException.class.getName().equals(exceptionClassName)) {
-                model.addAttribute("returninfo","用户名/密码错误");
+                    exceptionClassName) || AuthenticationException.class.getName().equals(exceptionClassName)) {
+                model.addAttribute("returninfo", "用户名/密码错误");
             } else {
                 throw new LoginException(exceptionClassName);
             }
@@ -49,41 +49,41 @@ public class Login {
 
     @RequestMapping("qqLogin")
     public String qqLogin(HttpServletRequest request) throws QQConnectException {
-        return "redirect:"+new Oauth().getAuthorizeURL(request);
+        return "redirect:" + new Oauth().getAuthorizeURL(request);
     }
 
     @RequestMapping("qqLoginAfter")
     public String qqLoginAfter(HttpServletRequest request) throws LoginException {
         String userOpenID = QQLoginUtil.getUserOpenID(request);
-        if(userOpenID==null){
+        if (userOpenID == null) {
             throw new LoginException("userOpenID==null");
         }
         User userByopenID = userService.getUserEntityByOpenID(userOpenID);
-        if(userByopenID==null){
-            request.getSession().setAttribute("userOpenID",userOpenID);
+        if (userByopenID == null) {
+            request.getSession().setAttribute("userOpenID", userOpenID);
             return "jsp/BindQQ.jsp";
-        }else {
+        } else {
             Subject currentUser = SecurityUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(userByopenID.getUsername(),userByopenID.getPassword(), false,request.getRemoteAddr());
+            UsernamePasswordToken token = new UsernamePasswordToken(userByopenID.getUsername(), userByopenID.getPassword(), false, request.getRemoteAddr());
             currentUser.login(token);
         }
         return "index.jsp";
     }
 
     @RequestMapping("bindQQ")
-    public String bindQQ(String username,String password,Model model,HttpServletRequest request) throws LoginException {
-        String userOpenID= (String) request.getSession().getAttribute("userOpenID");
+    public String bindQQ(String username, String password, Model model, HttpServletRequest request) throws LoginException {
+        String userOpenID = (String) request.getSession().getAttribute("userOpenID");
         String passwd = userService.getPasswd(username);
-        if(passwd==null){
-            model.addAttribute("returninfo","输入的学号不存在，请重试！");
+        if (passwd == null) {
+            model.addAttribute("returninfo", "输入的学号不存在，请重试！");
             return "jsp/BindQQ.jsp";
         }
-        if(!(passwd.equals(password))){
-            model.addAttribute("returninfo","密码错误，请重试！");
+        if (!(passwd.equals(password))) {
+            model.addAttribute("returninfo", "密码错误，请重试！");
             return "jsp/BindQQ.jsp";
         }
         Subject currentUser = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password, false,request.getRemoteAddr());
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password, false, request.getRemoteAddr());
         currentUser.login(token);
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         user.setUserOpenID(userOpenID);

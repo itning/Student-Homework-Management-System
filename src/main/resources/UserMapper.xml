@@ -41,7 +41,7 @@
     <select id="getUserEntityByID" resultType="User" parameterType="String">
         SELECT * FROM user WHERE uid = #{uid}
     </select>
-    
+
     <select id="getUserList" resultType="User">
         SELECT * FROM user WHERE percode = 'user'
     </select>
@@ -49,7 +49,7 @@
     <select id="getUserEntityByOpenID" parameterType="String" resultType="User">
         SELECT * FROM user WHERE userOpenID = #{userOpenID}
     </select>
-    
+
     <insert id="insertQQIDByUID" parameterType="User">
         UPDATE user SET userOpenID = #{userOpenID} WHERE uid = #{uid}
     </insert>

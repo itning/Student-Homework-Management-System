@@ -26,7 +26,7 @@ public interface FileService {
 
     public History getEntityByHID(String hid);
 
-    public History findHuidExists(Map<String,Object> hoidhuid);
+    public History findHuidExists(Map<String, Object> hoidhuid);
 
     public void upHistoryData(History history);
 

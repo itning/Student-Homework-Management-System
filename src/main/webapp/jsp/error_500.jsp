@@ -21,10 +21,11 @@
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        .top{
+        .top {
             margin-top: 10em;
         }
-        .errorMessage{
+
+        .errorMessage {
             font-size: 2em;
             color: #c9302c;
         }

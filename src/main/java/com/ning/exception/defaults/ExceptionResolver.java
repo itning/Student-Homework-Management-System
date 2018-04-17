@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 /**
  * Created by wangn on 2017/5/19.
  */
@@ -20,10 +21,9 @@ public class ExceptionResolver implements HandlerExceptionResolver {
         String errorMessage;
         if (e instanceof LoginException) {
             errorMessage = ((LoginException) e).getErrorMessage();
-        }else if(e instanceof FileException){
+        } else if (e instanceof FileException) {
             errorMessage = ((FileException) e).getErrorMessage();
-        }
-        else {
+        } else {
             errorMessage = new DefaultException(e.getMessage()).getErrorMessage();
         }
         request.setAttribute("errorMessage", errorMessage);

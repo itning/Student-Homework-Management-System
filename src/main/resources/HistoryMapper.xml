@@ -13,7 +13,8 @@
         <result column="filesize" property="filesize"/>
     </resultMap>
     <insert id="insertDataByEntity" parameterType="com.ning.file.entity.History">
-        INSERT INTO history(hid,huid,hoid,type,filepath,uptime,filesize) VALUES (#{hid},#{huid},#{hoid},#{type},#{filepath},#{uptime},#{filesize})
+        INSERT INTO history(hid,huid,hoid,type,filepath,uptime,filesize) VALUES
+        (#{hid},#{huid},#{hoid},#{type},#{filepath},#{uptime},#{filesize})
     </insert>
 
     <select id="getUpListByUID" parameterType="String" resultType="History">
@@ -25,7 +26,7 @@
     </delete>
     <delete id="delEntityByHOID" parameterType="int">
         DELETE FROM history WHERE hoid = #{hoid}
-</delete>
+    </delete>
     <select id="getEntityByHID" parameterType="String" resultType="History">
         SELECT * FROM history WHERE hid = #{hid}
     </select>
@@ -35,7 +36,8 @@
     </select>
 
     <update id="upHistoryData" parameterType="History">
-        UPDATE history SET type = #{type},filepath = #{filepath},uptime = #{uptime},filesize = #{filesize} WHERE hid = #{hid}
+        UPDATE history SET type = #{type},filepath = #{filepath},uptime = #{uptime},filesize = #{filesize} WHERE hid =
+        #{hid}
     </update>
 
     <select id="findFileListByHoid" parameterType="int" resultType="History">

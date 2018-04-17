@@ -15,7 +15,7 @@ public interface AdminService {
 
     public List<OrderInfo> getOrderInfoEntity() throws Exception;
 
-    public void changeKeyByOID(Map<String,Object> map);
+    public void changeKeyByOID(Map<String, Object> map);
 
     public void addOrderInfo(OrderInfo orderInfo);
 
