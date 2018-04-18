@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by wangn on 2017/5/19.
+ * @author wangn
+ * @date 2017/5/19
  */
 public class ExceptionResolver implements HandlerExceptionResolver {
 
+    @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception e) {
         //打印异常信息
         e.printStackTrace();
@@ -30,9 +32,7 @@ public class ExceptionResolver implements HandlerExceptionResolver {
         try {
             //转发到错误页面
             request.getRequestDispatcher("/jsp/error_500.jsp").forward(request, response);
-        } catch (ServletException e1) {
-            e1.printStackTrace();
-        } catch (IOException e1) {
+        } catch (ServletException | IOException e1) {
             e1.printStackTrace();
         }
         return new ModelAndView();
