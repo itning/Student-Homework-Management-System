@@ -85,5 +85,5 @@ CREATE TABLE `orderinfo` (
 ```
 INSERT INTO `user` VALUES ('1', '201601010317', '123456789', 'aa.jpg', '\0', '管理员', 'admin', null);
 INSERT INTO `user` VALUES ('2', '201601010300', '123456789', 'aa', '\0', '测试', 'user', null);
-INSERT INTO `orderinfo` VALUES ('1765435', '类别', '学科', '', '2018-04-18 10:23:54');
+INSERT INTO `orderinfo` VALUES ('1765435', '类别', '学科', ' ', '2018-04-18 10:23:54');
 ```
