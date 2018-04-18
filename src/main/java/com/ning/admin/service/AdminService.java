@@ -7,17 +7,46 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by wangn on 2017/5/24.
+ * 管理员服务接口
+ *
+ * @author wangn
+ * @date 2017/5/24
  */
 public interface AdminService {
-    //所有的已上传文件实体集合
-    public List<History> findFileListByHoid(Integer hoid);
+    /**
+     * 所有的已上传文件实体集合
+     *
+     * @param hoid 科目和批次ID
+     * @return 上传历史集合
+     */
+    List<History> findFileListByHoid(Integer hoid);
 
-    public List<OrderInfo> getOrderInfoEntity() throws Exception;
+    /**
+     * 获取所有科目批次信息
+     *
+     * @return 所有科目批次信息集合
+     * @throws Exception Exception
+     */
+    List<OrderInfo> getOrderInfoEntity() throws Exception;
 
-    public void changeKeyByOID(Map<String, Object> map);
+    /**
+     * 更新状态
+     *
+     * @param map map
+     */
+    void changeKeyByOID(Map<String, Object> map);
 
-    public void addOrderInfo(OrderInfo orderInfo);
+    /**
+     * 添加科目批次
+     *
+     * @param orderInfo 科目批次实体
+     */
+    void addOrderInfo(OrderInfo orderInfo);
 
-    public void delOrderinfoByOID(Integer oid);
+    /**
+     * 删除科目批次
+     *
+     * @param oid 科目批次ID
+     */
+    void delOrderinfoByOID(Integer oid);
 }

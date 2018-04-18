@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 管理员服务接口实现
  *
  * @author wangn
  * @date 2017/5/24
@@ -24,12 +25,7 @@ public class AdminServiceImpl implements AdminService {
     @Resource
     private OrderoInfoDao orderoInfoDao;
 
-    /**
-     * 所有的已上传文件实体集合
-     *
-     * @param hoid 科目和批次ID
-     * @return 上传历史集合
-     */
+
     @Override
     public List<History> findFileListByHoid(Integer hoid) {
         return historyDao.findFileListByHoid(hoid);
