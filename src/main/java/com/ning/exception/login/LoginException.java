@@ -1,7 +1,9 @@
 package com.ning.exception.login;
 
 /**
- * Created by wangn on 2017/5/19.
+ *
+ * @author wangn
+ * @date 2017/5/19
  */
 public class LoginException extends Exception {
     private String errorMessage;

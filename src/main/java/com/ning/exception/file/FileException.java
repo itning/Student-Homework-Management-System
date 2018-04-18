@@ -1,7 +1,9 @@
 package com.ning.exception.file;
 
 /**
- * Created by wangn on 2017/5/20.
+ *
+ * @author wangn
+ * @date 2017/5/20
  */
 public class FileException extends Exception {
     private String errorMessage;
