@@ -141,7 +141,7 @@ public class FileAction {
                 history.setHuid(user.getUid());
                 history.setHoid(orderInfo.getOid());
                 String extensionName = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
-                String newfilename = user.getUsername() + user.getName() + orderInfo.getOname() + extensionName;
+                String newfilename = user.getUsername() + user.getName() + orderInfo.getOsubject() + orderInfo.getOname() + extensionName;
                 history.setFilepath(newfilename);
                 history.setFilesize((double) file1.getSize());
                 history.setType(file1.getContentType());
