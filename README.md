@@ -35,3 +35,55 @@
         2.优化登录逻辑
         3.修复了一些已知BUG
     
+**SQL：**
+ -  user表
+```
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `uid` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `headimg` varchar(255) DEFAULT NULL,
+  `firstlogin` bit(1) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `percode` varchar(255) NOT NULL,
+  `userOpenID` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+ -  orderinfo表
+```
+DROP TABLE IF EXISTS `orderinfo`;
+CREATE TABLE `orderinfo` (
+  `oid` int(11) NOT NULL,
+  `oname` varchar(255) NOT NULL,
+  `osubject` varchar(255) NOT NULL,
+  `ostate` bit(1) NOT NULL,
+  `otime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`oid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+ -  history表
+ ```
+ DROP TABLE IF EXISTS `history`;
+ CREATE TABLE `history` (
+   `hid` varchar(255) NOT NULL,
+   `huid` varchar(255) NOT NULL,
+   `hoid` int(11) NOT NULL,
+   `type` varchar(255) NOT NULL,
+   `filepath` varchar(255) NOT NULL,
+   `uptime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+   `filesize` double NOT NULL,
+   PRIMARY KEY (`hid`),
+   KEY `FK_hoid_oid` (`hoid`),
+   KEY `FK_huid_uid` (`huid`),
+   CONSTRAINT `FK_hoid_oid` FOREIGN KEY (`hoid`) REFERENCES `orderinfo` (`oid`),
+   CONSTRAINT `FK_huid_uid` FOREIGN KEY (`huid`) REFERENCES `user` (`uid`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ ```
+ - 添加测试数据和管理员账号
+```
+INSERT INTO `user` VALUES ('1', '201601010317', '123456789', 'aa.jpg', '\0', '管理员', 'admin', null);
+INSERT INTO `user` VALUES ('2', '201601010300', '123456789', 'aa', '\0', '测试', 'user', null);
+INSERT INTO `orderinfo` VALUES ('1765435', '类别', '学科', '', '2018-04-18 10:23:54');
+```
