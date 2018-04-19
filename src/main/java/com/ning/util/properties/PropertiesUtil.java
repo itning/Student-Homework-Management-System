@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Created by wangn on 2017/5/25.
+ *
+ * @author wangn
+ * @date 2017/5/25
  */
 public class PropertiesUtil {
     public static String getUpLoadFilePath() throws Exception {
@@ -23,7 +25,7 @@ public class PropertiesUtil {
             throw new FileException("获取文件路径失败！" + e.getMessage());
         }
         String filepath = properties.getProperty("upLoadFilePath");
-        if (filepath == null || filepath.equals("")) {
+        if (filepath == null || "".equals(filepath)) {
             throw new FileException("文件路径不正确：upLoadFilePath=" + filepath);
         }
         return filepath;
