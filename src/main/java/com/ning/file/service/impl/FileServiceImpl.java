@@ -33,6 +33,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public Set<String> getOrderInfoEntity() throws FileException {
         List<OrderInfo> orderInfoList = orderoInfoDao.getOrderInfoEntity();
+        //集合用于存储并清楚重复下拉框数据
         Set<String> set = new HashSet<String>();
         for (OrderInfo orderInfo : orderInfoList) {
             if (orderInfo.getOstate()) {

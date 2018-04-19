@@ -21,7 +21,6 @@ public interface FileService {
     public List<OrderInfo> getOnameBysubject(String oname) throws FileException;
 
     /**
-     * 集合用于存储并清楚重复下拉框数据
      *
      * @return
      * @throws FileException
