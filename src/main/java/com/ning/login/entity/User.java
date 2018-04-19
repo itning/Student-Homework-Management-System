@@ -3,7 +3,9 @@ package com.ning.login.entity;
 import java.io.Serializable;
 
 /**
- * Created by wangn on 2017/5/19.
+ *
+ * @author wangn
+ * @date 2017/5/19
  */
 public class User implements Serializable {
     private String uid;
