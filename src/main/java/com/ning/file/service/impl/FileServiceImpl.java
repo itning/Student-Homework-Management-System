@@ -25,13 +25,15 @@ public class FileServiceImpl implements FileService {
     @Resource
     private HistoryDao historyDao;
 
+    @Override
     public List<OrderInfo> getOnameBysubject(String oname) throws FileException {
         return orderoInfoDao.getOnameBysubject(oname);
     }
 
+    @Override
     public Set<String> getOrderInfoEntity() throws FileException {
         List<OrderInfo> orderInfoList = orderoInfoDao.getOrderInfoEntity();
-        Set<String> set = new HashSet<String>();//集合用于存储并清楚重复下拉框数据
+        Set<String> set = new HashSet<String>();
         for (OrderInfo orderInfo : orderInfoList) {
             if (orderInfo.getOstate()) {
                 set.add(orderInfo.getOsubject());
@@ -40,34 +42,42 @@ public class FileServiceImpl implements FileService {
         return set;
     }
 
+    @Override
     public OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException {
         return orderoInfoDao.getOrderInfoEntityByOID(oid);
     }
 
+    @Override
     public void insertDataByEntity(History history) {
         historyDao.insertDataByEntity(history);
     }
 
+    @Override
     public List<History> getUpListByUID(String huid) {
         return historyDao.getUpListByUID(huid);
     }
 
+    @Override
     public void delEntityByHID(String delHid) {
         historyDao.delEntityByHID(delHid);
     }
 
+    @Override
     public History getEntityByHID(String hid) {
         return historyDao.getEntityByHID(hid);
     }
 
+    @Override
     public History findHuidExists(Map<String, Object> hoidhuid) {
         return historyDao.findHuidExists(hoidhuid);
     }
 
+    @Override
     public void upHistoryData(History history) {
         historyDao.upHistoryData(history);
     }
 
+    @Override
     public void delEntityByHOID(Integer hoid) {
         historyDao.delEntityByHOID(hoid);
     }
