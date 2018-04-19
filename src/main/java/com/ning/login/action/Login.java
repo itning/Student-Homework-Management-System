@@ -30,7 +30,7 @@ public class Login {
     private UserService userService;
 
     @RequestMapping("login")
-    public String Userlogin(Model model, HttpServletRequest request) throws LoginException {
+    public String userlogin(Model model, HttpServletRequest request) throws LoginException {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (user != null && user.getUid() != null) {
             return "redirect:index.jsp";
