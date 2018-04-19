@@ -14,13 +14,20 @@ import org.apache.shiro.subject.PrincipalCollection;
 import javax.annotation.Resource;
 
 /**
- * Created by wangn on 2017/5/19.
+ *
+ * @author wangn
+ * @date 2017/5/19
  */
 public class CustomRealm extends AuthorizingRealm {
     @Resource
     private UserService userService;
 
-    /*授权*/
+    /**
+     * 授权
+     * @param principals
+     * @return
+     */
+    @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         User user = (User) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
@@ -28,7 +35,13 @@ public class CustomRealm extends AuthorizingRealm {
         return simpleAuthorizationInfo;
     }
 
-    /*认证*/
+    /**
+     * 认证
+     * @param token
+     * @return
+     * @throws AuthenticationException
+     */
+    @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = (String) token.getPrincipal();
         String password = null;
