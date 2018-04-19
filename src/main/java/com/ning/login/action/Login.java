@@ -20,7 +20,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by wangn on 2017/5/19.
+ *
+ * @author wangn
+ * @date 2017/5/19
  */
 @Controller
 public class Login {
