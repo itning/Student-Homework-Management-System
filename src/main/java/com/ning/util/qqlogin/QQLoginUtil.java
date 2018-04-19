@@ -9,14 +9,16 @@ import com.qq.connect.oauth.Oauth;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by wangn on 2017/5/31.
+ *
+ * @author wangn
+ * @date 2017/5/31
  */
 public class QQLoginUtil {
     public static String getUserOpenID(HttpServletRequest request) throws LoginException {
-        String openID = null;
+        String openID;
         try {
             AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(request);
-            if (accessTokenObj.getAccessToken().equals("")) {
+            if ("".equals(accessTokenObj.getAccessToken())) {
                 throw new LoginException("未获取到参数！");
             } else {
                 openID = new OpenID(accessTokenObj.getAccessToken()).getUserOpenID();
