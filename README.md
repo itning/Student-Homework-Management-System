@@ -88,6 +88,7 @@ INSERT INTO `user` VALUES ('2', '201601010300', '123456789', 'aa', '\0', '测试
 INSERT INTO `orderinfo` VALUES ('1765435', '类别', '学科', ' ', '2018-04-18 10:23:54');
 ```
 安装QQ互联SDK
+[官方下载互联SDK](http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/qqConnect_Server_SDK_java_v2.0.zip)
 ```
 mvn install:install-file -Dfile=D:\a.jar -DgroupId=com.qq.connect -DartifactId=qq-connect -Dversion=2.0.0.RELEASE -Dpackaging=jar
 ```
