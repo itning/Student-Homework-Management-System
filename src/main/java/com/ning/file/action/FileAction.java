@@ -14,10 +14,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -28,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- *
  * @author wangn
  * @date 2017/5/19
  */
@@ -77,6 +73,7 @@ public class FileAction {
 
     /**
      * 更改密码方法
+     *
      * @param model
      * @param password
      * @param firstlogin
@@ -123,6 +120,7 @@ public class FileAction {
 
     /**
      * 更改密码入口方法
+     *
      * @param model
      * @return
      */
@@ -145,6 +143,7 @@ public class FileAction {
 
     /**
      * 文件上传方法
+     *
      * @param file
      * @return
      * @throws Exception
@@ -184,7 +183,7 @@ public class FileAction {
 
     @RequestMapping("userselect")
     public @ResponseBody
-    Boolean userSelect(Integer userselectOid) throws Exception {
+    Boolean userSelect(@RequestParam("userselect_oid") Integer userselectOid) throws Exception {
         if (userselectOid != null) {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
             user.setUserselect_oid(userselectOid);
@@ -195,6 +194,7 @@ public class FileAction {
 
     /**
      * 删除文件方法
+     *
      * @param delHid
      * @return
      * @throws Exception
