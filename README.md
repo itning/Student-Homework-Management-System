@@ -87,8 +87,14 @@ INSERT INTO `user` VALUES ('1', '201601010317', '123456789', 'aa.jpg', '\0', '�
 INSERT INTO `user` VALUES ('2', '201601010300', '123456789', 'aa', '\0', '测试', 'user', null);
 INSERT INTO `orderinfo` VALUES ('1765435', '类别', '学科', ' ', '2018-04-18 10:23:54');
 ```
-安装QQ互联SDK
+**安装QQ互联SDK**
 [官方下载互联SDK](http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/qqConnect_Server_SDK_java_v2.0.zip)
 ```
 mvn install:install-file -Dfile=D:\a.jar -DgroupId=com.qq.connect -DartifactId=qq-connect -Dversion=2.0.0.RELEASE -Dpackaging=jar
 ```
+**预览图片：**
+
+[![Clf7jI.md.png](https://s1.ax1x.com/2018/04/25/Clf7jI.md.png)](https://imgchr.com/i/Clf7jI)
+[![Clfv4g.png](https://s1.ax1x.com/2018/04/25/Clfv4g.png)](https://imgchr.com/i/Clfv4g)
+[![ClfzCQ.md.png](https://s1.ax1x.com/2018/04/25/ClfzCQ.md.png)](https://imgchr.com/i/ClfzCQ)
+[![ClhS3j.md.png](https://s1.ax1x.com/2018/04/25/ClhS3j.md.png)](https://imgchr.com/i/ClhS3j)
