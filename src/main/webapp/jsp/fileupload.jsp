@@ -161,6 +161,9 @@
                                 <button type="button" class="btn btn-primary"
                                         onclick="down_button('${userHistory.hid }')">下载
                                 </button>
+                                <button type="button" class="btn btn-success"
+                                        onclick="view_button('${userHistory.hid }')">预览
+                                </button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -198,6 +201,10 @@
 
     function down_button(hid) {
         window.open("${basePath }downFile?hid=" + hid, "_blank");
+    }
+
+    function view_button(hid){
+        window.open("https://view.officeapps.live.com/op/view.aspx?src=${basePath }downFile?hid=" + hid, "_blank");
     }
 
     $(function () {

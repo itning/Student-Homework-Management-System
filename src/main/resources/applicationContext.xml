@@ -76,6 +76,7 @@
                 /logout = logout
                 /qqLogin = anon
                 /qqLoginAfter = anon
+                /downFile = anon
                 /bindQQ = anon
                 /css/** = anon
                 /img/** = anon

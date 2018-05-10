@@ -34,6 +34,9 @@
                     <button type="button" class="btn btn-info" onclick="down('${filelist.hid }')"
                             <c:if test="${filelist.uptime==null}">disabled='disabled'</c:if>>下载
                     </button>
+                    <button type="button" class="btn btn-primary" onclick="view('${filelist.hid }')"
+                            <c:if test="${filelist.uptime==null}">disabled='disabled'</c:if>>预览
+                    </button>
                 </td>
             </tr>
         </c:forEach>
@@ -46,6 +49,10 @@
 
     function downall() {
         window.open("${basePath }downAllFile", "_blank");
+    }
+
+    function view(hid){
+        window.open("https://view.officeapps.live.com/op/view.aspx?src=${basePath }downFile?hid=" + hid, "_blank");
     }
 
     $(function () {
