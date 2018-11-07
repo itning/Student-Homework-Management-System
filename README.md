@@ -1,5 +1,17 @@
 # 学生作业管理系统
-	
+
+[![GitHub stars](https://img.shields.io/github/stars/itning/Student-Homework-Management-System.svg)](https://github.com/itning/Student-Homework-Management-System/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/itning/Student-Homework-Management-System.svg)](https://github.com/itning/Student-Homework-Management-System/network)
+[![GitHub watchers](https://img.shields.io/github/watchers/itning/Student-Homework-Management-System.svg?style=social&label=Watch)]()
+[![GitHub followers](https://img.shields.io/github/followers/itning.svg?style=social&label=Follow)]()
+[![GitHub issues](https://img.shields.io/github/issues/itning/Student-Homework-Management-System.svg)](https://github.com/itning/Student-Homework-Management-System/issues)
+
+[![GitHub license](https://img.shields.io/github/license/itning/Student-Homework-Management-System.svg)](https://github.com/itning/Student-Homework-Management-System/blob/master/LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/itning/Student-Homework-Management-System.svg)]()
+[![GitHub release](https://img.shields.io/github/release/itning/Student-Homework-Management-System.svg)]()
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/itning/Student-Homework-Management-System.svg)]()
+[![language](https://img.shields.io/badge/language-JAVA-orange.svg)]()
+
 **实现功能：**
 	
 	学生上传文件到系统中，后台统一命名存储文件，管理员登陆后可以批量下载后台打包过后的文件。
