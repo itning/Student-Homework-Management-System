@@ -16,11 +16,37 @@
     <context:property-placeholder location="classpath:context.properties"/>
 
     <!-- 数据源配置-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${driverClass}"/>
-        <property name="jdbcUrl" value="${jdbcUrl}"/>
-        <property name="user" value="${user}"/>
-        <property name="password" value="${password}"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${jdbcUrl}" />
+        <property name="username" value="${user}" />
+        <property name="password" value="${password}" />
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="1" />
+        <property name="minIdle" value="1" />
+        <property name="maxActive" value="10" />
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="2000" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="600000" />
+        <property name="maxEvictableIdleTimeMillis" value="900000" />
+
+        <property name="validationQuery" value="select 1" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+
+        <property name="keepAlive" value="true" />
+        <property name="phyMaxUseCount" value="10000" />
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat" />
     </bean>
 
     <!-- SqlSessionFactory-->
@@ -34,6 +60,15 @@
     <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+    <!-- Spring 监控 -->
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"/>
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+        <property name="patterns">
+            <list>
+                <value>com.ning.*</value>
+            </list>
+        </property>
+    </bean>
 
     <!-- 配置事务通知 -->
     <tx:advice id="advice" transaction-manager="dataSourceTransactionManager">
@@ -42,6 +77,7 @@
         </tx:attributes>
     </tx:advice>
     <aop:config>
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
         <aop:advisor advice-ref="advice" pointcut="execution(* com.ning.*.service.*.*(..))"/>
     </aop:config>
 
@@ -82,6 +118,7 @@
                 /img/** = anon
                 /js/** = anon
                 /weblib/** = anon
+                /druid/** = anon
                 /** = user
                 /** = authc
             </value>

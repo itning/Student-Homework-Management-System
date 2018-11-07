@@ -21,7 +21,7 @@ public class EmailUtils {
     /**
      * 邮件发送者密码
      */
-    private static final String EMAIL_SENDER_PWD = "NING64486shan";
+    private static final String EMAIL_SENDER_PWD = "";
 
     private static final String CHECK_EMAIL_STR = "@";
 
