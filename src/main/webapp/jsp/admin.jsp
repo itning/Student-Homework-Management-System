@@ -213,7 +213,7 @@
         var file_oid = "";
         $("#subject_ID").change(function () {
             file_subject = $(this).val();
-            $.get("${basePath }getOnameBysubject?subject=" + file_subject, function (data) {
+            $.get("${basePath }getOnameBysubjectOfAll?subject=" + file_subject, function (data) {
                 $("#oid_id").empty();
                 $("#upfilebutton_id").removeAttr("disabled");
                 $.each(data, function (key, value) {

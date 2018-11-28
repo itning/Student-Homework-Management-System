@@ -18,21 +18,28 @@ public interface FileService {
      * @return
      * @throws FileException
      */
-    public List<OrderInfo> getOnameBysubject(String oname) throws FileException;
+    List<OrderInfo> getOnameBysubject(String oname) throws FileException;
+
+    List<OrderInfo> getOnameBysubjectOfAll(String oname) throws FileException;
 
     /**
-     *
      * @return
      * @throws FileException
      */
-    public Set<String> getOrderInfoEntity() throws FileException;
+    Set<String> getOrderInfoEntity() throws FileException;
+
+    /**
+     * @return
+     * @throws FileException
+     */
+    Set<String> getOrderInfoEntityOfAll() throws FileException;
 
     /**
      * @param oid
      * @return
      * @throws FileException
      */
-    public OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException;
+    OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException;
 
     /**
      * @param history
@@ -43,32 +50,32 @@ public interface FileService {
      * @param huid
      * @return
      */
-    public List<History> getUpListByUID(String huid);
+    List<History> getUpListByUID(String huid);
 
     /**
      * @param delHid
      */
-    public void delEntityByHID(String delHid);
+    void delEntityByHID(String delHid);
 
     /**
      * @param hid
      * @return
      */
-    public History getEntityByHID(String hid);
+    History getEntityByHID(String hid);
 
     /**
      * @param hoidhuid
      * @return
      */
-    public History findHuidExists(Map<String, Object> hoidhuid);
+    History findHuidExists(Map<String, Object> hoidhuid);
 
     /**
      * @param history
      */
-    public void upHistoryData(History history);
+    void upHistoryData(History history);
 
     /**
      * @param hoid
      */
-    public void delEntityByHOID(Integer hoid);
+    void delEntityByHOID(Integer hoid);
 }

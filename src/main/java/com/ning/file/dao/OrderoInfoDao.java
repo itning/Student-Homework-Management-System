@@ -16,33 +16,40 @@ public interface OrderoInfoDao {
      * @return
      * @throws FileException
      */
-    public List<OrderInfo> getOnameBysubject(String oname) throws FileException;
+    List<OrderInfo> getOnameBysubject(String oname) throws FileException;
+
+    /**
+     * @param oname
+     * @return
+     * @throws FileException
+     */
+    List<OrderInfo> getOnameBysubjectOfAll(String oname) throws FileException;
 
     /**
      * @return
      * @throws FileException
      */
-    public List<OrderInfo> getOrderInfoEntity() throws FileException;
+    List<OrderInfo> getOrderInfoEntity() throws FileException;
 
     /**
      * @param oid
      * @return
      * @throws FileException
      */
-    public OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException;
+    OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException;
 
     /**
      * @param map
      */
-    public void changeKeyByOID(Map<String, Object> map);
+    void changeKeyByOID(Map<String, Object> map);
 
     /**
      * @param orderInfo
      */
-    public void addOrderInfo(OrderInfo orderInfo);
+    void addOrderInfo(OrderInfo orderInfo);
 
     /**
      * @param oid
      */
-    public void delOrderinfoByOID(Integer oid);
+    void delOrderinfoByOID(Integer oid);
 }

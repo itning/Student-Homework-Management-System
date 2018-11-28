@@ -60,10 +60,19 @@ public class AdminAction {
     @RequiresPermissions("admin")
     public String admin(Model model) throws Exception {
         //下拉框数据
-        model.addAttribute("orderInfoList", fileService.getOrderInfoEntity());
+        model.addAttribute("orderInfoList", fileService.getOrderInfoEntityOfAll());
         //登录用户信息实体（User）
         model.addAttribute("user", SecurityUtils.getSubject().getPrincipal());
         return "jsp/admin.jsp";
+    }
+
+    @RequestMapping("getOnameBysubjectOfAll")
+    public @ResponseBody
+    List<OrderInfo> getOnameBysubjectOfAll(String subject) throws Exception {
+        if (subject == null || "".equals(subject)) {
+            throw new FileException("获取失败：参数错误");
+        }
+        return fileService.getOnameBysubjectOfAll(subject);
     }
 
     /**

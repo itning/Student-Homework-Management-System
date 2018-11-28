@@ -31,14 +31,30 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public List<OrderInfo> getOnameBysubjectOfAll(String oname) throws FileException {
+        return orderoInfoDao.getOnameBysubjectOfAll(oname);
+    }
+
+    @Override
     public Set<String> getOrderInfoEntity() throws FileException {
         List<OrderInfo> orderInfoList = orderoInfoDao.getOrderInfoEntity();
         //集合用于存储并清楚重复下拉框数据
-        Set<String> set = new HashSet<String>();
+        Set<String> set = new HashSet<>();
         for (OrderInfo orderInfo : orderInfoList) {
             if (orderInfo.getOstate()) {
                 set.add(orderInfo.getOsubject());
             }
+        }
+        return set;
+    }
+
+    @Override
+    public Set<String> getOrderInfoEntityOfAll() throws FileException {
+        List<OrderInfo> orderInfoList = orderoInfoDao.getOrderInfoEntity();
+        //集合用于存储并清楚重复下拉框数据
+        Set<String> set = new HashSet<>();
+        for (OrderInfo orderInfo : orderInfoList) {
+            set.add(orderInfo.getOsubject());
         }
         return set;
     }
