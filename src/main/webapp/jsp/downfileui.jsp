@@ -7,6 +7,7 @@
     application.setAttribute("basePath", basePath);
 %>
 <button type="button" class="btn btn-success" style="margin-bottom: 10px" onclick="downall()">全部下载</button>
+<span id="total"></span>
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
@@ -51,11 +52,19 @@
         window.open("${basePath }downAllFile", "_blank");
     }
 
-    function view(hid){
+    function view(hid) {
         window.open("https://view.officeapps.live.com/op/view.aspx?src=${basePath }downFile?hid=" + hid, "_blank");
     }
 
     $(function () {
-
+        var data = [];
+        <c:forEach items="${fileListByHoid }" var="file">
+        data.push(${file.filesize});
+        </c:forEach>
+        var reduce = data.reduce(function (previousValue, currentValue) {
+            return previousValue + currentValue;
+        });
+        console.log(parseInt(reduce) / 1024 / 1024);
+        document.getElementById('total').innerText = (parseInt(reduce) / 1024 / 1024).toFixed(2) + 'MB';
     });
 </script>
