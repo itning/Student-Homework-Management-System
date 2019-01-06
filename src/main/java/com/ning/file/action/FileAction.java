@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -230,15 +231,20 @@ public class FileAction {
         }
         History history = fileService.getEntityByHID(hid);
         String filename = PropertiesUtil.getUpLoadFilePath() + history.getFilepath();
+        File file = new File(filename);
+        response.setHeader("Accept-Ranges", "bytes");
+        response.setHeader("Content-Disposition", "attachment;filename=" + new String(history.getFilepath().getBytes(), StandardCharsets.ISO_8859_1));
+        response.setHeader("Content-Length", file.length() + "");
         response.setContentType(history.getType());
-        response.setHeader("Content-Disposition", "attachment;filename=" + new String(history.getFilepath().getBytes(), "ISO-8859-1"));
-        response.setHeader("Content-Length", history.getFilesize() + "");
-        OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
-        InputStream fis = new BufferedInputStream(new FileInputStream(filename));
-        IOUtils.copy(fis, toClient);
-        toClient.flush();
-        IOUtils.closeQuietly(fis);
-        IOUtils.closeQuietly(toClient);
+        try (OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+             InputStream fis = new BufferedInputStream(new FileInputStream(file))) {
+            IOUtils.copy(fis, toClient);
+            toClient.flush();
+        } catch (IOException e) {
+            if (!e.getMessage().contains("连接")) {
+                throw e;
+            }
+        }
     }
 
 }

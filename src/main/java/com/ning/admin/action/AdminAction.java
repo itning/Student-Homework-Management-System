@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -159,11 +160,19 @@ public class AdminAction {
         for (History history : fileListByHoid) {
             filesname.add(history.getFilepath());
         }
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename=" + new String((zipfilename + ".zip").getBytes(), "ISO-8859-1"));
-        ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream());
+        double totalFileSize = 0;
+        List<File> fileList = new ArrayList<>(filesname.size());
         for (String filename : filesname) {
             File file = new File(PropertiesUtil.getUpLoadFilePath() + filename);
+            totalFileSize += file.length();
+            fileList.add(file);
+        }
+        response.setHeader("Accept-Ranges", "bytes");
+        response.setHeader("Content-Disposition", "attachment;filename=" + new String((zipfilename + ".zip").getBytes(), StandardCharsets.ISO_8859_1));
+        response.setHeader("Content-Length", totalFileSize + "");
+        response.setContentType("application/octet-stream");
+        ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream());
+        for (File file : fileList) {
             InputStream input = new FileInputStream(file);
             zipOut.putNextEntry(new ZipEntry(file.getName()));
             IOUtils.copy(input, zipOut);
