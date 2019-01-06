@@ -160,19 +160,11 @@ public class AdminAction {
         for (History history : fileListByHoid) {
             filesname.add(history.getFilepath());
         }
-        double totalFileSize = 0;
-        List<File> fileList = new ArrayList<>(filesname.size());
-        for (String filename : filesname) {
-            File file = new File(PropertiesUtil.getUpLoadFilePath() + filename);
-            totalFileSize += file.length();
-            fileList.add(file);
-        }
-        response.setHeader("Accept-Ranges", "bytes");
         response.setHeader("Content-Disposition", "attachment;filename=" + new String((zipfilename + ".zip").getBytes(), StandardCharsets.ISO_8859_1));
-        response.setHeader("Content-Length", totalFileSize + "");
         response.setContentType("application/octet-stream");
         ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream());
-        for (File file : fileList) {
+        for (String filename : filesname) {
+            File file = new File(PropertiesUtil.getUpLoadFilePath() + filename);
             InputStream input = new FileInputStream(file);
             zipOut.putNextEntry(new ZipEntry(file.getName()));
             IOUtils.copy(input, zipOut);
