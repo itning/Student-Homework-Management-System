@@ -168,4 +168,12 @@
 
    ## 预览
 
-   
+    ![登陆](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/denglu.png)
+    
+    ![管理界面](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/guanli.png)
+    
+    ![上传界面](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/sahngchuan.png)
+    
+    ![添加科目](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/addkemu.png)
+    
+    ![druid](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/druid.png)
