@@ -2,7 +2,7 @@ package com.ning.file.service.impl;
 
 import com.ning.exception.file.FileException;
 import com.ning.file.dao.HistoryDao;
-import com.ning.file.dao.OrderoInfoDao;
+import com.ning.file.dao.OrderInfoDao;
 import com.ning.file.entity.History;
 import com.ning.file.entity.OrderInfo;
 import com.ning.file.service.FileService;
@@ -20,24 +20,24 @@ import java.util.Set;
 @Service
 public class FileServiceImpl implements FileService {
     @Resource
-    private OrderoInfoDao orderoInfoDao;
+    private OrderInfoDao orderInfoDao;
 
     @Resource
     private HistoryDao historyDao;
 
     @Override
     public List<OrderInfo> getOnameBysubject(String oname) throws FileException {
-        return orderoInfoDao.getOnameBysubject(oname);
+        return orderInfoDao.getONameBySubject(oname);
     }
 
     @Override
     public List<OrderInfo> getOnameBysubjectOfAll(String oname) throws FileException {
-        return orderoInfoDao.getOnameBysubjectOfAll(oname);
+        return orderInfoDao.getONameBySubjectOfAll(oname);
     }
 
     @Override
     public Set<String> getOrderInfoEntity() throws FileException {
-        List<OrderInfo> orderInfoList = orderoInfoDao.getOrderInfoEntity();
+        List<OrderInfo> orderInfoList = orderInfoDao.getOrderInfoEntity();
         //集合用于存储并清楚重复下拉框数据
         Set<String> set = new HashSet<>();
         for (OrderInfo orderInfo : orderInfoList) {
@@ -50,7 +50,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public Set<String> getOrderInfoEntityOfAll() throws FileException {
-        List<OrderInfo> orderInfoList = orderoInfoDao.getOrderInfoEntity();
+        List<OrderInfo> orderInfoList = orderInfoDao.getOrderInfoEntity();
         //集合用于存储并清楚重复下拉框数据
         Set<String> set = new HashSet<>();
         for (OrderInfo orderInfo : orderInfoList) {
@@ -61,7 +61,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException {
-        return orderoInfoDao.getOrderInfoEntityByOID(oid);
+        return orderInfoDao.getOrderInfoEntityByOID(oid);
     }
 
     @Override
@@ -96,6 +96,6 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void delEntityByHOID(Integer hoid) {
-        historyDao.delEntityByHOID(hoid);
+        historyDao.delEntityByHoId(hoid);
     }
 }

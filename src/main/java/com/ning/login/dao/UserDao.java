@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 用户DAO
+ *
  * @author wangn
  * @date 2017/5/19
  */
@@ -13,68 +15,76 @@ public interface UserDao {
     /**
      * 根据用户名获取密码
      *
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 密码
      */
-    public String getPasswd(String username);
+    String getPasswd(String username);
 
     /**
      * 根据ID获取密码
      *
-     * @param uid
-     * @return
+     * @param uid 用户ID
+     * @return 密码
      */
-    public String getPasswdById(String uid);
+    String getPasswdById(String uid);
 
     /**
      * 获取是否为第一次登陆
      *
-     * @param uid
-     * @return
+     * @param uid 用户ID
+     * @return 第一次登陆返回<code>true</code>，否则返回<code>false</code>
      */
-    public boolean isFirstLogin(String uid);
+    boolean isFirstLogin(String uid);
 
     /**
-     * 封装用户信息
+     * 根据用户名获取用户信息
      *
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户信息
      */
-    public User getUserEntity(String username);
+    User getUserEntity(String username);
 
     /**
-     * 修改密码
+     * 根据用户ID修改密码
      *
-     * @param map
+     * @param map 用户ID，新密码
      */
-    public void setUserPasswd(Map<String, String> map);
+    void setUserPasswd(Map<String, String> map);
 
     /**
-     * 设置登陆标记
+     * 根据用户ID设置登陆标记
      *
-     * @param isfirstlogin
+     * @param firstLogin 是第一次登陆
      */
-    public void setFirstLogin(Map<String, Object> isfirstlogin);
+    void setFirstLogin(Map<String, Object> firstLogin);
 
     /**
-     * @param uid
-     * @return
+     * 根据用户ID返回用户信息
+     *
+     * @param uid 用户ID
+     * @return 用户信息
      */
-    public User getUserEntityByID(String uid);
+    User getUserEntityByID(String uid);
 
     /**
-     * @return
+     * 获取所有用户
+     *
+     * @return 用户集合
      */
-    public List<User> getUserList();
+    List<User> getUserList();
 
     /**
-     * @param userOpenID
-     * @return
+     * 根据OPEN ID获取用户
+     *
+     * @param userOpenID OPEN ID
+     * @return 用户信息
      */
-    public User getUserEntityByOpenID(String userOpenID);
+    User getUserEntityByOpenID(String userOpenID);
 
     /**
-     * @param user
+     * 根据用户ID插入用户OPEN ID
+     *
+     * @param user {@link User}
      */
-    public void insertQQIDByUID(User user);
+    void insertQQIDByUID(User user);
 }

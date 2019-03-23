@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 科目批次实体
+ * 作业批次实体
  *
  * @author wangn
  * @date 2017/5/20
  */
 public class OrderInfo implements Serializable {
     /**
-     * 科目ID
+     * 作业批次ID
      */
     private int oid;
     /**

@@ -2,7 +2,7 @@ package com.ning.admin.service.impl;
 
 import com.ning.admin.service.AdminService;
 import com.ning.file.dao.HistoryDao;
-import com.ning.file.dao.OrderoInfoDao;
+import com.ning.file.dao.OrderInfoDao;
 import com.ning.file.entity.History;
 import com.ning.file.entity.OrderInfo;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
     private HistoryDao historyDao;
 
     @Resource
-    private OrderoInfoDao orderoInfoDao;
+    private OrderInfoDao orderInfoDao;
 
 
     @Override
@@ -33,21 +33,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<OrderInfo> getOrderInfoEntity() throws Exception {
-        return orderoInfoDao.getOrderInfoEntity();
+        return orderInfoDao.getOrderInfoEntity();
     }
 
     @Override
     public void changeKeyByOID(Map<String, Object> map) {
-        orderoInfoDao.changeKeyByOID(map);
+        orderInfoDao.changeKeyByOID(map);
     }
 
     @Override
     public void addOrderInfo(OrderInfo orderInfo) {
-        orderoInfoDao.addOrderInfo(orderInfo);
+        orderInfoDao.addOrderInfo(orderInfo);
     }
 
     @Override
     public void delOrderinfoByOID(Integer oid) {
-        orderoInfoDao.delOrderinfoByOID(oid);
+        orderInfoDao.delOrderinfoByOID(oid);
     }
 }

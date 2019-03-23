@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ning.file.dao.OrderoInfoDao">
+<mapper namespace="com.ning.file.dao.OrderInfoDao">
     <resultMap id="OrderInfoResult" type="OrderInfo">
         <id property="oid" column="oid"/>
         <result property="oname" column="oname"/>
@@ -11,11 +11,11 @@
         <result property="otime" column="otime"/>
     </resultMap>
 
-    <select id="getOnameBysubject" parameterType="String" resultType="OrderInfo">
+    <select id="getONameBySubject" parameterType="String" resultType="OrderInfo">
         SELECT * FROM orderinfo WHERE osubject = #{osubject} AND ostate = true
     </select>
 
-    <select id="getOnameBysubjectOfAll" parameterType="String" resultType="OrderInfo">
+    <select id="getONameBySubjectOfAll" parameterType="String" resultType="OrderInfo">
         SELECT * FROM orderinfo WHERE osubject = #{osubject}
     </select>
 

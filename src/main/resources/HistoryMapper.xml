@@ -24,7 +24,7 @@
     <delete id="delEntityByHID" parameterType="String">
         DELETE FROM history WHERE hid= #{delHid}
     </delete>
-    <delete id="delEntityByHOID" parameterType="int">
+    <delete id="delEntityByHoId" parameterType="int">
         DELETE FROM history WHERE hoid = #{hoid}
     </delete>
     <select id="getEntityByHID" parameterType="String" resultType="History">
