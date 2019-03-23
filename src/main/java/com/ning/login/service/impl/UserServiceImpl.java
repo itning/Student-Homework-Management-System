@@ -1,6 +1,5 @@
 package com.ning.login.service.impl;
 
-import com.ning.exception.login.LoginException;
 import com.ning.login.dao.UserDao;
 import com.ning.login.entity.User;
 import com.ning.login.service.UserService;
@@ -11,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 用户服务实现类
+ *
  * @author wangn
  * @date 2017/5/19
  */
@@ -20,33 +21,33 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public String getPasswd(String username) throws LoginException {
+    public String getPasswd(String username) {
         return userDao.getPasswd(username);
     }
 
     @Override
-    public String getPasswdById(String uid) throws LoginException {
+    public String getPasswdById(String uid) {
         return userDao.getPasswdById(uid);
     }
 
     @Override
-    public boolean isFirstLogin(String uid) throws LoginException {
+    public boolean isFirstLogin(String uid) {
         return userDao.isFirstLogin(uid);
     }
 
     @Override
-    public User getUserEntity(String username) throws LoginException {
+    public User getUserEntity(String username) {
         return userDao.getUserEntity(username);
     }
 
     @Override
-    public void setUserPasswd(Map<String, String> map) throws LoginException {
+    public void setUserPasswd(Map<String, String> map) {
         userDao.setUserPasswd(map);
     }
 
     @Override
-    public void setFirstLogin(Map<String, Object> isfirstlogin) throws LoginException {
-        userDao.setFirstLogin(isfirstlogin);
+    public void setFirstLogin(Map<String, Object> firstLogin) {
+        userDao.setFirstLogin(firstLogin);
     }
 
     @Override

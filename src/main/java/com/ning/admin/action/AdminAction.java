@@ -50,11 +50,10 @@ public class AdminAction {
      *
      * @param model 模型
      * @return jsp/admin.jsp
-     * @throws Exception Exception
      */
     @RequestMapping("admin")
     @RequiresPermissions("admin")
-    public String admin(Model model) throws Exception {
+    public String admin(Model model) {
         //下拉框数据
         model.addAttribute("orderInfoList", fileService.getOrderInfoEntityOfAll());
         //登录用户信息实体（User）
@@ -84,11 +83,10 @@ public class AdminAction {
      *
      * @param model 模型
      * @return jsp/subjectui.jsp
-     * @throws Exception Exception
      */
     @RequestMapping("subjectui")
     @RequiresPermissions("admin")
-    public String subjectui(Model model) throws Exception {
+    public String subjectui(Model model) {
         //OrderInfo实体集合
         model.addAttribute("allOrderInfo", adminService.getOrderInfoEntity());
         return "jsp/subjectui.jsp";

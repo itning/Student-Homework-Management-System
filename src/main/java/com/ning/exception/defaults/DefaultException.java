@@ -1,6 +1,7 @@
 package com.ning.exception.defaults;
 
 /**
+ * 默认异常
  *
  * @author wangn
  * @date 2017/5/19

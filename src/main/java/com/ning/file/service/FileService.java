@@ -1,6 +1,5 @@
 package com.ning.file.service;
 
-import com.ning.exception.file.FileException;
 import com.ning.file.entity.History;
 import com.ning.file.entity.OrderInfo;
 import com.ning.login.entity.User;
@@ -18,73 +17,94 @@ import java.util.Set;
  */
 public interface FileService {
     /**
-     * @param oname
-     * @return
-     * @throws FileException
+     * 根据科目批次名获取可上传的科目批次集合
+     *
+     * @param oname 科目批次名
+     * @return 可上传的科目批次集合
      */
-    List<OrderInfo> getOnameBysubject(String oname) throws FileException;
+    List<OrderInfo> getONameBySubject(String oname);
 
     /**
-     * @param oname
-     * @return
-     * @throws FileException
+     * 根据科目批次名获取所有科目批次集合
+     *
+     * @param oname 科目批次名
+     * @return 科目批次集合
      */
-    List<OrderInfo> getOnameBysubjectOfAll(String oname) throws FileException;
+    List<OrderInfo> getOnameBysubjectOfAll(String oname);
 
     /**
-     * @return
-     * @throws FileException
+     * 获取所有开启的作业的作业名
+     *
+     * @return 作业名集合
      */
-    Set<String> getOrderInfoEntity() throws FileException;
+    Set<String> getOrderInfoEntity();
 
     /**
-     * @return
-     * @throws FileException
+     * 获取所有作业的作业名
+     *
+     * @return 作业名集合
      */
-    Set<String> getOrderInfoEntityOfAll() throws FileException;
+    Set<String> getOrderInfoEntityOfAll();
 
     /**
-     * @param oid
-     * @return
-     * @throws FileException
+     * 根据科目批次ID获取科目批次实体
+     *
+     * @param oid 科目批次ID
+     * @return 科目批次实体
      */
-    OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException;
+    OrderInfo getOrderInfoEntityByOID(Integer oid);
 
     /**
-     * @param history
+     * 新增科目批次信息
+     *
+     * @param history {@link History}
      */
     void insertDataByEntity(History history);
 
     /**
-     * @param huid
-     * @return
+     * 根据用户ID获取用户上传的文件历史
+     *
+     * @param huid 用户ID
+     * @return 用户上传的文件历史集合
      */
     List<History> getUpListByUID(String huid);
 
     /**
-     * @param delHid
+     * 根据上传历史ID删除历史纪录
+     *
+     * @param delHid 上传历史ID
      */
     void delEntityByHID(String delHid);
 
     /**
-     * @param hid
-     * @return
+     * 根据上传历史ID获取上传信息
+     *
+     * @param hid 上传历史ID
+     * @return {@link History}
      */
     History getEntityByHID(String hid);
 
     /**
-     * @param hoidhuid
-     * @return
+     * 根据作业ID和用户ID查找上传历史<br>
+     * <code>map.put("hoid", user.getUserSelectOid());</code><br>
+     * <code>map.put("huid", user.getUid());</code>
+     *
+     * @param hoidhuid 作业ID和用户ID
+     * @return 上传历史记录，可能为<code>null</code>
      */
     History findHuidExists(Map<String, Object> hoidhuid);
 
     /**
-     * @param history
+     * 更新上传历史
+     *
+     * @param history {@link History}
      */
     void upHistoryData(History history);
 
     /**
-     * @param hoid
+     * 根据作业批次ID删除上传历史
+     *
+     * @param hoid 作业批次ID
      */
     void delEntityByHOID(Integer hoid);
 
@@ -111,6 +131,7 @@ public interface FileService {
      * @param user 用户
      * @param hId  文件ID
      * @return 删除成功否
+     * @throws Exception Exception
      */
     boolean deleteFile(User user, String hId) throws Exception;
 }

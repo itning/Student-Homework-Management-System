@@ -1,6 +1,7 @@
 package com.ning.exception.file;
 
 /**
+ * 文件相关异常
  *
  * @author wangn
  * @date 2017/5/20

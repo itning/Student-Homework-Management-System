@@ -1,6 +1,7 @@
 package com.ning.exception.login;
 
 /**
+ * 登陆相关异常
  *
  * @author wangn
  * @date 2017/5/19

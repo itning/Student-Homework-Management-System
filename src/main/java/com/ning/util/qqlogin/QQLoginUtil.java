@@ -9,6 +9,7 @@ import com.qq.connect.oauth.Oauth;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * QQ登陆工具类
  *
  * @author wangn
  * @date 2017/5/31
@@ -23,8 +24,8 @@ public class QQLoginUtil {
             } else {
                 openID = new OpenID(accessTokenObj.getAccessToken()).getUserOpenID();
             }
-        } catch (QQConnectException ignored) {
-            throw new LoginException(ignored.getMessage());
+        } catch (QQConnectException e) {
+            throw new LoginException(e.getMessage());
         }
         return openID;
     }

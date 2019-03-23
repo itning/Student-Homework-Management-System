@@ -26,9 +26,8 @@ public interface AdminService {
      * 获取所有科目批次信息
      *
      * @return 所有科目批次信息集合
-     * @throws Exception Exception
      */
-    List<OrderInfo> getOrderInfoEntity() throws Exception;
+    List<OrderInfo> getOrderInfoEntity();
 
     /**
      * 更新状态
@@ -63,6 +62,7 @@ public interface AdminService {
      * 根据批次ID删除批次
      *
      * @param oid 批次ID
+     * @throws Exception Exception
      */
     void delOrderInfosAndFilesByOID(int oid) throws Exception;
 }

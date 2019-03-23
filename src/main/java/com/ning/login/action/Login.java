@@ -103,10 +103,9 @@ public class Login {
      * @param model    {@link Model}
      * @param request  {@link HttpServletRequest}
      * @return JSP页面
-     * @throws LoginException LoginException
      */
     @RequestMapping("bindQQ")
-    public String bindQQ(String username, String password, Model model, HttpServletRequest request) throws LoginException {
+    public String bindQQ(String username, String password, Model model, HttpServletRequest request) {
         String userOpenID = (String) request.getSession().getAttribute("userOpenID");
         String passwd = userService.getPasswd(username);
         if (passwd == null) {

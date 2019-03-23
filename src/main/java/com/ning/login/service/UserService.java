@@ -1,12 +1,13 @@
 package com.ning.login.service;
 
-import com.ning.exception.login.LoginException;
 import com.ning.login.entity.User;
 
 import java.util.List;
 import java.util.Map;
 
 /**
+ * 用户服务
+ *
  * @author wangn
  * @date 2017/5/19
  */
@@ -14,74 +15,76 @@ public interface UserService {
     /**
      * 根据用户名获取密码
      *
-     * @param username
-     * @return
-     * @throws LoginException
+     * @param username 用户名
+     * @return 密码
      */
-    String getPasswd(String username) throws LoginException;
+    String getPasswd(String username);
 
     /**
      * 根据ID获取密码
      *
-     * @param uid
-     * @return
-     * @throws LoginException
+     * @param uid 用户ID
+     * @return 密码
      */
-    String getPasswdById(String uid) throws LoginException;
+    String getPasswdById(String uid);
 
     /**
      * 获取是否为第一次登陆
      *
-     * @param uid
-     * @return
-     * @throws LoginException
+     * @param uid 用户ID
+     * @return 第一次登陆返回<code>true</code>，否则返回<code>false</code>
      */
-    boolean isFirstLogin(String uid) throws LoginException;
+    boolean isFirstLogin(String uid);
 
     /**
-     * 封装用户信息
+     * 根据用户名获取用户信息
      *
-     * @param username
-     * @return
-     * @throws LoginException
+     * @param username 用户名
+     * @return 用户信息
      */
-    User getUserEntity(String username) throws LoginException;
+    User getUserEntity(String username);
 
     /**
-     * 修改密码
+     * 根据用户ID修改密码
      *
-     * @param map
-     * @throws LoginException
+     * @param map 用户ID，新密码
      */
-    void setUserPasswd(Map<String, String> map) throws LoginException;
+    void setUserPasswd(Map<String, String> map);
 
     /**
-     * 设置登陆标记
+     * 根据用户ID设置登陆标记
      *
-     * @param isfirstlogin
-     * @throws LoginException
+     * @param firstLogin 是第一次登陆
      */
-    void setFirstLogin(Map<String, Object> isfirstlogin) throws LoginException;
+    void setFirstLogin(Map<String, Object> firstLogin);
 
     /**
-     * @param uid
-     * @return
+     * 根据用户ID返回用户信息
+     *
+     * @param uid 用户ID
+     * @return 用户信息
      */
     User getUserEntityByID(String uid);
 
     /**
-     * @return
+     * 获取所有用户
+     *
+     * @return 用户集合
      */
     List<User> getUserList();
 
     /**
-     * @param userOpenID
-     * @return
+     * 根据OPEN ID获取用户
+     *
+     * @param userOpenID OPEN ID
+     * @return 用户信息
      */
     User getUserEntityByOpenID(String userOpenID);
 
     /**
-     * @param user
+     * 根据用户ID插入用户OPEN ID
+     *
+     * @param user {@link User}
      */
     void insertQQIDByUID(User user);
 }

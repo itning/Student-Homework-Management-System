@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
+ * 属性工具类
  *
  * @author wangn
  * @date 2017/5/25

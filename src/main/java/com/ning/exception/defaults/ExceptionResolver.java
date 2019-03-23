@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 异常解析
+ *
  * @author wangn
  * @date 2017/5/19
  */

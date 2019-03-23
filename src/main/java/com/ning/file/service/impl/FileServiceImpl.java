@@ -28,19 +28,19 @@ public class FileServiceImpl implements FileService {
     private HistoryDao historyDao;
 
     @Override
-    public List<OrderInfo> getOnameBysubject(String oname) throws FileException {
+    public List<OrderInfo> getONameBySubject(String oname) {
         return orderInfoDao.getONameBySubject(oname);
     }
 
     @Override
-    public List<OrderInfo> getOnameBysubjectOfAll(String oname) throws FileException {
+    public List<OrderInfo> getOnameBysubjectOfAll(String oname){
         return orderInfoDao.getONameBySubjectOfAll(oname);
     }
 
     @Override
-    public Set<String> getOrderInfoEntity() throws FileException {
+    public Set<String> getOrderInfoEntity(){
         List<OrderInfo> orderInfoList = orderInfoDao.getOrderInfoEntity();
-        //集合用于存储并清楚重复下拉框数据
+        //集合用于存储并清除重复下拉框数据
         Set<String> set = new HashSet<>();
         for (OrderInfo orderInfo : orderInfoList) {
             if (orderInfo.getOstate()) {
@@ -51,9 +51,9 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public Set<String> getOrderInfoEntityOfAll() throws FileException {
+    public Set<String> getOrderInfoEntityOfAll(){
         List<OrderInfo> orderInfoList = orderInfoDao.getOrderInfoEntity();
-        //集合用于存储并清楚重复下拉框数据
+        //集合用于存储并清除重复下拉框数据
         Set<String> set = new HashSet<>();
         for (OrderInfo orderInfo : orderInfoList) {
             set.add(orderInfo.getOsubject());

@@ -30,6 +30,7 @@ import java.util.Map;
 
 /**
  * 文件Action
+ *
  * @author wangn
  * @date 2017/5/19
  */
@@ -37,6 +38,7 @@ import java.util.Map;
 public class FileAction {
     private static final String ADMIN = "admin";
     private static final String FIRST_LOGIN_VALUE = "1";
+    private static final int MIN_PASSWORD_LENGTH = 8;
 
     @Resource
     private UserService userService;
@@ -60,10 +62,9 @@ public class FileAction {
      *
      * @param model {@link Model}
      * @return JSP页面
-     * @throws Exception Exception
      */
     @RequestMapping("fileupload")
-    public String index(Model model) throws Exception {
+    public String index(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (user.getPercode().equals(ADMIN)) {
             return ADMIN;
@@ -99,7 +100,7 @@ public class FileAction {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
         // 条件判断 开始
-        if (password.length() < 8) {
+        if (password.length() < MIN_PASSWORD_LENGTH) {
             model.addAttribute("user", user);
             model.addAttribute("errorinfo", "密码不能小于8位！");
             if (FIRST_LOGIN_VALUE.equals(firstlogin)) {
@@ -158,7 +159,7 @@ public class FileAction {
         if (subject == null || "".equals(subject)) {
             throw new FileException("获取失败：参数错误");
         }
-        return fileService.getOnameBysubject(subject);
+        return fileService.getONameBySubject(subject);
     }
 
     /**

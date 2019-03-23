@@ -44,7 +44,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<OrderInfo> getOrderInfoEntity() throws Exception {
+    public List<OrderInfo> getOrderInfoEntity() {
         return orderInfoDao.getOrderInfoEntity();
     }
 
@@ -92,6 +92,7 @@ public class AdminServiceImpl implements AdminService {
         return list;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     public void delOrderInfosAndFilesByOID(int oid) throws Exception {
         List<History> historyList = this.findFileListByHoid(oid);
