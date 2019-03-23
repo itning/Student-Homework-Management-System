@@ -13,34 +13,52 @@
         <result column="filesize" property="filesize"/>
     </resultMap>
     <insert id="insertDataByEntity" parameterType="com.ning.file.entity.History">
-        INSERT INTO history(hid,huid,hoid,type,filepath,uptime,filesize) VALUES
-        (#{hid},#{huid},#{hoid},#{type},#{filepath},#{uptime},#{filesize})
+        INSERT INTO history(hid, huid, hoid, type, filepath, uptime, filesize)
+        VALUES (#{hid}, #{huid}, #{hoid}, #{type}, #{filepath}, #{uptime}, #{filesize})
     </insert>
 
     <select id="getUpListByUID" parameterType="String" resultType="History">
-        SELECT * FROM history WHERE huid = #{huid}
+        SELECT hid, huid, hoid, type, filepath, uptime, filesize
+        FROM history
+        WHERE huid = #{huid}
     </select>
 
     <delete id="delEntityByHID" parameterType="String">
-        DELETE FROM history WHERE hid= #{delHid}
+        DELETE
+        FROM history
+        WHERE hid = #{delHid}
     </delete>
     <delete id="delEntityByHoId" parameterType="int">
-        DELETE FROM history WHERE hoid = #{hoid}
+        DELETE
+        FROM history
+        WHERE hoid = #{hoid}
     </delete>
     <select id="getEntityByHID" parameterType="String" resultType="History">
-        SELECT * FROM history WHERE hid = #{hid}
+        SELECT hid, huid, hoid, type, filepath, uptime, filesize
+        FROM history
+        WHERE hid = #{hid}
     </select>
 
     <select id="findHuidExists" parameterType="map" resultType="History">
-        SELECT * FROM history WHERE huid = #{huid} and hoid = #{hoid}
+        SELECT hid, huid, hoid, type, filepath, uptime, filesize
+        FROM history
+        WHERE huid = #{huid}
+          and hoid = #{hoid}
     </select>
 
     <update id="upHistoryData" parameterType="History">
-        UPDATE history SET type = #{type},filepath = #{filepath},uptime = #{uptime},filesize = #{filesize} WHERE hid =
-        #{hid}
+        UPDATE history
+        SET type     = #{type},
+            filepath = #{filepath},
+            uptime   = #{uptime},
+            filesize = #{filesize}
+        WHERE hid =
+              #{hid}
     </update>
 
     <select id="findFileListByHoid" parameterType="int" resultType="History">
-        SELECT * FROM history WHERE hoid = #{hoid}
+        SELECT hid, huid, hoid, type, filepath, uptime, filesize
+        FROM history
+        WHERE hoid = #{hoid}
     </select>
 </mapper>

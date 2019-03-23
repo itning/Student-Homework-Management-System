@@ -50,4 +50,19 @@ public interface AdminService {
      * @param oid 科目批次ID
      */
     void delOrderinfoByOID(Integer oid);
+
+    /**
+     * 根据作业ID查找所有的已上传文件实体集合
+     *
+     * @param hoid 作业ID
+     * @return 上传历史集合
+     */
+    List<History> getAllUploadedByHoid(int hoid);
+
+    /**
+     * 根据批次ID删除批次
+     *
+     * @param oid 批次ID
+     */
+    void delOrderInfosAndFilesByOID(int oid) throws Exception;
 }

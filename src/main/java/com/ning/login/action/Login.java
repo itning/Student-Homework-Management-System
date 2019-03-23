@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 登陆
  *
  * @author wangn
  * @date 2017/5/19
@@ -29,8 +30,16 @@ public class Login {
     @Resource
     private UserService userService;
 
+    /**
+     * 用户登陆
+     *
+     * @param model   {@link Model}
+     * @param request {@link HttpServletRequest}
+     * @return jsp/login.jsp
+     * @throws LoginException LoginException
+     */
     @RequestMapping("login")
-    public String userlogin(Model model, HttpServletRequest request) throws LoginException {
+    public String userLogin(Model model, HttpServletRequest request) throws LoginException {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (user != null && user.getUid() != null) {
             return "redirect:index.jsp";
@@ -49,11 +58,25 @@ public class Login {
         return "jsp/login.jsp";
     }
 
+    /**
+     * QQ登陆
+     *
+     * @param request {@link HttpServletRequest}
+     * @return 重定向到QQ登陆地址
+     * @throws QQConnectException QQConnectException
+     */
     @RequestMapping("qqLogin")
     public String qqLogin(HttpServletRequest request) throws QQConnectException {
         return "redirect:" + new Oauth().getAuthorizeURL(request);
     }
 
+    /**
+     * QQ登陆解析
+     *
+     * @param request {@link HttpServletRequest}
+     * @return JSP页面
+     * @throws LoginException LoginException
+     */
     @RequestMapping("qqLoginAfter")
     public String qqLoginAfter(HttpServletRequest request) throws LoginException {
         String userOpenID = QQLoginUtil.getUserOpenID(request);
@@ -72,6 +95,16 @@ public class Login {
         return "index.jsp";
     }
 
+    /**
+     * 将QQ绑定到用户
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @param model    {@link Model}
+     * @param request  {@link HttpServletRequest}
+     * @return JSP页面
+     * @throws LoginException LoginException
+     */
     @RequestMapping("bindQQ")
     public String bindQQ(String username, String password, Model model, HttpServletRequest request) throws LoginException {
         String userOpenID = (String) request.getSession().getAttribute("userOpenID");

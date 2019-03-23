@@ -23,64 +23,73 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
+ * 文件Action
  * @author wangn
  * @date 2017/5/19
  */
 @Controller
 public class FileAction {
+    private static final String ADMIN = "admin";
+    private static final String FIRST_LOGIN_VALUE = "1";
+
     @Resource
     private UserService userService;
 
     @Resource
     private FileService fileService;
 
-    //自定义类型转换器
+    /**
+     * 自定义类型转换器
+     *
+     * @param binder {@link WebDataBinder}
+     * @throws Exception Exception
+     */
     @InitBinder
     public void initBinder(WebDataBinder binder) throws Exception {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));
     }
 
-    //文件上传主页入口方法
+    /**
+     * 文件上传主页入口方法
+     *
+     * @param model {@link Model}
+     * @return JSP页面
+     * @throws Exception Exception
+     */
     @RequestMapping("fileupload")
     public String index(Model model) throws Exception {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        if (user.getPercode().equals("admin")) {
-            return "admin";
+        if (user.getPercode().equals(ADMIN)) {
+            return ADMIN;
         }
-        //用户上传历史实体
-        List<History> userHistoryList = fileService.getUpListByUID(user.getUid());
-        for (History history : userHistoryList) {
-            OrderInfo orderInfo = fileService.getOrderInfoEntityByOID(history.getHoid());
-            if (orderInfo != null) {
-                history.setOsubject(orderInfo.getOsubject());
-                history.setOname(orderInfo.getOname());
-                //设置文件扩展名
-                history.setFilepath(history.getFilepath().substring(history.getFilepath().lastIndexOf(".") + 1));
-            }
-        }
-        //下拉框数据
-        model.addAttribute("orderInfoList", fileService.getOrderInfoEntity());
-        model.addAttribute("user", user);
-        model.addAttribute("userHistoryList", userHistoryList);
         boolean firstLogin = userService.isFirstLogin(user.getUid());
         if (firstLogin) {
             return "jsp/firstpd.jsp";
         }
+        //用户上传历史实体
+        List<History> userHistoryList = fileService.getUserHistoryByUserId(user.getUid());
+        //下拉框数据
+        model.addAttribute("orderInfoList", fileService.getOrderInfoEntity());
+        model.addAttribute("user", user);
+        model.addAttribute("userHistoryList", userHistoryList);
         return "jsp/fileupload.jsp";
     }
 
     /**
      * 更改密码方法
      *
-     * @param model
-     * @param password
-     * @param firstlogin
-     * @param session
-     * @return
-     * @throws Exception
+     * @param model      {@link Model}
+     * @param password   新密码
+     * @param firstlogin 如果是第一次登陆，该值为<code>1</code>
+     * @param session    {@link HttpSession}
+     * @return JSP页面
+     * @throws Exception Exception
      */
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public String changePassword(Model model, String password, String firstlogin, HttpSession session) throws Exception {
@@ -88,29 +97,33 @@ public class FileAction {
             throw new LoginException("修改密码失败：参数为空");
         }
         User user = (User) SecurityUtils.getSubject().getPrincipal();
+
+        // 条件判断 开始
         if (password.length() < 8) {
             model.addAttribute("user", user);
             model.addAttribute("errorinfo", "密码不能小于8位！");
-            if (firstlogin != null && "1".equals(firstlogin)) {
+            if (FIRST_LOGIN_VALUE.equals(firstlogin)) {
                 return "jsp/firstpd.jsp";
             }
             return "jsp/cpasswd.jsp";
         }
         String uid = user.getUid();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>(2);
         map.put("uid", uid);
         map.put("password", password);
         String passwdById = userService.getPasswdById(uid);
         if (passwdById.equals(password)) {
             model.addAttribute("errorinfo", "新密码不能和原密码相同，请重新输入！");
-            if (firstlogin != null && "1".equals(firstlogin)) {
+            if (FIRST_LOGIN_VALUE.equals(firstlogin)) {
                 return "jsp/firstpd.jsp";
             }
             return "jsp/cpasswd.jsp";
         }
+        // 条件判断 结束
+
         userService.setUserPasswd(map);
-        if (userService.isFirstLogin(uid)) {
-            Map<String, Object> isfirst = new HashMap<String, Object>(16);
+        if (FIRST_LOGIN_VALUE.equals(firstlogin)) {
+            Map<String, Object> isfirst = new HashMap<>(2);
             isfirst.put("uid", uid);
             isfirst.put("isfirst", false);
             userService.setFirstLogin(isfirst);
@@ -122,8 +135,8 @@ public class FileAction {
     /**
      * 更改密码入口方法
      *
-     * @param model
-     * @return
+     * @param model {@link Model}
+     * @return jsp/cpasswd.jsp
      */
     @RequestMapping("cpasswd")
     public String cpasswd(Model model) {
@@ -132,10 +145,16 @@ public class FileAction {
         return "jsp/cpasswd.jsp";
     }
 
-
+    /**
+     * 根据科目名查找所有科目作业信息
+     *
+     * @param subject 科目名
+     * @return 科目作业信息集合
+     * @throws Exception Exception
+     */
     @RequestMapping("getOnameBysubject")
-    public @ResponseBody
-    List<OrderInfo> getOnameBysubject(String subject) throws Exception {
+    @ResponseBody
+    public List<OrderInfo> getOnameBysubject(String subject) throws Exception {
         if (subject == null || "".equals(subject)) {
             throw new FileException("获取失败：参数错误");
         }
@@ -145,9 +164,9 @@ public class FileAction {
     /**
      * 文件上传方法
      *
-     * @param file
-     * @return
-     * @throws Exception
+     * @param file {@link MultipartFile}
+     * @return index.jsp
+     * @throws Exception Exception
      */
     @RequestMapping("fileup")
     public String upfileByID(MultipartFile[] file) throws Exception {
@@ -156,39 +175,26 @@ public class FileAction {
         }
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         for (MultipartFile file1 : file) {
-            if (user.getUserselect_oid() != null && !(file1.isEmpty())) {
-                OrderInfo orderInfo = fileService.getOrderInfoEntityByOID(user.getUserselect_oid());
-                History history = new History();
-                history.setHid(UUID.randomUUID().toString().replace("-", ""));
-                history.setHuid(user.getUid());
-                history.setHoid(orderInfo.getOid());
-                String extensionName = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
-                String newfilename = user.getUsername() + user.getName() + orderInfo.getOsubject() + orderInfo.getOname() + extensionName;
-                history.setFilepath(newfilename);
-                history.setFilesize((double) file1.getSize());
-                history.setType(file1.getContentType());
-                history.setUptime(new Date());
-                Map<String, Object> map = new HashMap<String, Object>(16);
-                map.put("hoid", user.getUserselect_oid());
-                map.put("huid", user.getUid());
-                if ((fileService.findHuidExists(map)) != null) {
-                    this.delEntityByHID(fileService.findHuidExists(map).getHid());
-                }
-                fileService.insertDataByEntity(history);
-                File newfile = new File(PropertiesUtil.getUpLoadFilePath() + newfilename);
-                file1.transferTo(newfile);
+            if (user.getUserSelectOid() != null && !(file1.isEmpty())) {
+                fileService.uploadFile(file1, user);
             }
         }
         return "index.jsp";
     }
 
+    /**
+     * 设置用户选择上传的科目ID
+     *
+     * @param userSelectOid 科目批次ID
+     * @return 设置成功返回<code>true</code>
+     */
     @RequestMapping("userselect")
-    public @ResponseBody
-    Boolean userSelect(@RequestParam("userselect_oid") Integer userselectOid) throws Exception {
-        if (userselectOid != null) {
+    @ResponseBody
+    public boolean userSelect(@RequestParam("userselect_oid") Integer userSelectOid) {
+        if (userSelectOid != null) {
             User user = (User) SecurityUtils.getSubject().getPrincipal();
-            user.setUserselect_oid(userselectOid);
-            return user.getUserselect_oid() != null;
+            user.setUserSelectOid(userSelectOid);
+            return user.getUserSelectOid() != null;
         }
         return false;
     }
@@ -196,34 +202,27 @@ public class FileAction {
     /**
      * 删除文件方法
      *
-     * @param delHid
-     * @return
-     * @throws Exception
+     * @param delHid 历史记录ID
+     * @return 删除是否成功
+     * @throws Exception Exception
      */
     @RequestMapping("delEntityByHID")
-    public @ResponseBody
-    Boolean delEntityByHID(String delHid) throws Exception {
+    @ResponseBody
+    public boolean delEntityByHID(String delHid) throws Exception {
         if (delHid == null || "".equals(delHid)) {
             throw new FileException("删除失败：参数为空");
         }
-        Boolean istrueuser = false;
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        List<History> historyList = fileService.getUpListByUID(user.getUid());
-        for (History history : historyList) {
-            if (history.getHid().equals(delHid)) {
-                istrueuser = true;
-            }
-        }
-        if (istrueuser) {
-            History history = fileService.getEntityByHID(delHid);
-            File file = new File(PropertiesUtil.getUpLoadFilePath() + history.getFilepath());
-            fileService.delEntityByHID(delHid);
-            //文件未被删除且存在
-            return !file.exists() || file.delete();
-        }
-        return false;
+        return fileService.deleteFile(user, delHid);
     }
 
+    /**
+     * 下载作业
+     *
+     * @param hid      科目批次ID
+     * @param response {@link HttpServletResponse}
+     * @throws Exception Exception
+     */
     @RequestMapping("downFile")
     public void downLoadFile(String hid, HttpServletResponse response) throws Exception {
         if (hid == null || "".equals(hid)) {
@@ -240,7 +239,7 @@ public class FileAction {
              InputStream fis = new BufferedInputStream(new FileInputStream(file))) {
             IOUtils.copy(fis, toClient);
             toClient.flush();
-        } catch (IOException e) {
+        } catch (Exception e) {
             if (!e.getMessage().contains("连接")) {
                 throw e;
             }

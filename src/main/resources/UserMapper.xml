@@ -15,42 +15,62 @@
     </resultMap>
 
     <select id="getPasswd" parameterType="String" resultType="String">
-        SELECT password FROM user WHERE username = #{username}
+        SELECT password
+        FROM user
+        WHERE username = #{username}
     </select>
 
     <select id="getUserEntity" parameterType="String" resultType="User">
-        SELECT * FROM user WHERE username = #{username}
+        SELECT uid, username, password, headimg, firstlogin, name, percode, userOpenID
+        FROM user
+        WHERE username = #{username}
     </select>
 
     <update id="setUserPasswd" parameterType="map">
-        UPDATE user set password = #{password} WHERE uid = #{uid}
+        UPDATE user
+        set password = #{password}
+        WHERE uid = #{uid}
     </update>
 
     <update id="setFirstLogin" parameterType="map">
-        UPDATE user SET firstlogin = #{isfirst} WHERE uid = #{uid}
+        UPDATE user
+        SET firstlogin = #{isfirst}
+        WHERE uid = #{uid}
     </update>
 
     <select id="isFirstLogin" parameterType="String" resultType="Boolean">
-        SELECT firstlogin FROM user WHERE uid = #{uid}
+        SELECT firstlogin
+        FROM user
+        WHERE uid = #{uid}
     </select>
 
     <select id="getPasswdById" parameterType="String" resultType="String">
-        SELECT password FROM user WHERE uid = #{uid}
+        SELECT password
+        FROM user
+        WHERE uid = #{uid}
     </select>
 
     <select id="getUserEntityByID" resultType="User" parameterType="String">
-        SELECT * FROM user WHERE uid = #{uid}
+        SELECT uid, username, password, headimg, firstlogin, name, percode, userOpenID
+        FROM user
+        WHERE uid = #{uid}
     </select>
 
     <select id="getUserList" resultType="User">
-        SELECT * FROM user WHERE percode = 'user'
+        SELECT uid, username, password, headimg, firstlogin, name, percode, userOpenID
+        FROM user
+        WHERE percode = 'user'
     </select>
 
     <select id="getUserEntityByOpenID" parameterType="String" resultType="User">
-        SELECT * FROM user WHERE userOpenID = #{userOpenID}
+        SELECT uid, username, password, headimg, firstlogin, name, percode, userOpenID
+        FROM user
+        WHERE userOpenID = #{userOpenID}
     </select>
 
     <insert id="insertQQIDByUID" parameterType="User">
-        UPDATE user SET userOpenID = #{userOpenID} WHERE uid = #{uid}
+        UPDATE user
+        SET userOpenID = #{userOpenID}
+        WHERE uid = #{uid}
     </insert>
 </mapper>

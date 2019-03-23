@@ -36,7 +36,7 @@ public class User implements Serializable {
     /**
      *
      */
-    private Integer userselect_oid;
+    private Integer userSelectOid;
     /**
      * 角色
      */
@@ -62,12 +62,12 @@ public class User implements Serializable {
         this.percode = percode;
     }
 
-    public Integer getUserselect_oid() {
-        return userselect_oid;
+    public Integer getUserSelectOid() {
+        return userSelectOid;
     }
 
-    public void setUserselect_oid(Integer userselect_oid) {
-        this.userselect_oid = userselect_oid;
+    public void setUserSelectOid(Integer userSelectOid) {
+        this.userSelectOid = userSelectOid;
     }
 
     public String getName() {

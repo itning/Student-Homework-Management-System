@@ -151,7 +151,7 @@
 
         </div>
     </div>
-    <p style="8px"></p>
+    <p></p>
     </div>
 </section>
 <!--/内容-->
@@ -182,8 +182,7 @@
             if (data) {
                 $('#addmodel').modal('hide');
                 $("#loadsubject").load("${basePath}subjectui");
-            }
-            else {
+            } else {
                 $("#adderrormessage").removeClass("hidden");
             }
         });

@@ -6,13 +6,15 @@ import com.ning.file.dao.OrderInfoDao;
 import com.ning.file.entity.History;
 import com.ning.file.entity.OrderInfo;
 import com.ning.file.service.FileService;
+import com.ning.login.entity.User;
+import com.ning.util.properties.PropertiesUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.io.File;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by wangn on 2017/5/20.
@@ -60,7 +62,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public OrderInfo getOrderInfoEntityByOID(Integer oid) throws FileException {
+    public OrderInfo getOrderInfoEntityByOID(Integer oid) {
         return orderInfoDao.getOrderInfoEntityByOID(oid);
     }
 
@@ -97,5 +99,65 @@ public class FileServiceImpl implements FileService {
     @Override
     public void delEntityByHOID(Integer hoid) {
         historyDao.delEntityByHoId(hoid);
+    }
+
+    @Override
+    public List<History> getUserHistoryByUserId(String uId) {
+        return this.getUpListByUID(uId).stream().peek(history -> {
+            OrderInfo orderInfo = this.getOrderInfoEntityByOID(history.getHoid());
+            if (orderInfo != null) {
+                history.setOsubject(orderInfo.getOsubject());
+                history.setOname(orderInfo.getOname());
+                //设置文件扩展名
+                history.setFilepath(history.getFilepath().substring(history.getFilepath().lastIndexOf(".") + 1));
+            }
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void uploadFile(MultipartFile file, User user) throws Exception {
+        OrderInfo orderInfo = this.getOrderInfoEntityByOID(user.getUserSelectOid());
+        History history = new History();
+        history.setHid(UUID.randomUUID().toString().replace("-", ""));
+        history.setHuid(user.getUid());
+        history.setHoid(orderInfo.getOid());
+        String extensionName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String newfilename = user.getUsername() + user.getName() + orderInfo.getOsubject() + orderInfo.getOname() + extensionName;
+        history.setFilepath(newfilename);
+        history.setFilesize((double) file.getSize());
+        history.setType(file.getContentType());
+        history.setUptime(new Date());
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("hoid", user.getUserSelectOid());
+        map.put("huid", user.getUid());
+        if ((this.findHuidExists(map)) != null) {
+            this.delEntityByHID(this.findHuidExists(map).getHid());
+        }
+        this.insertDataByEntity(history);
+        File newfile = new File(PropertiesUtil.getUpLoadFilePath() + newfilename);
+        file.transferTo(newfile);
+    }
+
+    @Override
+    public boolean deleteFile(User user, String hId) throws Exception {
+        boolean isNotThisUser = true;
+        List<History> historyList = this.getUpListByUID(user.getUid());
+        for (History history : historyList) {
+            if (history.getHid().equals(hId)) {
+                isNotThisUser = false;
+                break;
+            }
+        }
+        if (isNotThisUser) {
+            return false;
+        }
+        History history = this.getEntityByHID(hId);
+        if (history == null) {
+            return false;
+        }
+        File file = new File(PropertiesUtil.getUpLoadFilePath() + history.getFilepath());
+        this.delEntityByHID(hId);
+        //文件未被删除且存在
+        return !file.exists() || file.delete();
     }
 }

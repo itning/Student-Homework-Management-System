@@ -44,7 +44,7 @@ public interface HistoryDao {
 
     /**
      * 根据作业ID和用户ID查找上传历史<br>
-     * <code>map.put("hoid", user.getUserselect_oid());</code><br>
+     * <code>map.put("hoid", user.getUserSelectOid());</code><br>
      * <code>map.put("huid", user.getUid());</code>
      *
      * @param hoidhuid 作业ID和用户ID

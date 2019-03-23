@@ -12,23 +12,32 @@
     </resultMap>
 
     <select id="getONameBySubject" parameterType="String" resultType="OrderInfo">
-        SELECT * FROM orderinfo WHERE osubject = #{osubject} AND ostate = true
+        SELECT oid, oname, osubject, ostate, otime
+        FROM orderinfo
+        WHERE osubject = #{osubject}
+          AND ostate = true
     </select>
 
     <select id="getONameBySubjectOfAll" parameterType="String" resultType="OrderInfo">
-        SELECT * FROM orderinfo WHERE osubject = #{osubject}
+        SELECT oid, oname, osubject, ostate, otime
+        FROM orderinfo
+        WHERE osubject = #{osubject}
     </select>
 
     <select id="getOrderInfoEntity" resultType="OrderInfo">
-        SELECT * FROM orderinfo
+        SELECT oid, oname, osubject, ostate, otime
+        FROM orderinfo
     </select>
 
     <select id="getOrderInfoEntityByOID" resultType="OrderInfo" parameterType="int">
-        SELECT * FROM orderinfo WHERE oid = #{oid}
+        SELECT oid, oname, osubject, ostate, otime
+        FROM orderinfo
+        WHERE oid = #{oid}
     </select>
 
     <insert id="addOrderInfo" parameterType="OrderInfo">
-        INSERT INTO orderinfo(oid,oname,osubject,ostate,otime) VALUES (#{oid},#{oname},#{osubject},#{ostate},#{otime})
+        INSERT INTO orderinfo(oid, oname, osubject, ostate, otime)
+        VALUES (#{oid}, #{oname}, #{osubject}, #{ostate}, #{otime})
     </insert>
     <update id="changeKeyByOID" parameterType="map">
         UPDATE orderinfo
@@ -40,6 +49,8 @@
         WHERE oid = #{oid}
     </update>
     <delete id="delOrderinfoByOID" parameterType="int">
-        DELETE FROM orderinfo WHERE oid = #{oid}
+        DELETE
+        FROM orderinfo
+        WHERE oid = #{oid}
     </delete>
 </mapper>
