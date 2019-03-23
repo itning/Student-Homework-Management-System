@@ -14,10 +14,11 @@ import java.util.Map;
  */
 public interface AdminService {
     /**
-     * 所有的已上传文件实体集合
+     * 获取所有的已上传文件实体集合
      *
-     * @param hoid 科目和批次ID
+     * @param hoid {@link History }实体的ID
      * @return 上传历史集合
+     * @see History
      */
     List<History> findFileListByHoid(Integer hoid);
 

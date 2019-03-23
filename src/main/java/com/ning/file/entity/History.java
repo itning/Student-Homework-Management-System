@@ -4,19 +4,47 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 上传历史记录
  *
  * @author wangn
  * @date 2017/5/22
  */
 public class History implements Serializable {
+    /**
+     * 唯一ID
+     */
     private String hid;
+    /**
+     * 对应的用户ID
+     */
     private String huid;
+    /**
+     * 科目ID
+     */
     private Integer hoid;
+    /**
+     * 上传的文件MIME类型
+     */
     private String type;
+    /**
+     * 文件名
+     */
     private String filepath;
+    /**
+     * 上传时间
+     */
     private Date uptime;
+    /**
+     * 文件大小
+     */
     private Double filesize;
+    /**
+     *
+     */
     private String osubject;
+    /**
+     *
+     */
     private String oname;
 
     /**

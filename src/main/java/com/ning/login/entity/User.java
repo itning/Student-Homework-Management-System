@@ -3,19 +3,47 @@ package com.ning.login.entity;
 import java.io.Serializable;
 
 /**
+ * 用户实体类
  *
  * @author wangn
  * @date 2017/5/19
  */
 public class User implements Serializable {
+    /**
+     * 用户唯一ID
+     */
     private String uid;
+    /**
+     * 用户名
+     */
     private String username;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 头像(目前没用)
+     */
     private String headimg;
+    /**
+     * 是否是第一次登陆
+     */
     private Boolean firstlogin;
+    /**
+     * 姓名
+     */
     private String name;
+    /**
+     *
+     */
     private Integer userselect_oid;
+    /**
+     * 角色
+     */
     private String percode;
+    /**
+     * QQ登陆用的OPEN ID 用于识别用户
+     */
     private String userOpenID;
 
     public String getUserOpenID() {

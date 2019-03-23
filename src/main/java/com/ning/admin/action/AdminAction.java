@@ -67,6 +67,13 @@ public class AdminAction {
         return "jsp/admin.jsp";
     }
 
+    /**
+     * 根据科目名查找所有科目信息
+     *
+     * @param subject 科目名
+     * @return 所有科目信息集合
+     * @throws Exception Exception
+     */
     @RequestMapping("getOnameBysubjectOfAll")
     public @ResponseBody
     List<OrderInfo> getOnameBysubjectOfAll(String subject) throws Exception {
@@ -252,13 +259,13 @@ public class AdminAction {
         if (orderInfo.getOsubject() == null || "".equals(orderInfo.getOsubject())) {
             return false;
         }
-        if (orderInfo.getOname() == null || "".equals(orderInfo.getOsubject())) {
+        if (orderInfo.getOname() == null) {
             return false;
         }
         if (orderInfo.getOstate() == null) {
             return false;
         }
-        Integer oid = (orderInfo.getOname().hashCode()) + (orderInfo.getOsubject().hashCode());
+        int oid = (orderInfo.getOname().hashCode()) + (orderInfo.getOsubject().hashCode());
         orderInfo.setOid(oid);
         orderInfo.setOtime(new Date());
         adminService.addOrderInfo(orderInfo);
