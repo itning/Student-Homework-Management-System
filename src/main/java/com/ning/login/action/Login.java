@@ -12,6 +12,8 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class Login {
+    private static final Logger logger = LoggerFactory.getLogger(Login.class);
+
     @Resource
     private UserService userService;
 
@@ -42,6 +46,7 @@ public class Login {
     public String userLogin(Model model, HttpServletRequest request) throws LoginException {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (user != null && user.getUid() != null) {
+            logger.debug("用户成功登录 {}", user);
             return "redirect:index.jsp";
         }
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
