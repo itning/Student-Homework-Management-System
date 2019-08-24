@@ -19,8 +19,8 @@
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <!-- 基本属性 url、user、password -->
         <property name="url" value="${jdbcUrl}" />
-        <property name="username" value="${user}" />
-        <property name="password" value="${password}" />
+        <property name="username" value="${dbuser}" />
+        <property name="password" value="${dbpassword}" />
 
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="1" />
