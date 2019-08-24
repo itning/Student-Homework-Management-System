@@ -49,12 +49,9 @@
         <p style="height: 8px"></p>
     </div> <!-- /container -->
 </section>
-<footer>
-    <div class="container">
-        <hr>
-        <p> 黑ICP备17003448号 | Copyright © 2017 <a href="http://itning.top">itning.top</a>. All rights reserved. </p>
-    </div>
-</footer>
+
+<%@include file="footer.jsp" %>
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${basePath }weblib/jquery/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

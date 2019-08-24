@@ -156,17 +156,7 @@
 </section>
 <!--/内容-->
 
-<!--脚注-->
-<footer>
-    <div class="container">
-        <hr>
-        <p> 黑ICP备17003448号 | Copyright © 2017 <a href="http://itning.top">itning.top</a>. All rights reserved.
-            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-            document.write(unescape("%3Cspan id='cnzz_stat_icon_1262008292'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1262008292%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-        </p>
-    </div>
-</footer>
-<!--/脚注-->
+<%@include file="footer.jsp" %>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${basePath }weblib/jquery/jquery-3.2.1.min.js"></script>

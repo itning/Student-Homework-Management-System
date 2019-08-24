@@ -4,12 +4,12 @@ body {
     padding: 0;
 }
 
-@media (max-width: 992px) {
+/*@media (max-width: 992px) {*/
     .background {
-        background: url("../img/backgroundimg.jpeg") fixed center;
+        background: url("../img/bg.jpg") fixed center;
         background-size: cover;
     }
-}
+/*}*/
 
 .blur {
     background: rgba(233, 233, 233, .6);
