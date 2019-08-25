@@ -42,12 +42,15 @@
 <!--<script src="weblib/fileinput/themes/fa/theme.min.js"></script>-->
 <script src="${basePath }weblib/fileinput/js/locales/zh.js"></script>
 <script>
+    //http://plugins.krajee.com/file-input/plugin-options
     $("#file_ID").fileinput({
         language: 'zh',
         uploadUrl: "fileup", //上传后台操作的方法
-        uploadAsync: false, //设置上传同步异步 当前异步
-        maxFileSize: 204800,
-        allowedFileExtensions: ['docx', 'doc', 'zip', 'rar', '7z', 'xls', 'xlsx', 'txt'], //限制上传文件后缀
+        uploadAsync: false, //设置上传同步异步 当前同步
+        maxFileSize: 51200, // 50MB now, this in KB,
+        minFileSize: 2, // 阻止过小文件上传
+        maxFileCount: 1,
+        allowedFileExtensions: ['zip', 'rar', '7z'], //限制上传文件后缀
         uploadExtraData: {"file_subject": "file_subjectfile_subjectfile_subject"}
     });
 </script>
