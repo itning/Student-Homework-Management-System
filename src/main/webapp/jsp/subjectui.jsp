@@ -39,5 +39,9 @@
 <script>
     function edit(oid) {
         console.log("edit" + oid);
+
+        // there's no code currently...
+        // this part need to modify database
+
     }
 </script>

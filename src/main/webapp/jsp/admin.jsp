@@ -189,11 +189,16 @@
     }
 
     function del(oid) {
-        $.get("${basePath }delOrderinfoByOID?oid=" + oid, function (data) {
-            if (data) {
-                window.location.reload();
+        // make a confirm here
+        if (confirm("确定删除批次吗？")){
+            if (confirm("一定要删除批次吗")){
+                $.get("${basePath }delOrderinfoByOID?oid=" + oid, function (data) {
+                    if (data) {
+                        window.location.reload();
+                    }
+                });
             }
-        });
+        }
     }
 
     $(function () {
