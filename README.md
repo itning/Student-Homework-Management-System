@@ -30,7 +30,7 @@
    理想实现需要后台管理员规划学生群组，然后学生参与群组，群组必须做的作业可以显示在学生界面。
    然而这样以来数据库和程序结构会大变，这与未来计划不符。
 
-   所以实际需求是学生可以看到所有科目和作业的截止时间，自行选择上传。
+   所以实际需求是学生可以看到所有课程和作业的截止时间，自行选择上传。
 
 2. 实现服务器上作业文件被下载后，定期删除功能。实现管理员界面显示作业文件总量。
    
@@ -214,6 +214,6 @@
     
     ![上传界面](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/sahngchuan.png)
     
-    ![添加科目](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/addkemu.png)
+    ![添加课程](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/addkemu.png)
     
     ![druid](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/druid.png)

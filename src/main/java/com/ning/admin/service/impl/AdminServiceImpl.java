@@ -109,7 +109,7 @@ public class AdminServiceImpl implements AdminService {
         }
         //删除历史记录
         fileService.delEntityByHOID(oid);
-        //删除科目
+        //删除课程
         this.delOrderinfoByOID(oid);
     }
 }

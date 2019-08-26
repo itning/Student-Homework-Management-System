@@ -6,7 +6,7 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
     application.setAttribute("basePath", basePath);
 %>
-<button type="button" class="btn btn-success" style="margin-bottom: 10px;" onclick="downall()">下载全部本科目作业</button>
+<button type="button" class="btn btn-success" style="margin-bottom: 10px;" onclick="downall()">下载全部本课程作业</button>
 <span id="total"></span>
 <div class="table-responsive">
     <table class="table table-hover">
@@ -65,7 +65,7 @@
         if ( flag !== true  ){
             window.open("${basePath }downAllFile", "_blank");
         } else {
-            alert("本科目没有作业提交。");
+            alert("本课程没有作业提交。");
         }
 
     }

@@ -36,7 +36,7 @@ import java.util.zip.ZipOutputStream;
 @Controller
 public class AdminAction {
     /**
-     * 科目批次状态名
+     * 课程名称状态名
      */
     private static final String O_STATE = "ostate";
 
@@ -64,10 +64,10 @@ public class AdminAction {
     }
 
     /**
-     * 根据科目名查找所有科目信息
+     * 根据课程名查找所有课程信息
      *
-     * @param subject 科目名
-     * @return 所有科目信息集合
+     * @param subject 课程名
+     * @return 所有课程信息集合
      * @throws Exception Exception
      */
     @RequestMapping("getOnameBysubjectOfAll")
@@ -98,7 +98,7 @@ public class AdminAction {
      * 获取已上传文件列表方法
      * 管理员权限访问
      *
-     * @param hoid    作业批次ID
+     * @param hoid    作业名称ID
      * @param model   模型
      * @param session HttpSession
      * @return jsp/downfileui.jsp
@@ -171,10 +171,10 @@ public class AdminAction {
     }
 
     /**
-     * 更改科目批次启用状态
+     * 更改课程名称启用状态
      * 该方法需要管理员权限
      *
-     * @param oid   科目批次ID
+     * @param oid   课程名称ID
      * @param key   key
      * @param value value
      * @return 更改是否成功
@@ -199,10 +199,10 @@ public class AdminAction {
     }
 
     /**
-     * 根据批次ID删除批次
+     * 根据名称ID删除名称
      * 该方法需要管理员权限
      *
-     * @param oid 批次ID
+     * @param oid 名称ID
      * @return ResponseBody 是否删除成功
      * @throws Exception Exception
      */
@@ -218,10 +218,10 @@ public class AdminAction {
     }
 
     /**
-     * 添加科目批次信息
+     * 添加课程名称信息
      * 该方法需要管理员权限
      *
-     * @param orderInfo 科目批次实体
+     * @param orderInfo 课程名称实体
      * @return 是否添加成功
      * @throws Exception Exception
      */

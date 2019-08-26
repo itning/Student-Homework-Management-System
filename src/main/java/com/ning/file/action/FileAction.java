@@ -153,10 +153,10 @@ public class FileAction {
     }
 
     /**
-     * 根据科目名查找所有科目作业信息
+     * 根据课程名查找所有课程作业信息
      *
-     * @param subject 科目名
-     * @return 科目作业信息集合
+     * @param subject 课程名
+     * @return 课程作业信息集合
      * @throws Exception Exception
      */
     @RequestMapping("getOnameBysubject")
@@ -190,9 +190,9 @@ public class FileAction {
     }
 
     /**
-     * 设置用户选择上传的科目ID
+     * 设置用户选择上传的课程ID
      *
-     * @param userSelectOid 科目批次ID
+     * @param userSelectOid 课程名称ID
      * @return 设置成功返回<code>true</code>
      */
     @RequestMapping("userselect")
@@ -226,7 +226,7 @@ public class FileAction {
     /**
      * 下载作业
      *
-     * @param hid      科目批次ID
+     * @param hid      课程名称ID
      * @param response {@link HttpServletResponse}
      * @throws Exception Exception
      */

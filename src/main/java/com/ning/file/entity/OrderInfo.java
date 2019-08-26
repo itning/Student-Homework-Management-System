@@ -7,18 +7,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 作业批次实体
+ * 作业名称实体
  *
  * @author wangn
  * @date 2017/5/20
  */
 public class OrderInfo implements Serializable {
     /**
-     * 作业批次ID
+     * 作业名称ID
      */
     private int oid;
     /**
-     * 科目名
+     * 课程名
      */
     private String oname;
     /**

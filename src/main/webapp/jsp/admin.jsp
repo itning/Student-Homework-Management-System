@@ -88,7 +88,7 @@
                 <tr>
                     <td>教师账户</td>
                     <td>教师姓名</td>
-                    <td>所属科目</td>
+                    <td>所属课程</td>
                     <td>账户状态</td>
                     <td>操作</td>
                 </tr>
@@ -125,12 +125,12 @@
         <div class="row equal">
 <%--            <div class="col-md-12 d-flex">--%>
             <div class="col-xs-12 col-sm-6 col-md-8">
-                <h1 style="display: inline-block;" >科目和批次管理</h1>
+                <h1 style="display: inline-block;" >课程和作业名称管理</h1>
             </div>
 
             <div class="col-xs-6 col-md-4">
                 <button type="button" id="upfilebutton_id" class="btn btn-primary" style="position:absolute; margin-bottom:10px; bottom: 0 !important;"
-                        data-toggle="modal" data-remote="${basePath }jsp/addsubjectui.jsp" data-target=".bs-modal-lg">添加科目或批次
+                        data-toggle="modal" data-remote="${basePath }jsp/addsubjectui.jsp" data-target=".bs-modal-lg">添加课程或作业名称
                 </button>
             </div>
 
@@ -153,7 +153,7 @@
             <h1>下载已上传的文件</h1>
             <label for="subject_ID">
                 <select name="subject" id="subject_ID" class="form-control">
-                    <option value="none">请选择科目...</option>
+                    <option value="none">请选择课程...</option>
                     <c:forEach items="${orderInfoList }" var="orderInfo">
                         <option value="${orderInfo }">${orderInfo }</option>
                     </c:forEach>
@@ -222,8 +222,8 @@
 
     function del(oid) {
         // make a confirm here
-        if (confirm("确定删除批次吗？")){
-            if (confirm("一定要删除批次吗")){
+        if (confirm("确定删除名称吗？")){
+            if (confirm("一定要删除名称吗")){
                 $.get("${basePath }delOrderinfoByOID?oid=" + oid, function (data) {
                     if (data) {
                         window.location.reload();

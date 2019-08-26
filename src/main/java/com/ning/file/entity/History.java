@@ -19,7 +19,7 @@ public class History implements Serializable {
      */
     private String huid;
     /**
-     * 科目ID
+     * 课程ID
      */
     private Integer hoid;
     /**
@@ -46,7 +46,7 @@ public class History implements Serializable {
      */
     private String osubject;
     /**
-     * 科目名
+     * 课程名
      */
     private String oname;
 

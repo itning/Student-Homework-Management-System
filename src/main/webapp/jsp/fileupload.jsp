@@ -253,7 +253,7 @@
 
                     var appendString = "";
                     if (ct >= givenDeadline){
-                        appendString = "(已过期)";
+                        appendString = "(已截止)";
                     }
 
                     $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + " " + appendString + "</option>");
@@ -268,8 +268,8 @@
             file_oid = $(this).val();
 
             // change upload button status here
-            if ($("#oid_id option:selected").text().includes("已过期")){
-                console.log('已过期');
+            if ($("#oid_id option:selected").text().includes("已截止")){
+                console.log('已截止');
                 $("#upfilebutton_id").prop("disabled", true) ;
             } else {
                 if (file_oid != null){

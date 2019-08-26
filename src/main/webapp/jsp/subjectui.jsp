@@ -9,8 +9,8 @@
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
-            <td>科目名称</td>
-            <td>批次名称</td>
+            <td>课程名称</td>
+            <td>名称名称</td>
             <td>当前状态</td>
             <td>管理教师</td>
             <td>上次操作时间</td>

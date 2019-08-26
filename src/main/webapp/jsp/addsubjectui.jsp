@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="oname" class="col-sm-2 control-label">批次：</label>
+        <label for="oname" class="col-sm-2 control-label">名称：</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="oname" placeholder="请输入作业名称...">
         </div>

@@ -17,18 +17,18 @@ import java.util.Set;
  */
 public interface FileService {
     /**
-     * 根据科目批次名获取可上传的科目批次集合
+     * 根据课程名称名获取可上传的课程名称集合
      *
-     * @param oname 科目批次名
-     * @return 可上传的科目批次集合
+     * @param oname 课程名称名
+     * @return 可上传的课程名称集合
      */
     List<OrderInfo> getONameBySubject(String oname);
 
     /**
-     * 根据科目批次名获取所有科目批次集合
+     * 根据课程名称名获取所有课程名称集合
      *
-     * @param oname 科目批次名
-     * @return 科目批次集合
+     * @param oname 课程名称名
+     * @return 课程名称集合
      */
     List<OrderInfo> getOnameBysubjectOfAll(String oname);
 
@@ -54,15 +54,15 @@ public interface FileService {
     Set<String> getOrderInfoEntityOfAll();
 
     /**
-     * 根据科目批次ID获取科目批次实体
+     * 根据课程名称ID获取课程名称实体
      *
-     * @param oid 科目批次ID
-     * @return 科目批次实体
+     * @param oid 课程名称ID
+     * @return 课程名称实体
      */
     OrderInfo getOrderInfoEntityByOID(Integer oid);
 
     /**
-     * 新增科目批次信息
+     * 新增课程名称信息
      *
      * @param history {@link History}
      */
@@ -109,9 +109,9 @@ public interface FileService {
     void upHistoryData(History history);
 
     /**
-     * 根据作业批次ID删除上传历史
+     * 根据作业名称ID删除上传历史
      *
-     * @param hoid 作业批次ID
+     * @param hoid 作业名称ID
      */
     void delEntityByHOID(Integer hoid);
 
