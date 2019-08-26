@@ -80,7 +80,7 @@
                 <h1>请选择文件归类</h1>
                 <label for="subject_ID">
                     <select name="subject" id="subject_ID" class="form-control">
-                        <option value="none">请选择科目...</option>
+                        <option value="none">请选择课程...</option>
                         <c:forEach items="${orderInfoList }" var="orderInfo">
                             <option value="${orderInfo }">${orderInfo }</option>
                         </c:forEach>
@@ -88,7 +88,7 @@
                 </label>
                 <label for="oid_id">
                     <select name="oid" id="oid_id" class="form-control">
-                        <option value="none">请选择次序...</option>
+                        <option value="none">请选择作业名称...</option>
                     </select>
                 </label>
             </div>
@@ -206,20 +206,47 @@
         var file_subject = "";
         var file_oid = "";
         $("#subject_ID").change(function () {
+
             file_subject = $(this).val();
+
             $.get("${basePath }getOnameBysubject?subject=" + file_subject, function (data) {
+                // console.log("Request called") ;
                 $("#oid_id").empty();
-                $("#upfilebutton_id").removeAttr("disabled");
                 $.each(data, function (key, value) {
                     if (key === 0) {
                         file_oid = value.oid;
                     }
-                    $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + "</option>");
+
+                    var ct = Date.now();
+                    var givenDeadline = new Date(value.odeadline).getTime();
+
+                    var appendString = "";
+                    if (ct >= givenDeadline){
+                        appendString = "(已过期)";
+                    }
+
+                    $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + " " + appendString + "</option>");
                 });
+                // select the first oid
+                // change is a browser only event, need to manually trigger it
+                $("#oid_id option:first").attr("selected", "selected").trigger('change');
             });
         });
         $("#oid_id").change(function () {
+            // console.log('oid_id changed');
             file_oid = $(this).val();
+
+            // change upload button status here
+            if ($("#oid_id option:selected").text().includes("已过期")){
+                console.log('已过期');
+                $("#upfilebutton_id").prop("disabled", true) ;
+            } else {
+                if (file_oid != null){
+                    $("#upfilebutton_id").prop("disabled", false) ;
+                }
+            }
+
+
         });
         $("#upfilebutton_id").click(function () {
             $.get("${basePath }userselect?userselect_oid=" + file_oid, function (data) {

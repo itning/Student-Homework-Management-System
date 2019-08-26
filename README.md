@@ -13,9 +13,40 @@
 [![HitCount](http://hits.dwyl.io/itning/Student-Homework-Management-System.svg)](http://hits.dwyl.io/itning/Student-Homework-Management-System)
 [![language](https://img.shields.io/badge/language-JAVA-green.svg)](https://github.com/itning/Student-Homework-Management-System)
 
-**实现功能：**
+**本代码是[itning的学生作业管理系统](https://github.com/itning/Student-Homework-Management-System)的进一步开发，实现功能：**
 
-学生上传文件到系统中，后台统一命名存储文件，管理员登陆后可以批量下载后台打包过后的文件。
+####原本功能
+1. 管理员在后台数据库中准备好学生学号（10位）后，学生可以用学号登录系统，首次登录需要自行设置密码（大于8位）
+2. 学生可以上传文件到系统中，上传功能基于bootstrap-fileinput
+3. 后台统一命名存储文件
+4. 管理员登陆后可以批量下载后台打包过后的文件
+####新增功能
+1. 添加截止时间设置，截止时间过后学生无法上传作业
+2. 管理员删除作业任务时，增加确认对话框
+3. 一些界面的小改动
+####TODO List:
+1. 学生上传界面明显提示截止日期。
+
+   理想实现需要后台管理员规划学生群组，然后学生参与群组，群组必须做的作业可以显示在学生界面。
+   然而这样以来数据库和程序结构会大变，这与未来计划不符。
+
+   所以实际需求是学生可以看到所有科目和作业的截止时间，自行选择上传。
+
+2. 实现服务器上作业文件被下载后，定期删除功能。实现管理员界面显示作业文件总量。
+   
+3. 实现多教师、管理员用户。
+   
+   这个涉及用户权限问题，很多需要改进的地方，暂时放在后面
+
+4. 实现上传限速。
+
+
+####未来计划
+原作者写有shw-server和shw-client的新版系统，实现了前后端分离，希望选用学习更先进的技术可以去研究那边的系统。
+
+这个系统使用一些JSP和JSTL比较旧的技术，没有实现前后端分离，调试需要借助IDE，本人不太熟悉Java系开发技术，处于学习阶段，目前体会是Java没有想象的那么麻烦，当然是选用合适IDE的情况下。
+
+本人希望使用一个小规模系统，短时间能够上线，所以才选用，未来会修补这个系统的问题，添加小功能， 但应该不会大规模改进这个系统。
 
 ## 架构
 
@@ -24,6 +55,8 @@
 1. jQuery
 2. Bootstrap3
 3. Bootstrap-fileinput
+4. moment.js
+5. bootstrap-datepicker
 
 ### 后端
 
@@ -75,10 +108,15 @@
    [官方下载互联SDK](http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/qqConnect_Server_SDK_java_v2.0.zip)
 
    ```shell
-   mvn install:install-file -Dfile=D:\a.jar -DgroupId=com.qq.connect -DartifactId=qq-connect -Dversion=2.0.0.RELEASE -Dpackaging=jar
+   mvn install:install-file -Dfile=<path_to_your_manually_downloaded_jar_file>.jar -DgroupId=com.qq.connect -DartifactId=qq-connect -Dversion=2.0.0.RELEASE -Dpackaging=jar
    ```
 
 6. 运行
+
+   ```
+   mvn install
+   mvn package
+   ```
 
    项目使用的Tomcat版本为8.5.20，你最好与我同步。[下载该版本](https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/)
 
@@ -135,6 +173,7 @@
      `osubject` varchar(255) NOT NULL,
      `ostate` bit(1) NOT NULL,
      `otime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+     `odeadline` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
      PRIMARY KEY (`oid`)
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
    
