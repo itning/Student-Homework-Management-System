@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -150,6 +152,24 @@ public class AdminAction {
         zipOut.close();
     }
 
+    // 更改截止时间
+
+    @RequestMapping("updateDeadlineByOID")
+    @RequiresPermissions("admin")
+    public @ResponseBody
+    Boolean updateDeadlineByOID(Integer oid, Date deadlineDate) throws Exception{
+        if (oid == null || deadlineDate == null){
+            throw new FileException("更改失败：参数不正确");
+        }
+
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("odeadline", deadlineDate);
+        map.put("oid", oid);
+
+        adminService.updateDeadlineByOID(map);
+        return true;
+    }
+
     /**
      * 更改科目批次启用状态
      * 该方法需要管理员权限
@@ -221,9 +241,16 @@ public class AdminAction {
         if (orderInfo.getOstate() == null) {
             return false;
         }
+        if (orderInfo.getOdeadlinestr() == null){
+            return false;
+        }
+
+
         int oid = (orderInfo.getOname().hashCode()) + (orderInfo.getOsubject().hashCode());
         orderInfo.setOid(oid);
         orderInfo.setOtime(new Date());
+
+        orderInfo.setOdeadlineFromStr(orderInfo.getOdeadlinestr());
         adminService.addOrderInfo(orderInfo);
         return true;
     }

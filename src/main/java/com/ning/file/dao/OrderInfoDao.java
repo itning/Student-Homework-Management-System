@@ -2,6 +2,7 @@ package com.ning.file.dao;
 
 import com.ning.file.entity.OrderInfo;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,9 @@ public interface OrderInfoDao {
      * @return 作业批次信息
      */
     OrderInfo getOrderInfoEntityByOID(Integer oid);
+
+
+    OrderInfo updateDeadlineByOID(Map<String, Object> map);
 
     /**
      * 更新作业批次信息

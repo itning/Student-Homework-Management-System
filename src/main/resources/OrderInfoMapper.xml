@@ -9,35 +9,36 @@
         <result property="osubject" column="osubject"/>
         <result property="ostate" column="ostate"/>
         <result property="otime" column="otime"/>
+        <result property="odeadline" column="odeadline"/>
     </resultMap>
 
     <select id="getONameBySubject" parameterType="String" resultType="OrderInfo">
-        SELECT oid, oname, osubject, ostate, otime
+        SELECT oid, oname, osubject, ostate, otime, odeadline
         FROM orderinfo
         WHERE osubject = #{osubject}
           AND ostate = true
     </select>
 
     <select id="getONameBySubjectOfAll" parameterType="String" resultType="OrderInfo">
-        SELECT oid, oname, osubject, ostate, otime
+        SELECT oid, oname, osubject, ostate, otime, odeadline
         FROM orderinfo
         WHERE osubject = #{osubject}
     </select>
 
     <select id="getOrderInfoEntity" resultType="OrderInfo">
-        SELECT oid, oname, osubject, ostate, otime
+        SELECT oid, oname, osubject, ostate, otime, odeadline
         FROM orderinfo
     </select>
 
     <select id="getOrderInfoEntityByOID" resultType="OrderInfo" parameterType="int">
-        SELECT oid, oname, osubject, ostate, otime
+        SELECT oid, oname, osubject, ostate, otime, odeadline
         FROM orderinfo
         WHERE oid = #{oid}
     </select>
 
     <insert id="addOrderInfo" parameterType="OrderInfo">
-        INSERT INTO orderinfo(oid, oname, osubject, ostate, otime)
-        VALUES (#{oid}, #{oname}, #{osubject}, #{ostate}, #{otime})
+        INSERT INTO orderinfo(oid, oname, osubject, ostate, otime, odeadline)
+        VALUES (#{oid}, #{oname}, #{osubject}, #{ostate}, #{otime}, #{odeadline})
     </insert>
     <update id="changeKeyByOID" parameterType="map">
         UPDATE orderinfo
@@ -48,6 +49,14 @@
         </set>
         WHERE oid = #{oid}
     </update>
+    <update id="updateDeadlineByOID" parameterType="map">
+        UPDATE orderinfo
+        <set>
+            <if test="odeadline!=null">odeadline = #{odeadline}</if>
+        </set>
+        WHERE oid = #{oid}
+    </update>
+
     <delete id="delOrderinfoByOID" parameterType="int">
         DELETE
         FROM orderinfo

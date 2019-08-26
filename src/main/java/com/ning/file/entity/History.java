@@ -34,6 +34,9 @@ public class History implements Serializable {
      * 上传时间
      */
     private Date uptime;
+
+    private Date deadline;
+
     /**
      * 文件大小
      */
@@ -110,6 +113,10 @@ public class History implements Serializable {
     public void setUptime(Date uptime) {
         this.uptime = uptime;
     }
+
+    public Date getDeadline() {return  deadline;}
+    public void setDeadline(Date deadline) {this.deadline = deadline;}
+
 
     public Double getFilesize() {
         return filesize;

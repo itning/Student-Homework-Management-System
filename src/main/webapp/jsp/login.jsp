@@ -91,7 +91,7 @@
             idlength = inputID.length;
             if (idlength !== 0) {
                 if (!isNaN(inputID)) {
-                    if (idlength !== 10) { //艺术学院学号是10位
+                    if (idlength !== 10 && idlength !== 12) { //艺术学院学号是10位
                         $("#errorinfo_id").text("学号长度为10位数字，请输入正确的学号！");
                         $("#Id_div").addClass("has-error has-feedback");
                     }
@@ -119,7 +119,7 @@
             }
         });
         $("#submit_id").click(function () {
-            if (idlength === 10 && passwdlength !== 0 && passwdlength >= 8) {
+            if (idlength === 10 || idlength === 12 && passwdlength !== 0 && passwdlength >= 8) {
                 document.forms[0].submit();
             }
             else {

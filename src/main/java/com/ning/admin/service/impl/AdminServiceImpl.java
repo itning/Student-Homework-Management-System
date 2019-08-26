@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,9 @@ public class AdminServiceImpl implements AdminService {
     public List<OrderInfo> getOrderInfoEntity() {
         return orderInfoDao.getOrderInfoEntity();
     }
+
+    @Override
+    public void updateDeadlineByOID(Map<String, Object> map) { orderInfoDao.updateDeadlineByOID(map);}
 
     @Override
     public void changeKeyByOID(Map<String, Object> map) {

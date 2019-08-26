@@ -3,6 +3,7 @@ package com.ning.admin.service;
 import com.ning.file.entity.History;
 import com.ning.file.entity.OrderInfo;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,10 @@ public interface AdminService {
      * @return 所有科目批次信息集合
      */
     List<OrderInfo> getOrderInfoEntity();
+
+
+
+    void updateDeadlineByOID(Map<String, Object> map);
 
     /**
      * 更新状态

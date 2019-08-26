@@ -16,6 +16,8 @@
     <link rel="shortcut icon" href="${basePath }img/favicon.ico"/>
     <link rel="bookmark" href="${basePath }img/favicon.ico"/>
     <link href="${basePath }weblib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath }weblib/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="${basePath }css/base.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -158,17 +160,31 @@
 
 <%@include file="footer.jsp" %>
 
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${basePath }weblib/jquery/jquery-3.2.1.min.js"></script>
+<%--moment need to before bootstrap--%>
+<script src="${basePath }weblib/moment/moment.min.js"></script>
+<script src="${basePath }weblib/moment/zh-cn.js"></script>
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${basePath }weblib/bootstrap/js/bootstrap.min.js"></script>
+<script src="${basePath }weblib/bootstrap/js/bootstrap-datetimepicker.min.js "></script>
+
+
+
 <script src="${basePath }js/base.js"></script>
 <script>
     function add() {
         var osubject = $("#osubject").val();
         var oname = $("#oname").val();
         var ostate = $("#ostate").val();
-        $.get("${basePath }addOrderInfo?osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate, function (data) {
+        // here need to convert js data-localtime to
+        // var odeadline = $("#odeadline").data("DateTimePicker").date().toDate().getTime(); // this gets wrong timestamp
+        var odeadline = $("#odeadline").data("DateTimePicker").date().unix();
+        console.log('odeadline string from JS: ', odeadline);
+
+        $.get("${basePath }addOrderInfo?osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate + "&odeadlinestr=" + odeadline, function (data) {
             if (data) {
                 $('#addmodel').modal('hide');
                 $("#loadsubject").load("${basePath}subjectui");

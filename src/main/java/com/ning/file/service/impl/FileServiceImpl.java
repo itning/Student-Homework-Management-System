@@ -104,12 +104,17 @@ public class FileServiceImpl implements FileService {
     @Override
     public List<History> getUserHistoryByUserId(String uId) {
         return this.getUpListByUID(uId).stream().peek(history -> {
+            // here we could have the deadline
             OrderInfo orderInfo = this.getOrderInfoEntityByOID(history.getHoid());
+
             if (orderInfo != null) {
                 history.setOsubject(orderInfo.getOsubject());
                 history.setOname(orderInfo.getOname());
                 //设置文件扩展名
                 history.setFilepath(history.getFilepath().substring(history.getFilepath().lastIndexOf(".") + 1));
+
+                //set deadline
+                history.setDeadline(orderInfo.getOdeadline());
             }
         }).collect(Collectors.toList());
     }
