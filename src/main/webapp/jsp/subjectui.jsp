@@ -48,7 +48,7 @@
     $('.runEditButtonClick').on('click', function(ev){
         ev.preventDefault();
         console.log('upfilebutton run.');
-        https://github.com/twbs/bootstrap/pull/7935#issuecomment-21166069
+        //https://github.com/twbs/bootstrap/pull/7935#issuecomment-21166069
         $('.bs-modal-lg').removeData('bs.modal');
     });
 </script>
