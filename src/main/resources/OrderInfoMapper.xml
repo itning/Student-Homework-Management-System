@@ -57,6 +57,18 @@
         WHERE oid = #{oid}
     </update>
 
+    <update id="updateOrderByOID" parameterType="map">
+        UPDATE orderinfo
+        <set>
+            <if test="osubject!=null">osubject = #{osubject},</if>
+            <if test="oname!=null">oname = #{oname},</if>
+            <if test="ostate!=null">ostate = #{ostate},</if>
+            <if test="otime!=null">otime = #{otime},</if>
+            <if test="odeadline!=null">odeadline = #{odeadline}</if>
+        </set>
+        WHERE oid = #{oid}
+    </update>
+
     <delete id="delOrderinfoByOID" parameterType="int">
         DELETE
         FROM orderinfo

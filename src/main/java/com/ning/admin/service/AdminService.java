@@ -41,6 +41,8 @@ public interface AdminService {
      */
     void changeKeyByOID(Map<String, Object> map);
 
+    void updateOrderByOID(Map<String, Object> map);
+
     /**
      * 添加课程名称
      *

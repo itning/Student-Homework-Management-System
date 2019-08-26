@@ -58,6 +58,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public void updateOrderByOID(Map<String, Object> map) { orderInfoDao.updateOrderByOID(map);}
+
+    @Override
     public void addOrderInfo(OrderInfo orderInfo) {
         orderInfoDao.addOrderInfo(orderInfo);
     }

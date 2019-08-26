@@ -18,8 +18,7 @@
             <td>操作</td>
         </tr>
         <c:forEach items="${allOrderInfo }" var="allorderinfo">
-            <tr
-                    <c:if test="${!allorderinfo.ostate}">class='danger'</c:if> id="${allorderinfo.oid }">
+            <tr  <c:if test="${!allorderinfo.ostate}">class='danger'</c:if> id="${allorderinfo.oid }">
                 <td><p>${allorderinfo.osubject }</p></td>
                 <td><p>${allorderinfo.oname }</p></td>
                 <td><p>${allorderinfo.ostate?"已启用":"已禁用" }</p></td>
@@ -29,24 +28,27 @@
                 <td>
                     <button type="button" class="btn btn-info btn-primary"
                             onclick="changeState(${allorderinfo.oid },${allorderinfo.ostate})">${allorderinfo.ostate?"禁用":"启用" }</button>
-                    <button type="button" class="btn btn-info btn-warning" onclick="edit(${allorderinfo.oid })">编辑
-                    </button>
+
+                    <button type="button" id="upfilebutton_id" class="btn btn-info btn-warning runEditButtonClick"
+                            data-toggle="modal"
+                            data-target=".bs-modal-lg"
+                            data-remote="${basePath }jsp/editsubjectui.jsp?oid=${allorderinfo.oid}&osubject=${allorderinfo.osubject}&oname=${allorderinfo.oname}&odeadline=${allorderinfo.odeadline.time}"
+                    >编辑 </button>
+
                     <button type="button" class="btn btn-info btn-danger" onclick="del(${allorderinfo.oid })">删除
                     </button>
                 </td>
-
-
-
             </tr>
         </c:forEach>
     </table>
 </div>
+
 <script>
-    function edit(oid) {
-        console.log("edit" + oid);
-
-        // there's no code currently...
-        // this part need to modify database
-
-    }
+    // https://stackoverflow.com/a/21351871/921082
+    $('.runEditButtonClick').on('click', function(ev){
+        ev.preventDefault();
+        console.log('upfilebutton run.');
+        https://github.com/twbs/bootstrap/pull/7935#issuecomment-21166069
+        $('.bs-modal-lg').removeData('bs.modal');
+    });
 </script>

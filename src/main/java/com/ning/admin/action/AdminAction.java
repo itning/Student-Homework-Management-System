@@ -198,6 +198,33 @@ public class AdminAction {
         return true;
     }
 
+
+    @RequestMapping("updateOrderByOID")
+    @RequiresPermissions("admin")
+    public @ResponseBody
+    Boolean updateOrderByOID(Integer oid, String osubject, String oname, String ostate, String odeadlinestr) throws Exception{
+
+        if (oid == null ||
+                osubject == null || "".equals(osubject) ||
+                oname == null || "".equals(oname) ||
+                ostate == null || "".equals(ostate) ||
+                odeadlinestr == null || "".equals(odeadlinestr)) {
+            throw new FileException("更改失败：参数不正确");
+        }
+
+        Map<String, Object> map = new HashMap<>(6);
+        map.put("oid", oid);
+        map.put("osubject", osubject);
+        map.put("oname", oname);
+        map.put("ostate", Boolean.parseBoolean(ostate));
+        map.put("otime", new Date());
+
+        map.put("odeadline", new Date(Long.parseLong(odeadlinestr) * 1000));
+
+        adminService.updateOrderByOID(map);
+        return true;
+    }
+
     /**
      * 根据名称ID删除名称
      * 该方法需要管理员权限

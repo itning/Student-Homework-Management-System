@@ -119,7 +119,7 @@
     </div>
 </section>
 
-<!--添加学科或者次序-->
+<!--添加课程或者作业名称-->
 <section>
     <div class="container">
         <div class="row equal">
@@ -144,7 +144,7 @@
         <div id="loadsubject"></div>
     </div>
 </section>
-<!--/添加学科或者次序-->
+<!--/添加课程或者作业名称-->
 
 <!--内容-->
 <section>
@@ -161,7 +161,7 @@
             </label>
             <label for="oid_id">
                 <select name="oid" id="oid_id" class="form-control">
-                    <option value="none">请选择次序...</option>
+                    <option value="none">请选择作业名称...</option>
                 </select>
             </label>
         </div>
@@ -232,6 +232,8 @@
             }
         }
     }
+
+
 
     $(function () {
         $("#loadsubject").load("${basePath}subjectui");

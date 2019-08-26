@@ -45,7 +45,9 @@ public interface OrderInfoDao {
     OrderInfo getOrderInfoEntityByOID(Integer oid);
 
 
-    OrderInfo updateDeadlineByOID(Map<String, Object> map);
+    void updateDeadlineByOID(Map<String, Object> map);
+
+    void updateOrderByOID(Map<String, Object> map);
 
     /**
      * 更新作业名称信息

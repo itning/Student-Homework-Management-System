@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${basePath }css/subject.css">
 
 <form class="form-horizontal">
-    <h1>添加学科和类别：</h1>
+    <h1>添加课程和类别：</h1>
     <div class="alert alert-danger alert-dismissible fade in hidden" role="alert" id="adderrormessage">
         <button type="button" class="close" aria-label="Close" id="closemessage_id"><span
                 aria-hidden="true">&times;</span>
@@ -33,7 +33,7 @@
     <input type="hidden" id="timezone" name="timezone" value="+08:00">
 
     <div class="form-group">
-        <label for="oname" class="col-sm-2 control-label">截止：</label>
+        <label for="odeadline" class="col-sm-2 control-label">截止：</label>
 
         <div class='col-sm-10 input-group date' id='odeadline'>
             <input type='text' class="form-control" />
@@ -44,7 +44,7 @@
     </div>
 
     <div class="form-group">
-        <label for="oname" class="col-sm-2 control-label">状态：</label>
+        <label for="ostate" class="col-sm-2 control-label">状态：</label>
         <div class="col-sm-10">
             <label>
                 <select class="form-control" id="ostate">
@@ -70,7 +70,4 @@
             locale: 'zh-cn'
         });
     });
-
-
-
 </script>
