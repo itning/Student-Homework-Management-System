@@ -42,6 +42,13 @@
             margin-top: 8px;
             margin-bottom: 8px;
         }
+
+        .equal {
+            display: flex;
+            display: -webkit-flex;
+            flex-wrap: wrap;
+        }
+
     </style>
 </head>
 <body>
@@ -115,10 +122,19 @@
 <!--添加学科或者次序-->
 <section>
     <div class="container">
-        <h1>科目和批次管理</h1>
-        <button type="button" id="upfilebutton_id" class="btn btn-primary"
-                data-toggle="modal" data-remote="${basePath }jsp/addsubjectui.jsp" data-target=".bs-modal-lg">添加科目或批次
-        </button>
+        <div class="row equal">
+<%--            <div class="col-md-12 d-flex">--%>
+            <div class="col-xs-12 col-sm-6 col-md-8">
+                <h1 style="display: inline-block;" >科目和批次管理</h1>
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+                <button type="button" id="upfilebutton_id" class="btn btn-primary" style="position:absolute; margin-bottom:10px; bottom: 0 !important;"
+                        data-toggle="modal" data-remote="${basePath }jsp/addsubjectui.jsp" data-target=".bs-modal-lg">添加科目或批次
+                </button>
+            </div>
+
+        </div>
         <div class="modal fade bs-modal-lg" id="addmodel" tabindex="-1" role="dialog"
              aria-labelledby="myLargeModalLabel">
             <div class="modal-dialog modal-lg">

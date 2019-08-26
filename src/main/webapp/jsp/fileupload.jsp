@@ -41,6 +41,12 @@
             margin-top: 8px;
             margin-bottom: 8px;
         }
+
+        hr {
+            margin: 0 !important;
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+        }
     </style>
 </head>
 <body>
@@ -75,9 +81,33 @@
 <!--内容-->
 <section>
     <div class="container">
+
+        <div class="table-responsive">
+            <h2>当前全部作业列表</h2>
+            <table class="table table-hover">
+                <tr>
+                    <td>课程名称</td>
+                    <td>作业名称</td>
+<%--                    <td>管理教师</td>--%>
+                    <td>截止时间</td>
+
+                </tr>
+                <c:forEach items="${orderInfoStudentFullList }" var="orderInfoEle">
+                    <tr>
+                        <td><p>${orderInfoEle.osubject }</p></td>
+                        <td><p>${orderInfoEle.oname }</p></td>
+<%--                        <td><p></p></td>--%>
+                        <td><p><fmt:formatDate value="${orderInfoEle.odeadline }" pattern="yyyy年MM月dd日 HH:mm:ss"/></p></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+
+
+
         <form action="" method="post" enctype="multipart/form-data">
             <div>
-                <h1>请选择文件归类</h1>
+                <h2>请选择课程和作业名称</h2>
                 <label for="subject_ID">
                     <select name="subject" id="subject_ID" class="form-control">
                         <option value="none">请选择课程...</option>
@@ -91,17 +121,19 @@
                         <option value="none">请选择作业名称...</option>
                     </select>
                 </label>
+
+                <button type="button" id="upfilebutton_id" disabled="disabled" class="btn btn-primary"
+                        data-toggle="modal" data-remote="${basePath }jsp/upfileui.jsp" data-target=".bs-modal-lg" style="position:relative; bottom: 3px !important;">开始上传文件
+                </button>
+
+
             </div>
             <div>
-                <hr>
                 <div class="alert alert-danger alert-dismissible fade in hidden" role="alert" id="alert_id">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                     <strong>与服务器交互数据失败！</strong> 请检查网络连接并重新选择文件归类！
                 </div>
-                <button type="button" id="upfilebutton_id" disabled="disabled" class="btn btn-primary"
-                        data-toggle="modal" data-remote="${basePath }jsp/upfileui.jsp" data-target=".bs-modal-lg">开始上传文件
-                </button>
                 <div class="modal fade bs-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content"></div>
@@ -109,7 +141,6 @@
                 </div>
             </div>
         </form>
-        <p></p>
     </div>
 </section>
 <!--/内容-->

@@ -10,6 +10,7 @@ import com.ning.login.service.UserService;
 import com.ning.util.properties.PropertiesUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.SecurityUtils;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,6 +76,11 @@ public class FileAction {
         }
         //用户上传历史实体
         List<History> userHistoryList = fileService.getUserHistoryByUserId(user.getUid());
+
+        //Student浏览区数据
+        // orderInfoList already filtered with state
+        model.addAttribute("orderInfoStudentFullList", fileService.getOrderInfoFullEntity());
+
         //下拉框数据
         model.addAttribute("orderInfoList", fileService.getOrderInfoEntity());
         model.addAttribute("user", user);

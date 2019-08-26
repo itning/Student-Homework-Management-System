@@ -33,6 +33,13 @@ public interface FileService {
     List<OrderInfo> getOnameBysubjectOfAll(String oname);
 
     /**
+     * 获取所有开启的作业的作业
+     *
+     * @return 作业OrderInfo List
+     */
+    List<OrderInfo>  getOrderInfoFullEntity();
+
+    /**
      * 获取所有开启的作业的作业名
      *
      * @return 作业名集合

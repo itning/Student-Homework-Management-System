@@ -38,6 +38,18 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public List<OrderInfo>  getOrderInfoFullEntity(){
+        List<OrderInfo> orderInfoList = orderInfoDao.getOrderInfoEntity();
+        List<OrderInfo> filtered = new ArrayList<>();
+        for (OrderInfo orderInfo : orderInfoList) {
+            if (orderInfo.getOstate()) {
+                filtered.add(orderInfo);
+            }
+        }
+        return  filtered;
+    }
+
+    @Override
     public Set<String> getOrderInfoEntity(){
         List<OrderInfo> orderInfoList = orderInfoDao.getOrderInfoEntity();
         //集合用于存储并清除重复下拉框数据
