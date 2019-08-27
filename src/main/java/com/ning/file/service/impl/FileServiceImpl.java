@@ -139,7 +139,12 @@ public class FileServiceImpl implements FileService {
         history.setHuid(user.getUid());
         history.setHoid(orderInfo.getOid());
         String extensionName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-        String newfilename = user.getUsername() + user.getName() + orderInfo.getOsubject() + orderInfo.getOname() + extensionName;
+
+        // since oname allows url markdown, this affect filename, causing problem.
+        String filteredOname = PropertiesUtil.filterOutUrl(orderInfo.getOname());
+
+        String newfilename = user.getUsername() + user.getName() + orderInfo.getOsubject() + filteredOname + extensionName;
+
         history.setFilepath(newfilename);
         history.setFilesize((double) file.getSize());
         history.setType(file.getContentType());
