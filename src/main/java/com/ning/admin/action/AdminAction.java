@@ -275,8 +275,10 @@ public class AdminAction {
             return false;
         }
 
-
+        // here is problem, could get negative result because oname too long  and causing overflow
+        // this is fine for MySQL, should be fine for url encoding, change it is easy but maybe not necessary
         int oid = (orderInfo.getOname().hashCode()) + (orderInfo.getOsubject().hashCode());
+
         orderInfo.setOid(oid);
         orderInfo.setOtime(new Date());
 
