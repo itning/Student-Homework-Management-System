@@ -200,7 +200,10 @@
         var odeadline = $("#odeadline").data("DateTimePicker").date().unix();
         console.log('odeadline string from JS: ', odeadline);
 
-        $.get("${basePath }addOrderInfo?osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate + "&odeadlinestr=" + odeadline, function (data) {
+        // url can contain invalid character need encode
+        var url = "${basePath }addOrderInfo?osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate + "&odeadlinestr=" + odeadline ;
+
+        $.get(encodeURI(url), function (data) {
             if (data) {
                 $('#addmodel').modal('hide');
                 $("#loadsubject").load("${basePath}subjectui");

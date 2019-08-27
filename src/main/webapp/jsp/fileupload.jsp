@@ -95,7 +95,7 @@
                 <c:forEach items="${orderInfoStudentFullList }" var="orderInfoEle">
                     <tr>
                         <td><p>${orderInfoEle.osubject }</p></td>
-                        <td><p>${orderInfoEle.oname }</p></td>
+                        <td><p class="linkcheck">${orderInfoEle.oname }</p></td>
 <%--                        <td><p></p></td>--%>
                         <td><p><fmt:formatDate value="${orderInfoEle.odeadline }" pattern="yyyy年MM月dd日 HH:mm:ss"/></p></td>
                     </tr>
@@ -180,7 +180,7 @@
                     <c:forEach items="${userHistoryList }" var="userHistory">
                         <tr id="${userHistory.hid }">
                             <td><p>${userHistory.osubject}</p></td>
-                            <td><p>${userHistory.oname}</p></td>
+                            <td><p class="linkcheck">${userHistory.oname}</p></td>
                             <td><p>${userHistory.filepath}</p></td>
                             <td><p><fmt:formatDate value="${userHistory.uptime }" pattern="yyyy年MM月dd日 HH:mm:ss"/></p>
                             </td>
@@ -233,7 +233,55 @@
         window.open("https://view.officeapps.live.com/op/view.aspx?src=${basePath }downFile?hid=" + hid, "_blank");
     }
 
+    function isValidURL(string) {
+        var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+        return (res !== null)
+    };
+
+    function checkSetURLGivenStr(teststr){
+        if (teststr[0] !== '[' || teststr[teststr.length-1] !== ')'){
+            // not a link
+        } else {
+            // check if there's many [] () s
+            var count = 0;
+            count += (teststr.match(/\[/g) || []).length;
+            count += (teststr.match(/\]/g) || []).length;
+            count += (teststr.match(/\(/g) || []).length;
+            count += (teststr.match(/\)/g) || []).length;
+
+            if (count === 4){
+                // possiblely a markdown url link
+
+                // get substring between
+                var purl = teststr.substring(
+                    teststr.lastIndexOf('(') + 1,
+                    teststr.lastIndexOf(')')
+                );
+
+                var ptext = teststr.substring(
+                    teststr.lastIndexOf('[') + 1,
+                    teststr.lastIndexOf(']')
+                );
+
+                if (isValidURL(purl)){
+                    return "<a href=\"" + purl + "\" target=\"_blank\">" + ptext + "</a>";
+                }
+            }
+        }
+
+        return null;
+    }
+
+
     $(function () {
+        $('.linkcheck').each(function () {
+            var hstr = $(this).html();
+            var rstr = checkSetURLGivenStr(hstr);
+            if (rstr != null){
+                $(this).html(rstr);
+            }
+        });
+
         var file_subject = "";
         var file_oid = "";
         $("#subject_ID").change(function () {
@@ -248,6 +296,10 @@
                         file_oid = value.oid;
                     }
 
+                    // filter the string if a url
+
+
+                    // append the deadline label
                     var ct = Date.now();
                     var givenDeadline = new Date(value.odeadline).getTime();
 
@@ -256,7 +308,13 @@
                         appendString = "(已截止)";
                     }
 
-                    $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + " " + appendString + "</option>");
+                    var checkResult = checkSetURLGivenStr(value.oname) ;
+                    if ( checkResult != null ){
+                        $("#oid_id").append("<option value=" + value.oid + ">" + checkResult + " " + appendString + "</option>");
+                    } else {
+                        $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + " " + appendString + "</option>");
+                    }
+
                 });
                 // select the first oid
                 // change is a browser only event, need to manually trigger it
