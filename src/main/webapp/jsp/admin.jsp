@@ -187,9 +187,10 @@
 <script src="${basePath }weblib/bootstrap/js/bootstrap.min.js"></script>
 <script src="${basePath }weblib/bootstrap/js/bootstrap-datetimepicker.min.js "></script>
 
-
-
 <script src="${basePath }js/base.js"></script>
+<script src="${basePath }js/filterurl.js "></script>
+
+
 <script>
     function add() {
         var osubject = $("#osubject").val();
@@ -198,7 +199,7 @@
         // here need to convert js data-localtime to
         // var odeadline = $("#odeadline").data("DateTimePicker").date().toDate().getTime(); // this gets wrong timestamp
         var odeadline = $("#odeadline").data("DateTimePicker").date().unix();
-        console.log('odeadline string from JS: ', odeadline);
+        //console.log('odeadline string from JS: ', odeadline);
 
         // url can contain invalid character need encode
         var url = "${basePath }addOrderInfo?osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate + "&odeadlinestr=" + odeadline ;
@@ -252,13 +253,29 @@
                         file_oid = value.oid;
                         flushFileList();
                     }
-                    $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + "</option>");
+
+                    // append the deadline label
+                    var ct = Date.now();
+                    var givenDeadline = new Date(value.odeadline).getTime();
+
+                    var appendString = "";
+                    if (ct >= givenDeadline){
+                        appendString = "(已截止)";
+                    }
+
+                    var checkResult = checkSetURLGivenStr(value.oname) ;
+                    if ( checkResult != null ){
+                        $("#oid_id").append("<option value=" + value.oid + ">" + checkResult + " " + appendString + "</option>");
+                    } else {
+                        $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + " " + appendString + "</option>");
+                    }
+
                 });
             });
         });
         $("#oid_id").change(function () {
             file_oid = $(this).val();
-            console.log("file_oid" + file_oid);
+            //console.log("file_oid" + file_oid);
             flushFileList();
         });
 
