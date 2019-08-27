@@ -32,10 +32,18 @@
                     <button type="button" class="btn btn-info btn-primary"
                             onclick="changeState(${allorderinfo.oid },${allorderinfo.ostate})">${allorderinfo.ostate?"禁用":"启用" }</button>
 
+
+                    <c:url value="${basePath }jsp/editsubjectui.jsp" var="encodedUrl">
+                        <c:param name="oid" value="${allorderinfo.oid}" />
+                        <c:param name="osubject" value="${allorderinfo.osubject}"/>
+                        <c:param name="oname" value="${allorderinfo.oname}"/>
+                        <c:param name="odeadline" value="${allorderinfo.odeadline.time}"/>
+                    </c:url>
                     <button type="button" id="upfilebutton_id" class="btn btn-info btn-warning runEditButtonClick"
                             data-toggle="modal"
                             data-target=".bs-modal-lg"
-                            data-remote="${basePath }jsp/editsubjectui.jsp?oid=${allorderinfo.oid}&osubject=${allorderinfo.osubject}&oname=${allorderinfo.oname}&odeadline=${allorderinfo.odeadline.time}"
+<%--                            data-remote="${basePath }jsp/editsubjectui.jsp?oid=${allorderinfo.oid}&osubject=${allorderinfo.osubject}&oname=${allorderinfo.oname}&odeadline=${allorderinfo.odeadline.time}"--%>
+                            data-remote="${encodedUrl}"
                     >编辑 </button>
 
                     <button type="button" class="btn btn-info btn-danger" onclick="del(${allorderinfo.oid })">删除

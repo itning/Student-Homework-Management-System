@@ -85,7 +85,8 @@
         var odeadline = $("#odeadlineEdit").data("DateTimePicker").date().unix();
         console.log('odeadline string from JS: ', odeadline);
 
-        $.get("${basePath }updateOrderByOID?oid=" + oid + "&osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate + "&odeadlinestr=" + odeadline, function (data) {
+        var url = "${basePath }updateOrderByOID?oid=" + oid + "&osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate + "&odeadlinestr=" + odeadline ;
+        $.get(encodeURI(url), function (data) {
             if (data) {
                 $('#addmodel').modal('hide');
                 $("#loadsubject").load("${basePath}subjectui");
