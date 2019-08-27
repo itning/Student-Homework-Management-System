@@ -134,7 +134,10 @@ public class AdminAction {
             throw new FileException("下载失败：未找到数据！");
         }
         OrderInfo orderInfo = fileService.getOrderInfoEntityByOID(fileListByHoid.get(0).getHoid());
-        String zipfilename = orderInfo.getOsubject() + orderInfo.getOname();
+
+        String filteredOname = PropertiesUtil.filterOutUrl(orderInfo.getOname());
+        String zipfilename = orderInfo.getOsubject() + "_" + filteredOname;
+
         List<String> filesname = new ArrayList<>(fileListByHoid.size());
         for (History history : fileListByHoid) {
             filesname.add(history.getFilepath());
