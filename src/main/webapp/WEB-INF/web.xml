@@ -81,7 +81,7 @@
         <init-param>
             <!-- 用户名 -->
             <param-name>loginUsername</param-name>
-            <param-value>tom</param-value>
+            <param-value>itning</param-value>
         </init-param>
         <init-param>
             <!-- 密码 -->

@@ -11,7 +11,7 @@
 <footer>
     <div class="container">
         <hr>
-        <p> 桂ICP备17000524号 | Copyright © 2019 <a href="http://vfxware.com">vfxware.com</a>. All rights reserved.
+        <p> 你的备案号 | Copyright © 2019 <a href="http://example.com">example.com</a>. All rights reserved.
 <%--            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");--%>
 <%--            document.write(unescape("%3Cspan id='cnzz_stat_icon_1262008292'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1262008292%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));--%>
 <%--            </script>--%>
