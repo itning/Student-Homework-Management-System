@@ -31,4 +31,21 @@ public class PropertiesUtil {
         }
         return filepath;
     }
+
+    public static String filterOutUrl(String teststr) throws Exception{
+        if (teststr.charAt(0) == '[' && teststr.charAt(teststr.length() - 1) == ')'){
+            int count = 0;
+            count += teststr.chars().filter(ch -> ch == '[').count();
+            count += teststr.chars().filter(ch -> ch == ']').count();
+            count += teststr.chars().filter(ch -> ch == '(').count();
+            count += teststr.chars().filter(ch -> ch == ')').count();
+
+            if (count == 4) {
+                String ptext = teststr.substring(teststr.lastIndexOf('[') + 1, teststr.lastIndexOf(']'));
+                return ptext;
+            }
+        }
+
+        return  teststr;
+    }
 }

@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 科目批次DAO
+ * 课程名称DAO
  *
  * @author wangn
  * @date 2017/5/22
  */
 public interface HistoryDao {
     /**
-     * 新增科目批次
+     * 新增课程名称
      *
      * @param history {@link History}
      */
@@ -60,7 +60,7 @@ public interface HistoryDao {
     void upHistoryData(History history);
 
     /**
-     * 根据作业批次ID获取上传文件历史
+     * 根据作业名称ID获取上传文件历史
      *
      * @param hoid ID
      * @return 上传历史集合
@@ -68,9 +68,9 @@ public interface HistoryDao {
     List<History> findFileListByHoid(Integer hoid);
 
     /**
-     * 根据作业批次ID删除上传历史
+     * 根据作业名称ID删除上传历史
      *
-     * @param hoid 作业批次ID
+     * @param hoid 作业名称ID
      */
     void delEntityByHoId(Integer hoid);
 }

@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -34,7 +36,7 @@ import java.util.zip.ZipOutputStream;
 @Controller
 public class AdminAction {
     /**
-     * 科目批次状态名
+     * 课程名称状态名
      */
     private static final String O_STATE = "ostate";
 
@@ -62,10 +64,10 @@ public class AdminAction {
     }
 
     /**
-     * 根据科目名查找所有科目信息
+     * 根据课程名查找所有课程信息
      *
-     * @param subject 科目名
-     * @return 所有科目信息集合
+     * @param subject 课程名
+     * @return 所有课程信息集合
      * @throws Exception Exception
      */
     @RequestMapping("getOnameBysubjectOfAll")
@@ -96,7 +98,7 @@ public class AdminAction {
      * 获取已上传文件列表方法
      * 管理员权限访问
      *
-     * @param hoid    作业批次ID
+     * @param hoid    作业名称ID
      * @param model   模型
      * @param session HttpSession
      * @return jsp/downfileui.jsp
@@ -132,7 +134,10 @@ public class AdminAction {
             throw new FileException("下载失败：未找到数据！");
         }
         OrderInfo orderInfo = fileService.getOrderInfoEntityByOID(fileListByHoid.get(0).getHoid());
-        String zipfilename = orderInfo.getOsubject() + orderInfo.getOname();
+
+        String filteredOname = PropertiesUtil.filterOutUrl(orderInfo.getOname());
+        String zipfilename = orderInfo.getOsubject() + "_" + filteredOname;
+
         List<String> filesname = new ArrayList<>(fileListByHoid.size());
         for (History history : fileListByHoid) {
             filesname.add(history.getFilepath());
@@ -150,11 +155,29 @@ public class AdminAction {
         zipOut.close();
     }
 
+    // 更改截止时间
+
+    @RequestMapping("updateDeadlineByOID")
+    @RequiresPermissions("admin")
+    public @ResponseBody
+    Boolean updateDeadlineByOID(Integer oid, Date deadlineDate) throws Exception{
+        if (oid == null || deadlineDate == null){
+            throw new FileException("更改失败：参数不正确");
+        }
+
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("odeadline", deadlineDate);
+        map.put("oid", oid);
+
+        adminService.updateDeadlineByOID(map);
+        return true;
+    }
+
     /**
-     * 更改科目批次启用状态
+     * 更改课程名称启用状态
      * 该方法需要管理员权限
      *
-     * @param oid   科目批次ID
+     * @param oid   课程名称ID
      * @param key   key
      * @param value value
      * @return 更改是否成功
@@ -178,11 +201,38 @@ public class AdminAction {
         return true;
     }
 
+
+    @RequestMapping("updateOrderByOID")
+    @RequiresPermissions("admin")
+    public @ResponseBody
+    Boolean updateOrderByOID(Integer oid, String osubject, String oname, String ostate, String odeadlinestr) throws Exception{
+
+        if (oid == null ||
+                osubject == null || "".equals(osubject) ||
+                oname == null || "".equals(oname) ||
+                ostate == null || "".equals(ostate) ||
+                odeadlinestr == null || "".equals(odeadlinestr)) {
+            throw new FileException("更改失败：参数不正确");
+        }
+
+        Map<String, Object> map = new HashMap<>(6);
+        map.put("oid", oid);
+        map.put("osubject", osubject);
+        map.put("oname", oname);
+        map.put("ostate", Boolean.parseBoolean(ostate));
+        map.put("otime", new Date());
+
+        map.put("odeadline", new Date(Long.parseLong(odeadlinestr) * 1000));
+
+        adminService.updateOrderByOID(map);
+        return true;
+    }
+
     /**
-     * 根据批次ID删除批次
+     * 根据名称ID删除名称
      * 该方法需要管理员权限
      *
-     * @param oid 批次ID
+     * @param oid 名称ID
      * @return ResponseBody 是否删除成功
      * @throws Exception Exception
      */
@@ -198,10 +248,10 @@ public class AdminAction {
     }
 
     /**
-     * 添加科目批次信息
+     * 添加课程名称信息
      * 该方法需要管理员权限
      *
-     * @param orderInfo 科目批次实体
+     * @param orderInfo 课程名称实体
      * @return 是否添加成功
      * @throws Exception Exception
      */
@@ -221,9 +271,18 @@ public class AdminAction {
         if (orderInfo.getOstate() == null) {
             return false;
         }
+        if (orderInfo.getOdeadlinestr() == null){
+            return false;
+        }
+
+        // here is problem, could get negative result because oname too long  and causing overflow
+        // this is fine for MySQL, should be fine for url encoding, change it is easy but maybe not necessary
         int oid = (orderInfo.getOname().hashCode()) + (orderInfo.getOsubject().hashCode());
+
         orderInfo.setOid(oid);
         orderInfo.setOtime(new Date());
+
+        orderInfo.setOdeadlineFromStr(orderInfo.getOdeadlinestr());
         adminService.addOrderInfo(orderInfo);
         return true;
     }

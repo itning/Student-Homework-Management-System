@@ -10,6 +10,7 @@ import com.ning.login.service.UserService;
 import com.ning.util.properties.PropertiesUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.SecurityUtils;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,6 +76,11 @@ public class FileAction {
         }
         //用户上传历史实体
         List<History> userHistoryList = fileService.getUserHistoryByUserId(user.getUid());
+
+        //Student浏览区数据
+        // orderInfoList already filtered with state
+        model.addAttribute("orderInfoStudentFullList", fileService.getOrderInfoFullEntity());
+
         //下拉框数据
         model.addAttribute("orderInfoList", fileService.getOrderInfoEntity());
         model.addAttribute("user", user);
@@ -147,10 +153,10 @@ public class FileAction {
     }
 
     /**
-     * 根据科目名查找所有科目作业信息
+     * 根据课程名查找所有课程作业信息
      *
-     * @param subject 科目名
-     * @return 科目作业信息集合
+     * @param subject 课程名
+     * @return 课程作业信息集合
      * @throws Exception Exception
      */
     @RequestMapping("getOnameBysubject")
@@ -184,9 +190,9 @@ public class FileAction {
     }
 
     /**
-     * 设置用户选择上传的科目ID
+     * 设置用户选择上传的课程ID
      *
-     * @param userSelectOid 科目批次ID
+     * @param userSelectOid 课程名称ID
      * @return 设置成功返回<code>true</code>
      */
     @RequestMapping("userselect")
@@ -220,7 +226,7 @@ public class FileAction {
     /**
      * 下载作业
      *
-     * @param hid      科目批次ID
+     * @param hid      课程名称ID
      * @param response {@link HttpServletResponse}
      * @throws Exception Exception
      */

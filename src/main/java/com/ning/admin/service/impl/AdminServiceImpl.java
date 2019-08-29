@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -49,9 +50,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public void updateDeadlineByOID(Map<String, Object> map) { orderInfoDao.updateDeadlineByOID(map);}
+
+    @Override
     public void changeKeyByOID(Map<String, Object> map) {
         orderInfoDao.changeKeyByOID(map);
     }
+
+    @Override
+    public void updateOrderByOID(Map<String, Object> map) { orderInfoDao.updateOrderByOID(map);}
 
     @Override
     public void addOrderInfo(OrderInfo orderInfo) {
@@ -105,7 +112,7 @@ public class AdminServiceImpl implements AdminService {
         }
         //删除历史记录
         fileService.delEntityByHOID(oid);
-        //删除科目
+        //删除课程
         this.delOrderinfoByOID(oid);
     }
 }

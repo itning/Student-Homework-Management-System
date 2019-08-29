@@ -41,6 +41,12 @@
             margin-top: 8px;
             margin-bottom: 8px;
         }
+
+        hr {
+            margin: 0 !important;
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+        }
     </style>
 </head>
 <body>
@@ -75,12 +81,36 @@
 <!--内容-->
 <section>
     <div class="container">
+
+        <div class="table-responsive">
+            <h2>当前全部作业列表</h2>
+            <table class="table table-hover">
+                <tr>
+                    <td>课程名称</td>
+                    <td>作业名称</td>
+<%--                    <td>管理教师</td>--%>
+                    <td>截止时间</td>
+
+                </tr>
+                <c:forEach items="${orderInfoStudentFullList }" var="orderInfoEle">
+                    <tr>
+                        <td><p>${orderInfoEle.osubject }</p></td>
+                        <td><p class="linkcheck">${orderInfoEle.oname }</p></td>
+<%--                        <td><p></p></td>--%>
+                        <td><p><fmt:formatDate value="${orderInfoEle.odeadline }" pattern="yyyy年MM月dd日 HH:mm:ss"/></p></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+
+
+
         <form action="" method="post" enctype="multipart/form-data">
             <div>
-                <h1>请选择文件归类</h1>
+                <h2>请选择课程和作业名称</h2>
                 <label for="subject_ID">
                     <select name="subject" id="subject_ID" class="form-control">
-                        <option value="none">请选择科目...</option>
+                        <option value="none">请选择课程...</option>
                         <c:forEach items="${orderInfoList }" var="orderInfo">
                             <option value="${orderInfo }">${orderInfo }</option>
                         </c:forEach>
@@ -88,20 +118,22 @@
                 </label>
                 <label for="oid_id">
                     <select name="oid" id="oid_id" class="form-control">
-                        <option value="none">请选择次序...</option>
+                        <option value="none">请选择作业名称...</option>
                     </select>
                 </label>
+
+                <button type="button" id="upfilebutton_id" disabled="disabled" class="btn btn-primary"
+                        data-toggle="modal" data-remote="${basePath }jsp/upfileui.jsp" data-target=".bs-modal-lg" style="position:relative; bottom: 3px !important;">开始上传文件
+                </button>
+
+
             </div>
             <div>
-                <hr>
                 <div class="alert alert-danger alert-dismissible fade in hidden" role="alert" id="alert_id">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                     <strong>与服务器交互数据失败！</strong> 请检查网络连接并重新选择文件归类！
                 </div>
-                <button type="button" id="upfilebutton_id" disabled="disabled" class="btn btn-primary"
-                        data-toggle="modal" data-remote="${basePath }jsp/upfileui.jsp" data-target=".bs-modal-lg">开始上传文件
-                </button>
                 <div class="modal fade bs-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content"></div>
@@ -109,7 +141,6 @@
                 </div>
             </div>
         </form>
-        <p></p>
     </div>
 </section>
 <!--/内容-->
@@ -138,20 +169,25 @@
             <div class="table-responsive">
                 <table class="table table-hover">
                     <tr>
-                        <td>科目</td>
-                        <td>次序</td>
+                        <td>课程</td>
+                        <td>作业名称</td>
                         <td>文件类型</td>
                         <td>上传时间</td>
+                        <td>截止时间</td>
                         <td>文件大小</td>
                         <td>操作</td>
                     </tr>
                     <c:forEach items="${userHistoryList }" var="userHistory">
                         <tr id="${userHistory.hid }">
                             <td><p>${userHistory.osubject}</p></td>
-                            <td><p>${userHistory.oname}</p></td>
+                            <td><p class="linkcheck">${userHistory.oname}</p></td>
                             <td><p>${userHistory.filepath}</p></td>
                             <td><p><fmt:formatDate value="${userHistory.uptime }" pattern="yyyy年MM月dd日 HH:mm:ss"/></p>
                             </td>
+                            <td>
+                                <p><fmt:formatDate value="${userHistory.deadline }" pattern="yyyy年MM月dd日 HH:mm:ss"/></p>
+                            </td>
+
                             <td><p><fmt:formatNumber value="${(userHistory.filesize)/1024 }"
                                                      maxFractionDigits="2"/>Kb</p></td>
                             <td>
@@ -174,23 +210,15 @@
 </section>
 <!--/历史-->
 
-<!--脚注-->
-<footer>
-    <div class="container">
-        <hr>
-        <p> 黑ICP备17003448号 | Copyright © 2017 <a href="http://itning.top">itning.top</a>. All rights reserved.
-            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-            document.write(unescape("%3Cspan id='cnzz_stat_icon_1262008292'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1262008292%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-        </p>
-    </div>
-</footer>
-<!--/脚注-->
+<%@include file="footer.jsp" %>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${basePath }weblib/jquery/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${basePath }weblib/bootstrap/js/bootstrap.min.js"></script>
 <script src="${basePath }js/base.js"></script>
+<script src="${basePath }js/filterurl.js "></script>
+
 <script>
     var hid = "";
 
@@ -208,23 +236,68 @@
     }
 
     $(function () {
+        $('.linkcheck').each(function () {
+            var hstr = $(this).html();
+            var rstr = checkSetURLGivenStr(hstr);
+            if (rstr != null){
+                $(this).html(rstr);
+            }
+        });
+
         var file_subject = "";
         var file_oid = "";
         $("#subject_ID").change(function () {
+
             file_subject = $(this).val();
+
             $.get("${basePath }getOnameBysubject?subject=" + file_subject, function (data) {
+                // console.log("Request called") ;
                 $("#oid_id").empty();
-                $("#upfilebutton_id").removeAttr("disabled");
                 $.each(data, function (key, value) {
                     if (key === 0) {
                         file_oid = value.oid;
                     }
-                    $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + "</option>");
+
+                    // filter the string if a url
+
+
+                    // append the deadline label
+                    var ct = Date.now();
+                    var givenDeadline = new Date(value.odeadline).getTime();
+
+                    var appendString = "";
+                    if (ct >= givenDeadline){
+                        appendString = "(已截止)";
+                    }
+
+                    var checkResult = checkSetURLGivenStr(value.oname) ;
+                    if ( checkResult != null ){
+                        $("#oid_id").append("<option value=" + value.oid + ">" + checkResult + " " + appendString + "</option>");
+                    } else {
+                        $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + " " + appendString + "</option>");
+                    }
+
                 });
+                // select the first oid
+                // change is a browser only event, need to manually trigger it
+                $("#oid_id option:first").attr("selected", "selected").trigger('change');
             });
         });
         $("#oid_id").change(function () {
+            // console.log('oid_id changed');
             file_oid = $(this).val();
+
+            // change upload button status here
+            if ($("#oid_id option:selected").text().includes("已截止")){
+                console.log('已截止');
+                $("#upfilebutton_id").prop("disabled", true) ;
+            } else {
+                if (file_oid != null){
+                    $("#upfilebutton_id").prop("disabled", false) ;
+                }
+            }
+
+
         });
         $("#upfilebutton_id").click(function () {
             $.get("${basePath }userselect?userselect_oid=" + file_oid, function (data) {

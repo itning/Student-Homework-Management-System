@@ -38,6 +38,18 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public List<OrderInfo>  getOrderInfoFullEntity(){
+        List<OrderInfo> orderInfoList = orderInfoDao.getOrderInfoEntity();
+        List<OrderInfo> filtered = new ArrayList<>();
+        for (OrderInfo orderInfo : orderInfoList) {
+            if (orderInfo.getOstate()) {
+                filtered.add(orderInfo);
+            }
+        }
+        return  filtered;
+    }
+
+    @Override
     public Set<String> getOrderInfoEntity(){
         List<OrderInfo> orderInfoList = orderInfoDao.getOrderInfoEntity();
         //集合用于存储并清除重复下拉框数据
@@ -104,12 +116,17 @@ public class FileServiceImpl implements FileService {
     @Override
     public List<History> getUserHistoryByUserId(String uId) {
         return this.getUpListByUID(uId).stream().peek(history -> {
+            // here we could have the deadline
             OrderInfo orderInfo = this.getOrderInfoEntityByOID(history.getHoid());
+
             if (orderInfo != null) {
                 history.setOsubject(orderInfo.getOsubject());
                 history.setOname(orderInfo.getOname());
                 //设置文件扩展名
                 history.setFilepath(history.getFilepath().substring(history.getFilepath().lastIndexOf(".") + 1));
+
+                //set deadline
+                history.setDeadline(orderInfo.getOdeadline());
             }
         }).collect(Collectors.toList());
     }
@@ -122,7 +139,12 @@ public class FileServiceImpl implements FileService {
         history.setHuid(user.getUid());
         history.setHoid(orderInfo.getOid());
         String extensionName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-        String newfilename = user.getUsername() + user.getName() + orderInfo.getOsubject() + orderInfo.getOname() + extensionName;
+
+        // since oname allows url markdown, this affect filename, causing problem.
+        String filteredOname = PropertiesUtil.filterOutUrl(orderInfo.getOname());
+
+        String newfilename = user.getUsername() + "_" + user.getName() + "_" + orderInfo.getOsubject() + "_" + filteredOname + extensionName;
+
         history.setFilepath(newfilename);
         history.setFilesize((double) file.getSize());
         history.setType(file.getContentType());

@@ -13,9 +13,25 @@
 [![HitCount](http://hits.dwyl.io/itning/Student-Homework-Management-System.svg)](http://hits.dwyl.io/itning/Student-Homework-Management-System)
 [![language](https://img.shields.io/badge/language-JAVA-green.svg)](https://github.com/itning/Student-Homework-Management-System)
 
-**实现功能：**
+### 原本功能
 
-学生上传文件到系统中，后台统一命名存储文件，管理员登陆后可以批量下载后台打包过后的文件。
+1. 管理员在后台数据库中准备好学生学号（10位）后，学生可以用学号登录系统，首次登录需要自行设置密码（大于8位）
+2. 学生可以上传文件到系统中，上传功能基于bootstrap-fileinput
+3. 后台统一命名存储文件
+4. 管理员登陆后可以批量下载后台打包过后的文件
+
+### 新增功能
+
+by tomriddle_1234
+1. 添加截止时间设置，截止时间过后学生无法上传作业
+    ```
+    ALTER TABLE `shw`.`orderinfo` 
+    ADD COLUMN `odeadline` DATETIME NOT NULL DEFAULT '2022-01-01 00:00:00' AFTER `otime`;
+    ```
+2. 管理员删除作业任务时，增加确认对话框
+3. 一些界面的小优化
+4. 添加编辑作业任务功能
+5. 作业名称可以用[]()添加链接
 
 ## 架构
 
@@ -24,6 +40,8 @@
 1. jQuery
 2. Bootstrap3
 3. Bootstrap-fileinput
+4. moment.js
+5. bootstrap-datepicker (bootstrap 3 v4)
 
 ### 后端
 
@@ -75,10 +93,15 @@
    [官方下载互联SDK](http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/qqConnect_Server_SDK_java_v2.0.zip)
 
    ```shell
-   mvn install:install-file -Dfile=D:\a.jar -DgroupId=com.qq.connect -DartifactId=qq-connect -Dversion=2.0.0.RELEASE -Dpackaging=jar
+   mvn install:install-file -Dfile=<path_to_your_manually_downloaded_jar_file>.jar -DgroupId=com.qq.connect -DartifactId=qq-connect -Dversion=2.0.0.RELEASE -Dpackaging=jar
    ```
 
 6. 运行
+
+   ```
+   mvn install
+   mvn package
+   ```
 
    项目使用的Tomcat版本为8.5.20，你最好与我同步。[下载该版本](https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.20/bin/)
 
@@ -135,6 +158,7 @@
      `osubject` varchar(255) NOT NULL,
      `ostate` bit(1) NOT NULL,
      `otime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+     `odeadline` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
      PRIMARY KEY (`oid`)
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
    
@@ -175,6 +199,6 @@
     
     ![上传界面](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/sahngchuan.png)
     
-    ![添加科目](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/addkemu.png)
+    ![添加课程](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/addkemu.png)
     
     ![druid](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/druid.png)
