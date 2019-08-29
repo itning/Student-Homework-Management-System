@@ -13,16 +13,14 @@
 [![HitCount](http://hits.dwyl.io/itning/Student-Homework-Management-System.svg)](http://hits.dwyl.io/itning/Student-Homework-Management-System)
 [![language](https://img.shields.io/badge/language-JAVA-green.svg)](https://github.com/itning/Student-Homework-Management-System)
 
-**本代码是[itning的学生作业管理系统](https://github.com/itning/Student-Homework-Management-System)的进一步开发，实现功能：**
-
-###原本功能
+### 原本功能
 
 1. 管理员在后台数据库中准备好学生学号（10位）后，学生可以用学号登录系统，首次登录需要自行设置密码（大于8位）
 2. 学生可以上传文件到系统中，上传功能基于bootstrap-fileinput
 3. 后台统一命名存储文件
 4. 管理员登陆后可以批量下载后台打包过后的文件
 
-###新增功能
+### 新增功能
 
 by tomriddle_1234
 1. 添加截止时间设置，截止时间过后学生无法上传作业
