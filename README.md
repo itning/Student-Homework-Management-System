@@ -94,9 +94,12 @@ by tomriddle_1234
 
    这一步是为了能够使用QQ进行登陆
 
-   [官方下载互联SDK](http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/qqConnect_Server_SDK_java_v2.0.zip)
-
+   ~~[官方下载互联SDK](http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/doc/qqConnect_Server_SDK_java_v2.0.zip)~~
+   
+   **直接运行根目录下``install-qq-connect-dependency.bat``脚本即可**
+   
    ```shell
+   直接运行install-qq-connect-dependency.bat即可，无需以下代码
    mvn install:install-file -Dfile=<path_to_your_manually_downloaded_jar_file>.jar -DgroupId=com.qq.connect -DartifactId=qq-connect -Dversion=2.0.0.RELEASE -Dpackaging=jar
    ```
 
@@ -198,11 +201,11 @@ by tomriddle_1234
    ## 预览
 
     ![登陆](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/denglu.png)
-    
+   
     ![管理界面](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/guanli.png)
-    
+   
     ![上传界面](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/sahngchuan.png)
-    
+   
     ![添加课程](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/addkemu.png)
-    
+   
     ![druid](https://raw.githubusercontent.com/itning/Student-Homework-Management-System/master/pic/druid.png)
