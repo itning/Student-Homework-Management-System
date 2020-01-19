@@ -1,5 +1,9 @@
 # 学生作业管理系统
 
+**Deprecated：New Version Location [Click To New Project](https://github.com/itning/shw_server)**
+
+**停止维护：新项目地址 [点击进入](https://github.com/itning/shw_server)**
+
 [![GitHub stars](https://img.shields.io/github/stars/itning/Student-Homework-Management-System.svg?style=social&label=Stars)](https://github.com/itning/Student-Homework-Management-System/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/itning/Student-Homework-Management-System.svg?style=social&label=Fork)](https://github.com/itning/Student-Homework-Management-System/network/members)
 [![GitHub watchers](https://img.shields.io/github/watchers/itning/Student-Homework-Management-System.svg?style=social&label=Watch)](https://github.com/itning/Student-Homework-Management-System/watchers)
