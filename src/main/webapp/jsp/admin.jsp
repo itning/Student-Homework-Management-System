@@ -16,6 +16,8 @@
     <link rel="shortcut icon" href="${basePath }img/favicon.ico"/>
     <link rel="bookmark" href="${basePath }img/favicon.ico"/>
     <link href="${basePath }weblib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath }weblib/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="${basePath }css/base.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,6 +42,13 @@
             margin-top: 8px;
             margin-bottom: 8px;
         }
+
+        .equal {
+            display: flex;
+            display: -webkit-flex;
+            flex-wrap: wrap;
+        }
+
     </style>
 </head>
 <body>
@@ -79,7 +88,7 @@
                 <tr>
                     <td>教师账户</td>
                     <td>教师姓名</td>
-                    <td>所属科目</td>
+                    <td>所属课程</td>
                     <td>账户状态</td>
                     <td>操作</td>
                 </tr>
@@ -110,13 +119,22 @@
     </div>
 </section>
 
-<!--添加学科或者次序-->
+<!--添加课程或者作业名称-->
 <section>
     <div class="container">
-        <h1>科目和批次管理</h1>
-        <button type="button" id="upfilebutton_id" class="btn btn-primary"
-                data-toggle="modal" data-remote="${basePath }jsp/addsubjectui.jsp" data-target=".bs-modal-lg">添加科目或批次
-        </button>
+        <div class="row equal">
+<%--            <div class="col-md-12 d-flex">--%>
+            <div class="col-xs-12 col-sm-6 col-md-8">
+                <h1 style="display: inline-block;" >课程和作业名称管理</h1>
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+                <button type="button" id="upfilebutton_id" class="btn btn-primary" style="position:absolute; margin-bottom:10px; bottom: 0 !important;"
+                        data-toggle="modal" data-remote="${basePath }jsp/addsubjectui.jsp" data-target=".bs-modal-lg">添加课程或作业名称
+                </button>
+            </div>
+
+        </div>
         <div class="modal fade bs-modal-lg" id="addmodel" tabindex="-1" role="dialog"
              aria-labelledby="myLargeModalLabel">
             <div class="modal-dialog modal-lg">
@@ -126,7 +144,7 @@
         <div id="loadsubject"></div>
     </div>
 </section>
-<!--/添加学科或者次序-->
+<!--/添加课程或者作业名称-->
 
 <!--内容-->
 <section>
@@ -135,7 +153,7 @@
             <h1>下载已上传的文件</h1>
             <label for="subject_ID">
                 <select name="subject" id="subject_ID" class="form-control">
-                    <option value="none">请选择科目...</option>
+                    <option value="none">请选择课程...</option>
                     <c:forEach items="${orderInfoList }" var="orderInfo">
                         <option value="${orderInfo }">${orderInfo }</option>
                     </c:forEach>
@@ -143,7 +161,7 @@
             </label>
             <label for="oid_id">
                 <select name="oid" id="oid_id" class="form-control">
-                    <option value="none">请选择次序...</option>
+                    <option value="none">请选择作业名称...</option>
                 </select>
             </label>
         </div>
@@ -156,29 +174,37 @@
 </section>
 <!--/内容-->
 
-<!--脚注-->
-<footer>
-    <div class="container">
-        <hr>
-        <p> 黑ICP备17003448号 | Copyright © 2017 <a href="http://itning.top">itning.top</a>. All rights reserved.
-            <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-            document.write(unescape("%3Cspan id='cnzz_stat_icon_1262008292'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1262008292%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-        </p>
-    </div>
-</footer>
-<!--/脚注-->
+<%@include file="footer.jsp" %>
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="${basePath }weblib/jquery/jquery-3.2.1.min.js"></script>
+<%--moment need to before bootstrap--%>
+<script src="${basePath }weblib/moment/moment.min.js"></script>
+<script src="${basePath }weblib/moment/zh-cn.js"></script>
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="${basePath }weblib/bootstrap/js/bootstrap.min.js"></script>
+<script src="${basePath }weblib/bootstrap/js/bootstrap-datetimepicker.min.js "></script>
+
 <script src="${basePath }js/base.js"></script>
+<script src="${basePath }js/filterurl.js "></script>
+
+
 <script>
     function add() {
         var osubject = $("#osubject").val();
         var oname = $("#oname").val();
         var ostate = $("#ostate").val();
-        $.get("${basePath }addOrderInfo?osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate, function (data) {
+        // here need to convert js data-localtime to
+        // var odeadline = $("#odeadline").data("DateTimePicker").date().toDate().getTime(); // this gets wrong timestamp
+        var odeadline = $("#odeadline").data("DateTimePicker").date().unix();
+        //console.log('odeadline string from JS: ', odeadline);
+
+        // url can contain invalid character need encode
+        var url = "${basePath }addOrderInfo?osubject=" + osubject + "&oname=" + oname + "&ostate=" + ostate + "&odeadlinestr=" + odeadline ;
+
+        $.get(encodeURI(url), function (data) {
             if (data) {
                 $('#addmodel').modal('hide');
                 $("#loadsubject").load("${basePath}subjectui");
@@ -199,12 +225,19 @@
     }
 
     function del(oid) {
-        $.get("${basePath }delOrderinfoByOID?oid=" + oid, function (data) {
-            if (data) {
-                window.location.reload();
+        // make a confirm here
+        if (confirm("确定删除名称吗？")){
+            if (confirm("一定要删除名称吗")){
+                $.get("${basePath }delOrderinfoByOID?oid=" + oid, function (data) {
+                    if (data) {
+                        window.location.reload();
+                    }
+                });
             }
-        });
+        }
     }
+
+
 
     $(function () {
         $("#loadsubject").load("${basePath}subjectui");
@@ -220,13 +253,29 @@
                         file_oid = value.oid;
                         flushFileList();
                     }
-                    $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + "</option>");
+
+                    // append the deadline label
+                    var ct = Date.now();
+                    var givenDeadline = new Date(value.odeadline).getTime();
+
+                    var appendString = "";
+                    if (ct >= givenDeadline){
+                        appendString = "(已截止)";
+                    }
+
+                    var checkResult = checkSetURLGivenStr(value.oname) ;
+                    if ( checkResult != null ){
+                        $("#oid_id").append("<option value=" + value.oid + ">" + checkResult + " " + appendString + "</option>");
+                    } else {
+                        $("#oid_id").append("<option value=" + value.oid + ">" + value.oname + " " + appendString + "</option>");
+                    }
+
                 });
             });
         });
         $("#oid_id").change(function () {
             file_oid = $(this).val();
-            console.log("file_oid" + file_oid);
+            //console.log("file_oid" + file_oid);
             flushFileList();
         });
 

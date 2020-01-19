@@ -3,6 +3,7 @@ package com.ning.admin.service;
 import com.ning.file.entity.History;
 import com.ning.file.entity.OrderInfo;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +24,15 @@ public interface AdminService {
     List<History> findFileListByHoid(Integer hoid);
 
     /**
-     * 获取所有科目批次信息
+     * 获取所有课程名称信息
      *
-     * @return 所有科目批次信息集合
+     * @return 所有课程名称信息集合
      */
     List<OrderInfo> getOrderInfoEntity();
+
+
+
+    void updateDeadlineByOID(Map<String, Object> map);
 
     /**
      * 更新状态
@@ -36,17 +41,19 @@ public interface AdminService {
      */
     void changeKeyByOID(Map<String, Object> map);
 
+    void updateOrderByOID(Map<String, Object> map);
+
     /**
-     * 添加科目批次
+     * 添加课程名称
      *
-     * @param orderInfo 科目批次实体
+     * @param orderInfo 课程名称实体
      */
     void addOrderInfo(OrderInfo orderInfo);
 
     /**
-     * 删除科目批次
+     * 删除课程名称
      *
-     * @param oid 科目批次ID
+     * @param oid 课程名称ID
      */
     void delOrderinfoByOID(Integer oid);
 
@@ -59,9 +66,9 @@ public interface AdminService {
     List<History> getAllUploadedByHoid(int hoid);
 
     /**
-     * 根据批次ID删除批次
+     * 根据名称ID删除名称
      *
-     * @param oid 批次ID
+     * @param oid 名称ID
      * @throws Exception Exception
      */
     void delOrderInfosAndFilesByOID(int oid) throws Exception;
