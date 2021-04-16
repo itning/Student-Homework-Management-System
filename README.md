@@ -14,7 +14,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/itning/Student-Homework-Management-System.svg)](https://github.com/itning/Student-Homework-Management-System/commits)
 [![GitHub release](https://img.shields.io/github/release/itning/Student-Homework-Management-System.svg)](https://github.com/itning/Student-Homework-Management-System/releases)
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/itning/Student-Homework-Management-System.svg)](https://github.com/itning/Student-Homework-Management-System)
-[![HitCount](http://hits.dwyl.io/itning/Student-Homework-Management-System.svg)](http://hits.dwyl.io/itning/Student-Homework-Management-System)
+[![HitCount](http://hits.dwyl.com/itning/Student-Homework-Management-System.svg)](http://hits.dwyl.com/itning/Student-Homework-Management-System)
 [![language](https://img.shields.io/badge/language-JAVA-green.svg)](https://github.com/itning/Student-Homework-Management-System)
 
 ### 原本功能
