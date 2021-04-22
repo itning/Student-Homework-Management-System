@@ -15,7 +15,7 @@
         <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
         <servlet.api.version>2.5</servlet.api.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-        <mybatis.version>3.5.0</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
         <mysql-driver.version>6.0.6</mysql-driver.version>
