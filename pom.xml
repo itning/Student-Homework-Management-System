@@ -8,7 +8,7 @@
     <name>shw Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <spring-version>4.3.20.RELEASE</spring-version>
+        <spring-version>4.3.21.RELEASE</spring-version>
         <junit.version>4.12</junit.version>
         <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
         <servlet.jstl.version>1.2</servlet.jstl.version>
